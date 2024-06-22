@@ -17,11 +17,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <!-- Form Start -->
-                                <form id="frm_add_user" class="needs-validation" novalidates>
+                                <form action="add.php" method="post">
                                     <div class="row">
                                         <div class="col-md-9 mb-3">
                                             <label for="serv_title">Libellé Services</label>
-                                            <input type="text" class="form-control" id="serv_title" required>
+                                            <input type="text" class="form-control" name="serv_title" required>
                                         </div>
                                         <div class="col-md-end-6 mb-3">
                                             <button type="submit" class="btn btn-primary col-2">Enregistrer</button>

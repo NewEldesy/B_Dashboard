@@ -17,8 +17,9 @@
                         <div class="row">
                             <div class="col-6">
                                 <!-- Form Start -->
-                                <form id="frm_add_user" class="needs-validation" novalidates>
+                                <form action="" method="post">
                                     <div class="row">
+                                        <input type="hidden" value="" name="serv_id">
                                         <div class="col-md-9 mb-3">
                                             <label for="serv_title">Libellé Service</label>
                                             <input type="text" class="form-control" id="serv_title" required>

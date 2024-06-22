@@ -238,22 +238,25 @@ function addIntervention($data) {
     $stmt->execute();
 }
 
-//Ajout un chauffeurs
-function addChauffeur($data) {
+//Add Services
+function addService($data) {
     $database = dbConnect();
-    $stmt = $database->prepare("INSERT INTO Chauffeurs SET Nom=:Nom, Prenom=:Prenom");
-    $stmt->bindParam(":Nom", $data['Nom']);
-    $stmt->bindParam(":Prenom", $data['Prenom']);
+    $stmt = $database->prepare("INSERT INTO services SET libelle_services=:libelle_services");
+    $stmt->bindParam(":libelle_services", $data['serv_title']);
     $stmt->execute();
 }	
 
-//Ajout une panne
-function addPanne($data) {
+//Add Prestations		
+function addPrestations($data) {
     $database = dbConnect();
-    $stmt = $database->prepare("INSERT INTO Pannes SET TaxiID=:TaxiID, DatePanne=:DatePanne, Description=:Description");
-    $stmt->bindParam(":TaxiID", $data['TaxiID']);
-    $stmt->bindParam(":DatePanne", $data['DatePanne']);
-    $stmt->bindParam(":Description", $data['Description']);
+    $stmt = $database->prepare("INSERT INTO prestations SET client_id=:client_id, type_prestation=:type_p, description_prestation=:description_p, 
+    date_debut_prestation=:date_start, date_fin_prestation=:date_end, statut_prestation=:statut");
+    $stmt->bindParam(":client_id", $data['prest_client']);
+    $stmt->bindParam(":type_p", $data['intv_type']);
+    $stmt->bindParam(":description_p", $data['prest_desc']);
+    $stmt->bindParam(":date_start", $data['date_start']);
+    $stmt->bindParam(":date_end", $data['date_end']);
+    $stmt->bindParam(":statut", $data['prest_statut']);
     $stmt->execute();
 }
 
@@ -268,45 +271,34 @@ function addVersement($data) {
     $stmt->execute();
 }
 
-//Ajout une attribution
-function addAttribution($data) {
+//Delete Client
+function removeClient($id) {
     $database = dbConnect();
-    $stmt = $database->prepare("INSERT INTO AttributionTaxiChauffeur SET TaxiID=:TaxiID, ChauffeurID=:ChauffeurID, DateDebut=:DateDebut, DateFin=:DateFin");
-    $stmt->bindParam(":TaxiID", $data['TaxiID']);
-    $stmt->bindParam(":ChauffeurID", $data['ChauffeurID']);
-    $stmt->bindParam(":DateDebut", $data['DateDebut']);
-    $stmt->bindParam(":DateFin", $data['DateFin']);
-    $stmt->execute();
-}
-
-//Suppression un taxi
-function removeUser($id) {
-    $database = dbConnect();
-    $query = "DELETE FROM User WHERE UserID=" . $id;
+    $query = "DELETE FROM clients WHERE client_id=" . $id;
     $stmt = $database->prepare($query);
     $stmt->execute();
 }
 
-//Suppression un taxi
-function removeTaxi($id) {
+//Delete Interventions
+function removeInterventions($id) {
     $database = dbConnect();
-    $query = "DELETE FROM Taxis WHERE TaxiID=" . $id;
+    $query = "DELETE FROM interventions WHERE id=" . $id;
     $stmt = $database->prepare($query);
     $stmt->execute();
 }
 
-//Suppression un chauffeur
-function removeChauffeur($id) {
+//Delete Services
+function removeServices($id) {
     $database = dbConnect();
-    $query = "DELETE FROM Chauffeurs WHERE ChauffeurID=" . $id;
+    $query = "DELETE FROM services WHERE id=" . $id;
     $stmt = $database->prepare($query);
     $stmt->execute();
 }
 
-//Suppression une panne
-function removePanne($id) {
+//Delete Prestations
+function removePrestations($id) {
     $database = dbConnect();
-    $query = "DELETE FROM Pannes WHERE PanneID=" . $id;
+    $query = "DELETE FROM prestations WHERE id=" . $id;
     $stmt = $database->prepare($query);
     $stmt->execute();
 }
@@ -319,57 +311,51 @@ function removeVersement($id) {
     $stmt->execute();
 }
 
-//Suppression une attribution
-function removeAttribution($id) {
-    $database = dbConnect();
-    $query = "DELETE FROM 	AttributionTaxiChauffeur WHERE AttributionID=" . $id;
-    $stmt = $database->prepare($query);
-    $stmt->execute();
-}
-
-//Update Taxi
+//Update Client
 function updateUser($data) {
     $database = dbConnect();
-    $stmt = $database->prepare("UPDATE User SET Nom=:Nom, Prenom=:Prenom, Email=:Email, Password=:Password WHERE UserID=:UserID");
-    $mdp = md5($data['Email']);
-    $stmt->bindParam(":Nom", $data['Nom']);
-    $stmt->bindParam(":Prenom", $data['Prenom']);
-    $stmt->bindParam(":Email", $data['Email']);
-    $stmt->bindParam(":Password", $mdp);
-    $stmt->bindParam(":UserID", $data['UserID']);
+    $stmt = $database->prepare("UPDATE clients SET Nom=:Nom, Prenom=:Prenom, Adresse=:Adresse, Ville=:Ville Telephone=:Telephone WHERE client_id=:ID");
+    $stmt->bindParam(":Nom", $data['client_name']);
+    $stmt->bindParam(":Prenom", $data['client_pname']);
+    $stmt->bindParam(":Adresse", $data['client_addresse']);
+    $stmt->bindParam(":Ville", $data['client_ville']);
+    $stmt->bindParam(":Telephone", $data['client_tel']);
+    $stmt->bindParam(":ID", $data['client_id']);
     $stmt->execute();
 }
 
-//Update Taxi
+//Update Interventions
 function updateTaxi($data) {
     $database = dbConnect();
-    $stmt = $database->prepare("UPDATE Taxis SET Marque=:Marque, NumeroPlaque=:NumeroPlaque, DateMiseEnCirculation=:DateMiseEnCirculation WHERE TaxiID=:TaxiID");
-    $stmt->bindParam(":Marque", $data['Marque']);
-    $stmt->bindParam(":NumeroPlaque", $data['NumeroPlaque']);
-    $stmt->bindParam(":DateMiseEnCirculation", $data['DateMiseEnCirculation']);
-    $stmt->bindParam(":TaxiID", $data['TaxiID']);
+    $stmt = $database->prepare("UPDATE interventions SET client_id=:client_id, type_intervention=:type_i, description_intervention=:type_i WHERE TaxiID=:ID");
+    $stmt->bindParam(":client_id", $data['intv_client']);
+    $stmt->bindParam(":description_i", $data['intv_description']);
+    $stmt->bindParam(":type_i", $data['intv_type']);
+    $stmt->bindParam(":ID", $data['TaxiID']);
     $stmt->execute();
 }
 
-//Update Chauffeur
+//Update Services
 function updateChauffeur($data) {
     $database = dbConnect();
-    $stmt = $database->prepare("UPDATE Chauffeurs SET Nom=:Nom, Prenom=:Prenom WHERE ChauffeurID=:ChauffeurID");
-    $stmt->bindParam(":Nom", $data['Nom']);
-    $stmt->bindParam(":Prenom", $data['Prenom']);
-    $stmt->bindParam(":ChauffeurID", $data['ChauffeurID']);
+    $stmt = $database->prepare("UPDATE services SET libelle_services=:libelle_s WHERE id=:ID");
+    $stmt->bindParam(":libelle_s", $data['serv_title']);
+    $stmt->bindParam(":ID", $data['serv_id']);
     $stmt->execute();
 }
 
-//Update Versement
-function updateVersement($data) {
+//Update Prestations
+function updatePrestation($data) {
     $database = dbConnect();
-    $stmt = $database->prepare("UPDATE Versements SET ChauffeurID=:ChauffeurID, Montant=:Montant, DateVersement=:DateVersement,  TaxiID=:TaxiID WHERE VersementID=:VersementID");
-    $stmt->bindParam(":ChauffeurID", $data['ChauffeurID']);
-    $stmt->bindParam(":Montant", $data['Montant']);
-    $stmt->bindParam(":DateVersement", $data['DateVersement']);
-    $stmt->bindParam(":TaxiID", $data['TaxiID']);
-    $stmt->bindParam(":VersementID", $data['VersementID']);
+    $stmt = $database->prepare("UPDATE prestations SET client_id=:client_id, type_prestation=:type_p, description_prestation=:description_p,  date_debut_prestation=:date_start, 
+    date_fin_prestation=:date_end, statut_prestation=:statut WHERE id=:ID");
+    $stmt->bindParam(":client_id", $data['prest_client']);
+    $stmt->bindParam(":type_p", $data['prest_type']);
+    $stmt->bindParam(":description_p", $data['prest_desc']);
+    $stmt->bindParam(":date_start", $data['date_start']);
+    $stmt->bindParam(":date_end", $data['date_end']);
+    $stmt->bindParam(":statut", $data['prest_statut']);
+    $stmt->bindParam(":ID", $data['prest_id']);
     $stmt->execute();
 }
 

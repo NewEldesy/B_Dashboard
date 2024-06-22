@@ -17,11 +17,12 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded-top p-4">
                         <div id="result"></div>
-                        <form id="frm_add_user" class="needs-validation" novalidates>
+                        <form action="" method="post">
                             <div class="row">
+                                <input type="hidden" value="" name="intv_id">
                                 <div class="col-md-6 mb-3">
                                     <label for="intv_client" class="form-label">Client</label>
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                    <select class="form-select" name="intv_client" aria-label="Floating label select example">
                                         <option value="1">Client 1</option>
                                         <option value="2">Client 2</option>
                                         <option value="3">Client 3</option>
@@ -29,7 +30,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="intv_type" class="form-label">Type Intervention</label>
-                                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                                    <select class="form-select" name="intv_type" aria-label="Floating label select example">
                                         <option value="1">type 1</option>
                                         <option value="2">type 2</option>
                                         <option value="3">type 3</option>

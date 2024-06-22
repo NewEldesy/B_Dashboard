@@ -2,5 +2,8 @@
     session_start();
     include_once('model.php');
 
-    addIntervention($_POST);
+    //addClient($_POST);
+    //addIntervention($_POST);
+    //addService($_POST);
+    //addPrestations($_POST);
 ?>
