@@ -1,0 +1,159 @@
+Pour gérer les accès dans un dashboard PHP afin de distinguer ceux qui peuvent lire et modifier les données de ceux qui ne peuvent que lire les données, vous pouvez utiliser un système de gestion des rôles et des permissions. Voici une approche générale pour implémenter cela :
+
+### 1. Structure de la Base de Données
+
+Vous aurez besoin de plusieurs tables pour gérer les utilisateurs, les rôles et les permissions. Voici un exemple de structure de base de données :
+
+```sql
+-- Table des utilisateurs
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role_id INT,
+    FOREIGN KEY (role_id) REFERENCES roles(id)
+);
+
+-- Table des rôles
+CREATE TABLE roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+-- Table des permissions
+CREATE TABLE permissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+);
+
+-- Table de liaison rôles-permissions
+CREATE TABLE role_permissions (
+    role_id INT,
+    permission_id INT,
+    FOREIGN KEY (role_id) REFERENCES roles(id),
+    FOREIGN KEY (permission_id) REFERENCES permissions(id),
+    PRIMARY KEY (role_id, permission_id)
+);
+```
+
+### 2. Insertion des Rôles et Permissions
+
+Vous devez définir et insérer les rôles et permissions nécessaires, par exemple :
+
+```sql
+-- Insertion des rôles
+INSERT INTO roles (name) VALUES ('admin');
+INSERT INTO roles (name) VALUES ('editor');
+INSERT INTO roles (name) VALUES ('viewer');
+
+-- Insertion des permissions
+INSERT INTO permissions (name) VALUES ('read');
+INSERT INTO permissions (name) VALUES ('write');
+
+-- Association des rôles et permissions
+INSERT INTO role_permissions (role_id, permission_id) VALUES ((SELECT id FROM roles WHERE name='admin'), (SELECT id FROM permissions WHERE name='read'));
+INSERT INTO role_permissions (role_id, permission_id) VALUES ((SELECT id FROM roles WHERE name='admin'), (SELECT id FROM permissions WHERE name='write'));
+INSERT INTO role_permissions (role_id, permission_id) VALUES ((SELECT id FROM roles WHERE name='editor'), (SELECT id FROM permissions WHERE name='read'));
+INSERT INTO role_permissions (role_id, permission_id) VALUES ((SELECT id FROM roles WHERE name='editor'), (SELECT id FROM permissions WHERE name='write'));
+INSERT INTO role_permissions (role_id, permission_id) VALUES ((SELECT id FROM roles WHERE name='viewer'), (SELECT id FROM permissions WHERE name='read'));
+```
+
+### 3. Gestion des Sessions et Authentification
+
+Créez une logique d'authentification pour gérer les sessions des utilisateurs et leur accès. Voici un exemple de fichier `login.php` :
+
+```php
+<?php
+session_start();
+include 'db.php'; // Inclure la connexion à la base de données
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Rechercher l'utilisateur dans la base de données
+    $stmt = $conn->prepare("SELECT id, password, role_id FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $hashed_password, $role_id);
+        $stmt->fetch();
+        if (password_verify($password, $hashed_password)) {
+            $_SESSION['user_id'] = $id;
+            $_SESSION['role_id'] = $role_id;
+            header("Location: dashboard.php");
+        } else {
+            echo "Mot de passe incorrect.";
+        }
+    } else {
+        echo "Utilisateur non trouvé.";
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+```
+
+### 4. Contrôle des Accès dans le Dashboard
+
+Dans le fichier `dashboard.php`, vous devez vérifier les permissions de l'utilisateur connecté :
+
+```php
+<?php
+session_start();
+include 'db.php'; // Inclure la connexion à la base de données
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$user_id = $_SESSION['user_id'];
+$role_id = $_SESSION['role_id'];
+
+// Récupérer les permissions de l'utilisateur
+$stmt = $conn->prepare("SELECT p.name FROM permissions p
+                        JOIN role_permissions rp ON p.id = rp.permission_id
+                        WHERE rp.role_id = ?");
+$stmt->bind_param("i", $role_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$permissions = [];
+while ($row = $result->fetch_assoc()) {
+    $permissions[] = $row['name'];
+}
+$stmt->close();
+$conn->close();
+
+function has_permission($permission) {
+    global $permissions;
+    return in_array($permission, $permissions);
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Bienvenue au Dashboard</h1>
+    <?php if (has_permission('read')): ?>
+        <p>Vous avez la permission de lire les données.</p>
+        <!-- Code pour lire les données -->
+    <?php endif; ?>
+
+    <?php if (has_permission('write')): ?>
+        <p>Vous avez la permission de modifier les données.</p>
+        <!-- Code pour modifier les données -->
+    <?php endif; ?>
+</body>
+</html>
+```
+
+### Conclusion
+
+Ce guide vous permet de mettre en place un système de gestion des accès basé sur les rôles et les permissions dans un dashboard PHP. Assurez-vous de sécuriser votre code, notamment en protégeant vos requêtes SQL contre les injections et en sécurisant les sessions des utilisateurs.
