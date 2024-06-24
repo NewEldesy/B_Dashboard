@@ -1,5 +1,6 @@
 <?php
     include_once('partials/header.php');
+    include_once('model.php');
 ?>
 
 
@@ -20,8 +21,8 @@
                                 <form action="add.php" method="post">
                                     <div class="row">
                                         <div class="col-md-9 mb-3">
-                                            <label for="serv_title">Libellé Services</label>
-                                            <input type="text" class="form-control" name="serv_title" required>
+                                            <label for="libelle_services">Libellé Services</label>
+                                            <input type="text" class="form-control" name="libelle_services" required>
                                         </div>
                                         <div class="col-md-end-6 mb-3">
                                             <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
@@ -42,30 +43,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $results = getServices(); ?>
+                                            <?php foreach($results as $result) {?>
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>John</td>
+                                                <td><?=$result['service_id']?></td>
+                                                <td><?=$result['libelle_services']?></td>
                                                 <td>
                                                     <a class="btn btn-sm btn-primary" href="">Update</a>
                                                     <a class="btn btn-sm btn-secondary" href="">Delete</a>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Mark</td>
-                                                <td>
-                                                    <a class="btn btn-sm btn-primary" href="">Update</a>
-                                                    <a class="btn btn-sm btn-secondary" href="">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Jacob</td>
-                                                <td>
-                                                    <a class="btn btn-sm btn-primary" href="">Update</a>
-                                                    <a class="btn btn-sm btn-secondary" href="">Delete</a>
-                                                </td>
-                                            </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>

@@ -4,6 +4,8 @@
 
     //addClient($_POST);
     //addIntervention($_POST);
-    //addService($_POST);
+    addService($_POST);
     //addPrestations($_POST);
+
+    header('Location: add-service.php');
 ?>
