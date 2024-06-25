@@ -40,6 +40,10 @@
                                     <label for="description_intervention" class="form-label">Description Interventions</label>
                                     <textarea class="form-control" aria-label="With textarea" name="description_intervention"></textarea>
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="cout_intervention" class="form-label">Couts Interventions</label>
+                                    <input type="number" class="form-control" value="<?= $result['cout_intervention'];?>" name="cout_intervention">
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
                                 </div>
@@ -60,6 +64,7 @@
                                         <th scope="col">ID Client</th>
                                         <th scope="col">Type Interventions</th>
                                         <th scope="col">Description</th>
+                                        <th scope="col">Cout</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -70,6 +75,7 @@
                                         <td><?=$intervention['client_id']?></td>
                                         <td><?=$intervention['type_intervention']?></td>
                                         <td><?=$intervention['description_intervention']?></td>
+                                        <td><?=$intervention['cout_intervention']?> xof</td>
                                         <td>
                                             <a class="btn btn-sm btn-primary" href="index.php?page=intervention&action=update&id=<?=$intervention['id']?>">Update</a>
                                             <a class="btn btn-sm btn-secondary" href="index.php?page=intervention&action=delete&id=<?=$intervention['id']?>">Delete</a>

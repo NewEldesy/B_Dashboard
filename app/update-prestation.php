@@ -39,6 +39,10 @@
                                     <textarea class="form-control" name="description_prestation"><?= $result['description_prestation']; ?></textarea>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <label for="cout_prestation" class="form-label">Cout Interventions</label>
+                                    <input type="number" class="form-control" value="<?= $result['cout_prestation'];?>" name="cout_prestation">
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="statut_prestation">Statut Prestations</label>
                                     <select class="form-select" name="statut_prestation">
                                         <option value="1" <?php if($result['statut_prestation']==1) echo'selected';?> >Début</option>

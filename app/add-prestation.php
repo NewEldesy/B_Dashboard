@@ -39,6 +39,10 @@
                                     <textarea class="form-control" name="description_prestation"></textarea>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <label for="cout_prestation" class="form-label">Cout Interventions</label>
+                                    <input type="number" class="form-control" value="<?= $result['cout_prestation'];?>" name="cout_prestation">
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="statut_prestation">Statut Prestations</label>
                                     <select class="form-select" name="statut_prestation">
                                         <option value="1">Début</option>
@@ -74,6 +78,7 @@
                                         <th scope="col">ID Client</th>
                                         <th scope="col">Type Prestations</th>
                                         <th scope="col">Description</th>
+                                        <th scope="col">Cout</th>
                                         <th scope="col">Date Start</th>
                                         <th scope="col">Date End</th>
                                         <th scope="col">Status</th>
@@ -89,6 +94,7 @@
                                         <td><?=$prestation['client_id']?></td>
                                         <td><?=$prestation['type_prestation']?></td>
                                         <td><?=$prestation['description_prestation']?></td>
+                                        <td><?=$prestation['cout_prestation']?> xof</td>
                                         <td><?=$prestation['date_debut_prestation']?></td>
                                         <td><?=$prestation['date_fin_prestation']?></td>
                                         <td>
