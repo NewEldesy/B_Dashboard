@@ -17,12 +17,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <!-- Form Start -->
-                                <form action="" method="post">
+                                <form action="index.php?page=service&action=update&id=<?=$result['service_id'];?>" method="post">
                                     <div class="row">
-                                        <input type="hidden" value="" name="serv_id">
+                                        <input type="hidden" value="<?=$result['service_id'];?>" name="service_id">
                                         <div class="col-md-9 mb-3">
-                                            <label for="serv_title">Libellé Service</label>
-                                            <input type="text" class="form-control" id="serv_title" required>
+                                            <label for="libelle_services">Libellé Service</label>
+                                            <input type="text" class="form-control" value="<?=$result['libelle_services'];?>" name="libelle_services" required>
                                         </div>
                                         <div class="col-md-end-6 mb-3">
                                             <button type="submit" class="btn btn-primary col-2">Mettre à Jour</button>

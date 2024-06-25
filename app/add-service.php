@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-6">
                                 <!-- Form Start -->
-                                <form action="add.php" method="post">
+                                <form action="index.php?page=service&action=add" method="post">
                                     <div class="row">
                                         <div class="col-md-9 mb-3">
                                             <label for="libelle_services">Libellé Services</label>
@@ -43,14 +43,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $results = getServices(); ?>
-                                            <?php foreach($results as $result) {?>
+                                            <?php foreach($services as $service) {?>
                                             <tr>
-                                                <td><?=$result['service_id']?></td>
-                                                <td><?=$result['libelle_services']?></td>
+                                                <td><?=$service['service_id']?></td>
+                                                <td><?=$service['libelle_services']?></td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update">Update</a>
-                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$result['service_id']?>">Delete</a>
+                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['service_id']?>">Update</a>
+                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['service_id']?>">Delete</a>
                                                 </td>
                                             </tr>
                                             <?php } ?>

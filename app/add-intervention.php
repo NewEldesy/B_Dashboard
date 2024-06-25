@@ -16,28 +16,29 @@
                 <!-- Form Page Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded-top p-4">
-                        <div id="result"></div>
-                        <form action="add.php" method="post">
+                        <?php //var_dump($_POST); exit;?>
+                        <form action="index.php?page=intervention&action=add" method="post">
                             <div class="row">
+                                <input type="hidden" value="" name="id">
                                 <div class="col-md-6 mb-3">
-                                    <label for="intv_client" class="form-label">Sélectionnez un client</label>
-                                    <select class="form-select" name="intv_client" aria-label="Floating label select example">
+                                    <label for="client_id" class="form-label">Sélectionnez un client</label>
+                                    <select class="form-select" name="client_id" aria-label="Floating label select example">
                                         <option value="1">Client 1</option>
                                         <option value="2">Client 2</option>
                                         <option value="3">Client 3</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="intv_type" class="form-label">Types Interventions</label>
-                                    <select class="form-select" name="intv_type" aria-label="Floating label select example">
+                                    <label for="type_intervention" class="form-label">Types Interventions</label>
+                                    <select class="form-select" name="type_intervention" aria-label="Floating label select example">
                                         <option value="1">type 1</option>
                                         <option value="2">type 2</option>
                                         <option value="3">type 3</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="intv_description" class="form-label">Description Interventions</label>
-                                    <textarea class="form-control" aria-label="With textarea" name="intv_description"></textarea>
+                                    <label for="description_intervention" class="form-label">Description Interventions</label>
+                                    <textarea class="form-control" aria-label="With textarea" name="description_intervention"></textarea>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
@@ -65,13 +66,13 @@
                                 <tbody>
                                     <?php foreach($interventions as $intervention) {?>
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>jhon@email.com</td>
+                                        <td><?=$intervention['id']?></td>
+                                        <td><?=$intervention['client_id']?></td>
+                                        <td><?=$intervention['type_intervention']?></td>
+                                        <td><?=$intervention['description_intervention']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=intervention&action=update&id=">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=intervention&action=delete&id=">Delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=intervention&action=update&id=<?=$intervention['id']?>">Update</a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=intervention&action=delete&id=<?=$intervention['id']?>">Delete</a>
                                         </td>
                                     </tr>
                                     <?php } ?>

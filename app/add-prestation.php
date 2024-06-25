@@ -16,7 +16,7 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded-top p-4">
                         <div id="result"></div>
-                        <form action="add.php" method="post">
+                        <form action="index.php?page=prestation&action=add" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="client_id" class="form-label"></label>
@@ -81,18 +81,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($prestations as $prestation) {?>
+                                    <?php foreach($prestations as $prestation) {
+                                        $statusLabels = [
+                                            1 => 'Début',
+                                            2 => 'En Cours',
+                                            3 => 'Terminé'
+                                        ]; 
+                                    ?>
                                     <tr>
-                                        <td>1</td>
-                                        <td>John</td>
-                                        <td>Doe</td>
-                                        <td>jhon@email.com</td>
-                                        <td>USA</td>
-                                        <td>123</td>
-                                        <td>Member</td>
+                                        <td><?=$prestation['id']?></td>
+                                        <td><?=$prestation['client_id']?></td>
+                                        <td><?=$prestation['type_prestation']?></td>
+                                        <td><?=$prestation['description_prestation']?></td>
+                                        <td><?=$prestation['date_debut_prestation']?></td>
+                                        <td><?=$prestation['date_fin_prestation']?></td>
+                                        
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=prestation&action=update&id=">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=prestation&action=delete&id=">Delete</a>
+                                            <?= isset($statusLabels[$prestation['statut_prestation']]) ? htmlspecialchars($statusLabels[$prestation['statut_prestation']]) : 'Inconnu'; ?>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=prestation&action=update&id=<?=$prestation['id']?>">Update</a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=prestation&action=delete&id=<?=$prestation['id']?>">Delete</a>
                                         </td>
                                     </tr>
                                     <?php } ?>

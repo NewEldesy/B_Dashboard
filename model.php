@@ -107,7 +107,7 @@ function getById($table, $idColumn, $id) {
 function getCLientById($id) { return getById('clients', 'client_id', $id); }
 
 //Get Intervention by Id
-function getInterventionById($id) { return getById('Interventions', 'id', $id); }
+function getInterventionById($id) { return getById('interventions', 'id', $id); }
 
 //Get Prestation by Id
 function getPrestationById($id) { return getById('prestations', 'id', $id); }
@@ -157,10 +157,10 @@ function deleteRecord($table, $idColumn, $id) {
 function removeClient($id) { deleteRecord('clients', 'client_id', $id); }
 
 //Delete Interventions
-function removeInterventions($id) { deleteRecord('interventions', 'id', $id); }
+function removeIntervention($id) { deleteRecord('interventions', 'id', $id); }
 
 //Delete Services
-function removeServices($id) { deleteRecord('services', 'service_id', $id); }
+function removeService($id) { deleteRecord('services', 'service_id', $id); }
 
 //Delete Prestations
 function removePrestations($id) { deleteRecord('prestations', 'id', $id); }
@@ -189,7 +189,7 @@ function updateClient($data) { updateRecord('clients', $data, 'client_id', $data
 function updateIntervention($data) { updateRecord('interventions', $data, 'id', $data['id']); }
 
 //Update Services
-function updateService($data) { updateRecord('services', $data, 'service_id', $data['id']); }
+function updateService($data) { updateRecord('services', $data, 'service_id', $data['service_id']); }
 
 //Update Prestations
 function updatePrestation($data) { updateRecord('prestations', $data, 'id', $data['id']); }

@@ -48,6 +48,7 @@
                     <a href="index.php?page=intervention" class="nav-item nav-link"><i class="fa fa-tag me-2"></i></i>Intervention</a>
                     <a href="index.php?page=prestation" class="nav-item nav-link"><i class="fa fa-copy me-2"></i>Prestation</a>
                     <a href="index.php?page=service" class="nav-item nav-link"><i class="fa fa-list me-2"></i></i>Service</a>
+                    <a href="index.php?page=user" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Utilisateurs</a>
                 </div>
             </nav>
         </div>
