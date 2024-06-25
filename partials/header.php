@@ -43,11 +43,11 @@
                     <h6 class="text-primary">B'Tech Group Sas</h6>
                 </a>
                 <div class="navbar-nav w-100">
-                    <a href="index.php" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="add-client.php" class="nav-item nav-link"><i class="fa fa-users me-2"></i></i>Client</a>
-                    <a href="add-intervention.php" class="nav-item nav-link"><i class="fa fa-tag me-2"></i></i>Intervention</a>
-                    <a href="add-prestation.php" class="nav-item nav-link"><i class="fa fa-copy me-2"></i>Prestation</a>
-                    <a href="add-service.php" class="nav-item nav-link"><i class="fa fa-list me-2"></i></i>Service</a>
+                    <a href="index.php?page=dashboard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a href="index.php?page=client" class="nav-item nav-link"><i class="fa fa-users me-2"></i></i>Client</a>
+                    <a href="index.php?page=intervention" class="nav-item nav-link"><i class="fa fa-tag me-2"></i></i>Intervention</a>
+                    <a href="index.php?page=prestation" class="nav-item nav-link"><i class="fa fa-copy me-2"></i>Prestation</a>
+                    <a href="index.php?page=service" class="nav-item nav-link"><i class="fa fa-list me-2"></i></i>Service</a>
                 </div>
             </nav>
         </div>

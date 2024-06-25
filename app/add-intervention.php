@@ -63,36 +63,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach($interventions as $intervention) {?>
                                     <tr>
                                         <th scope="row">1</th>
                                         <td>John</td>
                                         <td>Doe</td>
                                         <td>jhon@email.com</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="">Delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=intervention&action=update&id=">Update</a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=intervention&action=delete&id=">Delete</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mark@email.com</td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary" href="">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>jacob@email.com</td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary" href="">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="">Delete</a>
-                                        </td>
-                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

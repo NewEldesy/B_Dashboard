@@ -19,40 +19,40 @@
                         <form action="add.php" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="prest_client" class="form-label"></label>
-                                    <select class="form-select" name="prest_client" aria-label="Floating label select example">
+                                    <label for="client_id" class="form-label"></label>
+                                    <select class="form-select" name="client_id" aria-label="Floating label select example">
                                         <option value="1">Client 1</option>
                                         <option value="2">Client 2</option>
                                         <option value="3">Client 3</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="intv_type" class="form-label">Type Prestations</label>
-                                    <select class="form-select" name="intv_type">
+                                    <label for="type_prestation" class="form-label">Type Prestations</label>
+                                    <select class="form-select" name="type_prestation">
                                         <option value="1">type 1</option>
                                         <option value="2">type 2</option>
                                         <option value="3">type 3</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="prest_desc" class="form-label">Description Interventions</label>
-                                    <textarea class="form-control" name="prest_desc"></textarea>
+                                    <label for="description_prestation" class="form-label">Description Interventions</label>
+                                    <textarea class="form-control" name="description_prestation"></textarea>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="prest_statut">Statut Prestations</label>
-                                    <select class="form-select" name="prest_statut">
+                                    <label for="statut_prestation">Statut Prestations</label>
+                                    <select class="form-select" name="statut_prestation">
                                         <option value="1">Début</option>
                                         <option value="2">En Cours</option>
                                         <option value="3">Terminé</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="date_start" class="form-label">Date Début</label>
-                                    <input type="date" class="form-control" name="date_start" required>
+                                    <label for="date_debut_prestation" class="form-label">Date Début</label>
+                                    <input type="date" class="form-control" name="date_debut_prestation" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="date_end" class="form-label">Date Fin</label>
-                                    <input type="date" class="form-control" name="date_end" required>
+                                    <label for="date_fin_prestation" class="form-label">Date Fin</label>
+                                    <input type="date" class="form-control" name="date_fin_prestation" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
@@ -81,8 +81,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach($prestations as $prestation) {?>
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <td>1</td>
                                         <td>John</td>
                                         <td>Doe</td>
                                         <td>jhon@email.com</td>
@@ -90,36 +91,11 @@
                                         <td>123</td>
                                         <td>Member</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="">Delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=prestation&action=update&id=">Update</a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=prestation&action=delete&id=">Delete</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>mark@email.com</td>
-                                        <td>UK</td>
-                                        <td>456</td>
-                                        <td>Member</td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary" href="">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>jacob@email.com</td>
-                                        <td>AU</td>
-                                        <td>789</td>
-                                        <td>Member</td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary" href="">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="">Delete</a>
-                                        </td>
-                                    </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

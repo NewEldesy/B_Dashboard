@@ -49,8 +49,8 @@
                                                 <td><?=$result['service_id']?></td>
                                                 <td><?=$result['libelle_services']?></td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="">Update</a>
-                                                    <a class="btn btn-sm btn-secondary" href="">Delete</a>
+                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update">Update</a>
+                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$result['service_id']?>">Delete</a>
                                                 </td>
                                             </tr>
                                             <?php } ?>

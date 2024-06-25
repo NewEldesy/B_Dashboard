@@ -34,6 +34,14 @@ function handleDatabaseError($errorMessage) {
     exit("Erreur de base de données : " . $errorMessage);
 }
 
+// Validez et filtrez le paramètre action pour éviter des problèmes de sécurité
+function validationAction($action){
+    if (!in_array($action, ['add', 'update', 'delete'])) {
+        header('location:index.php?page=dashord');
+        exit;
+    }
+}
+
 // Connexion utilisateur
 function tryLogin($data) {
     $database = dbConnect();
@@ -72,6 +80,9 @@ function getPrestations() { return getAll('prestations'); }
 //Get All Services
 function getServices() { return getAll('services'); }
 
+//Get All Users
+function getUsers() { return getAll('clients'); }
+
 //récuppére un utilisateur par son id
 function getUserById($id) {
     $database = dbConnect();
@@ -102,7 +113,7 @@ function getInterventionById($id) { return getById('Interventions', 'id', $id); 
 function getPrestationById($id) { return getById('prestations', 'id', $id); }
 
 //Get Service by Id
-function getIServiceById($id) { return getById('services', 'service_id', $id); }
+function getServiceById($id) { return getById('services', 'service_id', $id); }
 
 // Fonction générique pour ajouter un enregistrement
 function addRecord($table, $data) {
