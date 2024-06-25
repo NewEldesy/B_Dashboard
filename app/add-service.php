@@ -43,7 +43,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach($services as $service) {?>
+                                            <?php foreach($entities as $service) {?>
                                             <tr>
                                                 <td><?=$service['service_id']?></td>
                                                 <td><?=$service['libelle_services']?></td>

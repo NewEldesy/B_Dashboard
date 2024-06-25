@@ -81,12 +81,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($prestations as $prestation) {
-                                        $statusLabels = [
-                                            1 => 'Début',
-                                            2 => 'En Cours',
-                                            3 => 'Terminé'
-                                        ]; 
+                                    <?php foreach($entities as $prestation) {
+                                        $statusLabels = [ 1 => 'Début', 2 => 'En Cours', 3 => 'Terminé' ]; 
                                     ?>
                                     <tr>
                                         <td><?=$prestation['id']?></td>
@@ -95,7 +91,6 @@
                                         <td><?=$prestation['description_prestation']?></td>
                                         <td><?=$prestation['date_debut_prestation']?></td>
                                         <td><?=$prestation['date_fin_prestation']?></td>
-                                        
                                         <td>
                                             <?= isset($statusLabels[$prestation['statut_prestation']]) ? htmlspecialchars($statusLabels[$prestation['statut_prestation']]) : 'Inconnu'; ?>
                                         </td>

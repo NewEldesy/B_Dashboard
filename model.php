@@ -45,11 +45,16 @@ function validationAction($action){
 // Connexion utilisateur
 function tryLogin($data) {
     $database = dbConnect();
-    $stmt = $database->prepare("SELECT * FROM User WHERE Email = :email");
+    $stmt = $database->prepare("SELECT * FROM users WHERE Email = :email");
     $stmt->bindParam(':email', $data['Email']);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    return !empty($user) && password_verify($data['Password'], $user['Password']) ? $user : null;
+    
+    if ($user && password_verify($data['Password'], $user['Password'])) {
+        return $user;
+    } else {
+        return null;
+    }
 }
 
 // Fonction générique pour compter les enregistrements
@@ -59,6 +64,18 @@ function getCount($table) {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
+
+//Get Client
+function getNbClient() { return getCount('clients'); }
+
+//Get Intervention
+function getNbIntervention() { return getCount('interventions'); }
+
+//Get Prestation
+function getNbPrestation() { return getCount('prestations'); }
+
+//Get Service
+function getNbService() { return getCount('services'); }
 
 // Fonction générique pour récupérer tous les enregistrements d'une table
 function getAll($table) {
@@ -81,18 +98,7 @@ function getPrestations() { return getAll('prestations'); }
 function getServices() { return getAll('services'); }
 
 //Get All Users
-function getUsers() { return getAll('clients'); }
-
-//récuppére un utilisateur par son id
-function getUserById($id) {
-    $database = dbConnect();
-    $statement = $database->prepare("SELECT * FROM User WHERE userID = :id");
-    $statement->bindParam(':id', $id, PDO::PARAM_INT);
-    $statement->execute();
-    $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-    return $result;
-}
+function getUsers() { return getAll('users'); }
 
 // Fonction générique pour récupérer un enregistrement par ID
 function getById($table, $idColumn, $id) {
@@ -114,6 +120,9 @@ function getPrestationById($id) { return getById('prestations', 'id', $id); }
 
 //Get Service by Id
 function getServiceById($id) { return getById('services', 'service_id', $id); }
+
+//Get User by Id
+function getUserById($id) { return getById('users', 'id', $id); }
 
 // Fonction générique pour ajouter un enregistrement
 function addRecord($table, $data) {
@@ -142,7 +151,7 @@ function addPrestations($data) { addRecord('prestations', $data); }
 //Add Users
 function addUser($data) {
     $data['Password'] = password_hash($data['Password'], PASSWORD_DEFAULT);
-    addRecord('User', $data);
+    addRecord('users', $data);
 }
 
 // Fonction générique pour supprimer un enregistrement
@@ -167,7 +176,7 @@ function removePrestations($id) { deleteRecord('prestations', 'id', $id); }
 
 //Delete User
 function removeUser($id) {
-    deleteRecord('User', 'UserID', $id);
+    deleteRecord('users', 'id', $id);
 }
 
 // Fonction générique pour mettre à jour un enregistrement

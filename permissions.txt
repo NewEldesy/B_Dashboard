@@ -157,3 +157,17 @@ function has_permission($permission) {
 ### Conclusion
 
 Ce guide vous permet de mettre en place un système de gestion des accès basé sur les rôles et les permissions dans un dashboard PHP. Assurez-vous de sécuriser votre code, notamment en protégeant vos requêtes SQL contre les injections et en sécurisant les sessions des utilisateurs.
+
+function addUser($data) {
+    $database = dbConnect();
+
+    $mdpHash = password_hash($data['Password'], PASSWORD_DEFAULT);
+
+    $stmt = $database->prepare("INSERT INTO User (Nom, Prenom, Email, Password) VALUES (:Nom, :Prenom, :Email, :Password)");
+    $stmt->bindParam(":Nom", $data['Nom']);
+    $stmt->bindParam(":Prenom", $data['Prenom']);
+    $stmt->bindParam(":Email", $data['Email']);
+    $stmt->bindParam(":Password", $mdpHash);
+
+    $stmt->execute();
+}
