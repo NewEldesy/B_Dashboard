@@ -23,9 +23,11 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="client_id" class="form-label">Sélectionnez un client</label>
                                     <select class="form-select" name="client_id" aria-label="Floating label select example">
-                                        <option value="1">Client 1</option>
-                                        <option value="2">Client 2</option>
-                                        <option value="3">Client 3</option>
+                                        <?php $clients = getClients();
+                                            foreach($clients as $c) {
+                                        ?>
+                                        <option value="<?=$c['client_id'];?>"><?=$c['prenom']. " " .$c['nom'];?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">

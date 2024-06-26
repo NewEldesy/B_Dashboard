@@ -40,6 +40,18 @@
                 case 'user':
                     handleEntity('user');
                     break;
+
+                case 'formation':
+                    handleEntity('formation');
+                    break;
+
+                case 'participant':
+                    handleEntity('participant');
+                    break;
+
+                case 'inscription':
+                    handleEntity('inscription');
+                    break;
     
                 default:
                     include_once('app/404.php');

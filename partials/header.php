@@ -48,6 +48,11 @@
                     <a href="index.php?page=intervention" class="nav-item nav-link"><i class="fa fa-tag me-2"></i></i>Intervention</a>
                     <a href="index.php?page=prestation" class="nav-item nav-link"><i class="fa fa-copy me-2"></i>Prestation</a>
                     <a href="index.php?page=service" class="nav-item nav-link"><i class="fa fa-list me-2"></i></i>Service</a>
+                    <hr>
+                    <a href="index.php?page=formation" class="nav-item nav-link"><i class="fa fa-book-open me-2"></i>Formation</a>
+                    <a href="index.php?page=participant" class="nav-item nav-link"><i class="fa fa-user-graduate me-2"></i>Participant</a>
+                    <a href="index.php?page=inscription" class="nav-item nav-link"><i class="fa fa-graduation-cap me-2"></i>Inscription</a>
+                    <hr>
                     <a href="index.php?page=user" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Utilisateurs</a>
                 </div>
             </nav>
@@ -71,7 +76,7 @@
                             <span class="d-none d-lg-inline-flex"><?= $_SESSION["Nom"] . " " . $_SESSION["Prenom"];?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="index.php?page=logout" class="dropdown-item">Log Out</a>
+                            <a href="index.php?page=logout" class="dropdown-item"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
                         </div>
                     </div>
                 </div>

@@ -21,17 +21,19 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="client_id" class="form-label">Choix Client</label>
                                     <select class="form-select" name="client_id" aria-label="Floating label select example">
-                                        <option value="1" <?php if($result['client_id']==1) echo'selected'; ?> >Client 1</option>
-                                        <option value="2" <?php if($result['client_id']==2) echo'selected'; ?> >Client 2</option>
-                                        <option value="3" <?php if($result['client_id']==3) echo'selected'; ?> >Client 3</option>
+                                        <?php $clients = getClients();
+                                            foreach($clients as $c) {
+                                        ?>
+                                        <option value="<?=$c['client_id'];?>" <?=($result['client_id']==$c['client_id']) ? 'selected' : '';?>><?=$c['prenom']. " " .$c['nom'];?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type_prestation" class="form-label">Type Prestations</label>
                                     <select class="form-select" name="type_prestation">
-                                        <option value="1" <?php if($result['type_prestation']==1) echo'selected'; ?> >type 1</option>
-                                        <option value="2" <?php if($result['type_prestation']==2) echo'selected'; ?> >type 2</option>
-                                        <option value="3" <?php if($result['type_prestation']==3) echo'selected'; ?> >type 3</option>
+                                        <option value="1" <?=($result['type_prestation']==1) ? 'selected' : '';?>>type 1</option>
+                                        <option value="2" <?=($result['type_prestation']==2) ? 'selected' : '';?>>type 2</option>
+                                        <option value="3" <?=($result['type_prestation']==3) ? 'selected' : '';?>>type 3</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -45,9 +47,9 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="statut_prestation">Statut Prestations</label>
                                     <select class="form-select" name="statut_prestation">
-                                        <option value="1" <?php if($result['statut_prestation']==1) echo'selected';?> >Début</option>
-                                        <option value="2" <?php if($result['statut_prestation']==2) echo'selected';?> >En Cours</option>
-                                        <option value="3" <?php if($result['statut_prestation']==3) echo'selected';?> >Terminé</option>
+                                        <option value="début" <?=($result['statut_prestation']=='début') ? 'selected' : '';?>>Début</option>
+                                        <option value="en cours" <?=($result['statut_prestation']=='en cours') ? 'selected' : '';?>>En Cours</option>
+                                        <option value="terminé" <?=($result['statut_prestation']=='terminé') ? 'selected' : '';?>>Terminé</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">

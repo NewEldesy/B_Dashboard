@@ -57,6 +57,20 @@ function tryLogin($data) {
     }
 }
 
+// Fonction pour faire le total des couts
+function totalCouts($table, $column) {
+    $database = dbConnect();
+    $stmt = $database->query("SELECT (SELECT SUM($column) FROM $table) AS total_cout");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout'];
+}
+
+//Total Couts Prestationn
+function totalCoutP() { return totalCouts('prestations', 'cout_prestation'); }
+
+//Total Couts Prestationn
+function totalCoutI() { return totalCouts('interventions', 'cout_intervention'); }
+
 // Fonction générique pour compter les enregistrements
 function getCount($table) {
     $database = dbConnect();
@@ -64,6 +78,20 @@ function getCount($table) {
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
+
+//Fonction qui calcul le couts total par type
+function CoutInterventionByType($type) {
+    $database = dbConnect();
+    $stmt = $database->query("SELECT SUM(cout_intervention) AS total_cout_by_type FROM interventions WHERE type_intervention = $type");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout_by_type'];
+}
+
+//Cout Intervention En Cours
+function CoutInterventionEnCours(){ return CoutInterventionByType(2); }
+
+//Cout Intervention En Cours
+function CoutInterventionTermine(){ return CoutInterventionByType(3); }
 
 //Get Client
 function getNbClient() { return getCount('clients'); }
@@ -100,6 +128,15 @@ function getServices() { return getAll('services'); }
 //Get All Users
 function getUsers() { return getAll('users'); }
 
+//Get All Formation
+function getFormation() { return getAll('Formations'); }
+
+//Get All Participant
+function getParticipant() { return getAll('Participants'); }
+
+//Get All Inscription
+function getInscription() { return getAll('FormationParticipants'); }
+
 // Fonction générique pour récupérer un enregistrement par ID
 function getById($table, $idColumn, $id) {
     $database = dbConnect();
@@ -123,6 +160,15 @@ function getServiceById($id) { return getById('services', 'service_id', $id); }
 
 //Get User by Id
 function getUserById($id) { return getById('users', 'id', $id); }
+
+//Get Formation by Id
+function getFormationById($id) { return getById('Formations', 'id', $id); }
+
+//Get Participant by Id
+function getParticipantById($id) { return getById('Participants', 'id', $id); }
+
+//Get Inscription by Id
+function getInscriptionById($id) { return getById('FormationParticipants', 'id', $id); }
 
 // Fonction générique pour ajouter un enregistrement
 function addRecord($table, $data) {
@@ -154,6 +200,15 @@ function addUser($data) {
     addRecord('users', $data);
 }
 
+//Add Formation		
+function addFormation($data) { addRecord('Formations', $data); }
+
+//Add Participant		
+function addParticipant($data) { addRecord('Participants', $data); }
+
+//Add Inscription		
+function addInscription($data) { addRecord('FormationParticipants', $data); }
+
 // Fonction générique pour supprimer un enregistrement
 function deleteRecord($table, $idColumn, $id) {
     $database = dbConnect();
@@ -178,6 +233,15 @@ function removePrestations($id) { deleteRecord('prestations', 'id', $id); }
 function removeUser($id) {
     deleteRecord('users', 'id', $id);
 }
+
+//Delete Formation
+function removeFormation($id) { deleteRecord('Formations', 'id', $id); }
+
+//Delete Participant
+function removeParticipant($id) { deleteRecord('Partcipants', 'id', $id); }
+
+//Delete Inscription
+function removeInscription($id) { deleteRecord('FormationParticipants', 'id', $id); }
 
 // Fonction générique pour mettre à jour un enregistrement
 function updateRecord($table, $data, $idColumn, $id) {
@@ -205,3 +269,12 @@ function updatePrestation($data) { updateRecord('prestations', $data, 'id', $dat
 
 //Update Users
 function updateUser($data) { updateRecord('users', $data, 'id', $data['id']); }
+
+//Update Formation
+function updateFormation($data) { updateRecord('Formations', $data, 'id', $data['id']); }
+
+//Update Participant
+function updateParticipant($data) { updateRecord('Participants', $data, 'id', $data['id']); }
+
+//Update Inscription
+function updateInscription($data) { updateRecord('FormationParticipants', $data, 'id', $data['id']); }

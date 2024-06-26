@@ -86,6 +86,21 @@ function handleAdd($entity) {
                 header('location:index.php?page=user');
                 exit;
 
+            case 'formation':
+                addFormation($_POST);
+                header('location:index.php?page=formation');
+                exit;
+
+            case 'participant':
+                addParticipant($_POST);
+                header('location:index.php?page=participant');
+                exit;
+
+            case 'inscription':
+                addInscription($_POST);
+                header('location:index.php?page=inscription');
+                exit;
+
             default:
                 include_once('app/404.php');
                 exit;
@@ -124,6 +139,21 @@ function handleUpdate($entity) {
             case 'user':
                 updateUser($_POST);
                 header('location:index.php?page=user');
+                exit;
+
+            case 'formation':
+                updateFormation($_POST);
+                header('location:index.php?page=formation');
+                exit;
+
+            case 'participant':
+                updateParticipant($_POST);
+                header('location:index.php?page=participant');
+                exit;
+
+            case 'inscription':
+                updateInscription($_POST);
+                header('location:index.php?page=inscription');
                 exit;
 
             default:
@@ -171,6 +201,21 @@ function handleDelete($entity) {
                 header('location:index.php?page=user');
                 exit;
 
+            case 'formation':
+                removeFormation($_GET['id']);
+                header('location:index.php?page=formation');
+                exit;
+
+            case 'participant':
+                removeParticipant($_GET['id']);
+                header('location:index.php?page=participant');
+                exit;
+
+            case 'inscription':
+                removeInscription($_GET['id']);
+                header('location:index.php?page=inscription');
+                exit;
+
             default:
                 include_once('app/404.php');
                 exit;
@@ -183,7 +228,6 @@ function handleDelete($entity) {
 
 // Fonction pour gérer l'affichage par défaut (liste ou ajout)
 function handleDefault($entity) {
-    // Affichage par défaut (liste ou ajout)
     $entities = getEntities($entity);
     include_once("app/add-$entity.php");
 }
@@ -194,6 +238,10 @@ function handleDashboard() {
     $intervention = getNbIntervention();
     $prestation = getNbPrestation();
     $service = getNbService();
+    $coutPrestation = totalCoutP();
+    $coutIntervention = totalCoutI();
+    $enCours = CoutInterventionEnCours();
+    $termine = CoutInterventionTermine();
     include_once('app/dashboard.php');
     exit;
 }
@@ -221,6 +269,18 @@ function getEntities($entity) {
             return getUsers();
             break;
 
+        case 'formation':
+            return getFormation();
+            break;
+
+        case 'participant':
+            return getParticipant();
+            break;
+
+        case 'inscription':
+            return getInscription();
+            break;
+
         default:
             return [];
             break;
@@ -231,28 +291,35 @@ function getEntities($entity) {
 function getEntityById($entity, $id) {
     switch ($entity) {
         case 'client':
-            //fonction getClientById
             return getClientById($id);
             break;
 
         case 'intervention':
-            //fonction getInterventionById
             return getInterventionById($id);
             break;
 
         case 'prestation':
-            //fonction getPrestationById
             return getPrestationById($id);
             break;
 
         case 'service':
-            //fonction getServiceById
             return getServiceById($id);
             break;
 
         case 'user':
-            //fonction getServiceById
             return getUserById($id);
+            break;
+
+        case 'formation':
+            return getFormationById($id);
+            break;
+
+        case 'participant':
+            return getParticipantById($id);
+            break;
+
+        case 'inscription':
+            return getInscriptionById($id);
             break;
 
         default:
