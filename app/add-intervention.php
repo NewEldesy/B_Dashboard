@@ -79,8 +79,8 @@
                                         <td><?=$intervention['description_intervention']?></td>
                                         <td><?=$intervention['cout_intervention']?> xof</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=intervention&action=update&id=<?=$intervention['id']?>">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=intervention&action=delete&id=<?=$intervention['id']?>">Delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=intervention&action=update&id=<?=$intervention['id']?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=intervention&action=delete&id=<?=$intervention['id']?>"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

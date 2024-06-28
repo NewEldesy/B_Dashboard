@@ -47,6 +47,10 @@ function handleEntity($entity) {
                 handleDelete($entity);
                 break;
 
+            case 'print':
+                handlePrint($entity);
+                break;
+
             default:
                 include_once('app/404.php');
                 break;
@@ -94,11 +98,6 @@ function handleAdd($entity) {
             case 'participant':
                 addParticipant($_POST);
                 header('location:index.php?page=participant');
-                exit;
-
-            case 'inscription':
-                addInscription($_POST);
-                header('location:index.php?page=inscription');
                 exit;
 
             default:
@@ -149,11 +148,6 @@ function handleUpdate($entity) {
             case 'participant':
                 updateParticipant($_POST);
                 header('location:index.php?page=participant');
-                exit;
-
-            case 'inscription':
-                updateInscription($_POST);
-                header('location:index.php?page=inscription');
                 exit;
 
             default:
@@ -211,15 +205,20 @@ function handleDelete($entity) {
                 header('location:index.php?page=participant');
                 exit;
 
-            case 'inscription':
-                removeInscription($_GET['id']);
-                header('location:index.php?page=inscription');
-                exit;
-
             default:
                 include_once('app/404.php');
                 exit;
         }
+    } else {
+        echo "Identifiant manquant.";
+        exit;
+    }
+}
+
+function handlePrint($entity) {
+    if (isset($_GET['id'])) {
+        $result = getEntityById($entity, $_GET['id']);
+        include_once("app/print-$entity.php");
     } else {
         echo "Identifiant manquant.";
         exit;
@@ -277,10 +276,6 @@ function getEntities($entity) {
             return getParticipant();
             break;
 
-        case 'inscription':
-            return getInscription();
-            break;
-
         default:
             return [];
             break;
@@ -316,10 +311,6 @@ function getEntityById($entity, $id) {
 
         case 'participant':
             return getParticipantById($id);
-            break;
-
-        case 'inscription':
-            return getInscriptionById($id);
             break;
 
         default:

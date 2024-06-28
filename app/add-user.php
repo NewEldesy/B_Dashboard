@@ -69,8 +69,8 @@
                                         <td><?=$user['Prenom']?></td>
                                         <td><?=$user['Email']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=user&action=update&id=<?=$user['id']?>">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=user&action=delete&id=<?=$user['id']?>">Delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=user&action=update&id=<?=$user['id']?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=user&action=delete&id=<?=$user['id']?>"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

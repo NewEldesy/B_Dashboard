@@ -48,8 +48,8 @@
                                                 <td><?=$service['service_id']?></td>
                                                 <td><?=$service['libelle_services']?></td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['service_id']?>">Update</a>
-                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['service_id']?>">Delete</a>
+                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['service_id']?>"><i class="fas fa-edit"></i></a>
+                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['service_id']?>"><i class="fas fa-trash-alt"></i></a>
                                                 </td>
                                             </tr>
                                             <?php } ?>

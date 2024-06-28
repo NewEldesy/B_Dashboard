@@ -1,5 +1,5 @@
 <?php
-// Connection a la base de données
+// Connexion à la base de données
 function dbConnect() {
     try {
         $database = new PDO('mysql:host=mysql-btechgroup.alwaysdata.net;dbname=btechgroup_dashboard;charset=utf8', '364785', 'w!Z7ntgLcLYE9NU');
@@ -10,36 +10,56 @@ function dbConnect() {
     }
 }
 
-function checkAccess($requiredLevel) {
-    if (!isset($_SESSION['UserLevel']) || $_SESSION['UserLevel'] > $requiredLevel) {
-        // Extraire la page actuelle de l'URL
-        $currentPage = isset($_GET['page']) ? $_GET['page'] : '';
-        // Déterminer la page de vue (view) correspondante
-        $viewPage = 'index.php?page=' . $currentPage . '&action=view';
-        // Rediriger l'utilisateur vers la page de vue (view) correspondante
-        header('Location: ' . $viewPage);
-        exit;
-    }
-}
-
-// Redirection vers le dashboard
-function redirectToDashboard() {
-    // Fonction pour rediriger vers le tableau de bord
-    header('location: index.php?page=dashboard');
-    exit;
-}
-
 // Gestion des erreurs de base de données
 function handleDatabaseError($errorMessage) {
     exit("Erreur de base de données : " . $errorMessage);
 }
 
-// Validez et filtrez le paramètre action pour éviter des problèmes de sécurité
-function validationAction($action){
-    if (!in_array($action, ['add', 'update', 'delete'])) {
+// Validation et filtrage sécurisé de l'action
+function validationAction($action) {
+    if (!in_array($action, ['add', 'update', 'delete', 'print'])) {
         header('location:index.php?page=dashord');
         exit;
     }
+}
+
+// Fonctions pour obtenir la date actuelle en différents formats
+function getCurrentDateTimeString() {
+    return date('YmdHis'); // Format pour une chaîne numérique de date et heure
+}
+
+function frenchDate() {
+    $date = new DateTime(); // Objet DateTime pour la date actuelle
+    $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+    return $formatter->format($date); // Format complet en français
+}
+
+// Vérification d'accès basée sur le niveau d'utilisateur
+function checkAccess($requiredLevel) {
+    if (!isset($_SESSION['UserLevel']) || $_SESSION['UserLevel'] > $requiredLevel) {
+        $currentPage = isset($_GET['page']) ? $_GET['page'] : '';
+        $viewPage = 'index.php?page=' . $currentPage . '&action=view';
+        header('Location: ' . $viewPage);
+        exit;
+    }
+}
+
+// Génération d'étiquettes de statut en fonction du statut donné
+function generateStatusLabel($statut) {
+    $labels = ["Réservé" => '<span class="badge bg-danger text-black fw-bold">Réservé</span>',
+        "En attente" => '<span class="badge bg-warning text-black fw-bold">En attente</span>',
+        "Payé" => '<span class="badge bg-success text-black fw-bold">Payé</span>'];
+    if (array_key_exists($statut, $labels)) {
+        return $labels[$statut];
+    } else {
+        return ''; // Retourne une chaîne vide si le statut n'est pas trouvé
+    }
+}
+
+// Redirection vers le tableau de bord
+function redirectToDashboard() {
+    header('location: index.php?page=dashboard');
+    exit;
 }
 
 // Connexion utilisateur
@@ -50,14 +70,11 @@ function tryLogin($data) {
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if ($user && password_verify($data['Password'], $user['Password'])) {
-        return $user;
-    } else {
-        return null;
-    }
+    if ($user && password_verify($data['Password'], $user['Password'])) { return $user; }
+    else { return null; }
 }
 
-// Fonction pour faire le total des couts
+// Fonctions pour le calcul des coûts totaux
 function totalCouts($table, $column) {
     $database = dbConnect();
     $stmt = $database->query("SELECT (SELECT SUM($column) FROM $table) AS total_cout");
@@ -65,11 +82,9 @@ function totalCouts($table, $column) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout'];
 }
 
-//Total Couts Prestationn
 function totalCoutP() { return totalCouts('prestations', 'cout_prestation'); }
 
-//Total Couts Prestationn
-function totalCoutI() { return totalCouts('interventions', 'cout_intervention'); }
+function totalCoutI() {  return totalCouts('interventions', 'cout_intervention'); }
 
 // Fonction générique pour compter les enregistrements
 function getCount($table) {
@@ -79,33 +94,7 @@ function getCount($table) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
 
-//Fonction qui calcul le couts total par type
-function CoutInterventionByType($type) {
-    $database = dbConnect();
-    $stmt = $database->query("SELECT SUM(cout_intervention) AS total_cout_by_type FROM interventions WHERE type_intervention = $type");
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout_by_type'];
-}
-
-//Cout Intervention En Cours
-function CoutInterventionEnCours(){ return CoutInterventionByType(2); }
-
-//Cout Intervention En Cours
-function CoutInterventionTermine(){ return CoutInterventionByType(3); }
-
-//Get Client
-function getNbClient() { return getCount('clients'); }
-
-//Get Intervention
-function getNbIntervention() { return getCount('interventions'); }
-
-//Get Prestation
-function getNbPrestation() { return getCount('prestations'); }
-
-//Get Service
-function getNbService() { return getCount('services'); }
-
-// Fonction générique pour récupérer tous les enregistrements d'une table
+// Fonctions pour obtenir tous les enregistrements d'une table spécifique
 function getAll($table) {
     $database = dbConnect();
     $stmt = $database->query("SELECT * FROM {$table}");
@@ -113,31 +102,7 @@ function getAll($table) {
     return $result;
 }
 
-//Get All Clients
-function getClients() { return getAll('clients'); }
-
-//Get All Interventions
-function getInterventions() { return getAll('interventions'); }
-
-//Get All Prestations
-function getPrestations() { return getAll('prestations'); }
-
-//Get All Services
-function getServices() { return getAll('services'); }
-
-//Get All Users
-function getUsers() { return getAll('users'); }
-
-//Get All Formation
-function getFormation() { return getAll('Formations'); }
-
-//Get All Participant
-function getParticipant() { return getAll('Participants'); }
-
-//Get All Inscription
-function getInscription() { return getAll('FormationParticipants'); }
-
-// Fonction générique pour récupérer un enregistrement par ID
+// Fonctions pour obtenir un enregistrement par ID à partir d'une table spécifique
 function getById($table, $idColumn, $id) {
     $database = dbConnect();
     $stmt = $database->prepare("SELECT * FROM {$table} WHERE {$idColumn} = :id");
@@ -146,70 +111,17 @@ function getById($table, $idColumn, $id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-//Get Client by Id
-function getCLientById($id) { return getById('clients', 'client_id', $id); }
-
-//Get Intervention by Id
-function getInterventionById($id) { return getById('interventions', 'id', $id); }
-
-//Get Prestation by Id
-function getPrestationById($id) { return getById('prestations', 'id', $id); }
-
-//Get Service by Id
-function getServiceById($id) { return getById('services', 'service_id', $id); }
-
-//Get User by Id
-function getUserById($id) { return getById('users', 'id', $id); }
-
-//Get Formation by Id
-function getFormationById($id) { return getById('Formations', 'id', $id); }
-
-//Get Participant by Id
-function getParticipantById($id) { return getById('Participants', 'id', $id); }
-
-//Get Inscription by Id
-function getInscriptionById($id) { return getById('FormationParticipants', 'id', $id); }
-
-// Fonction générique pour ajouter un enregistrement
+// Fonctions pour ajouter un nouvel enregistrement à une table spécifique
 function addRecord($table, $data) {
     $database = dbConnect();
     $columns = implode(", ", array_keys($data));
     $values = ":" . implode(", :", array_keys($data));
     $stmt = $database->prepare("INSERT INTO {$table} ({$columns}) VALUES ({$values})");
-    foreach ($data as $key => $value) {
-        $stmt->bindValue(":{$key}", $value);
-    }
+    foreach ($data as $key => $value) { $stmt->bindValue(":{$key}", $value); }
     $stmt->execute();
 }
 
-//Add Client
-function addClient($data) { addRecord('clients', $data); }
-
-//Add Interventions
-function addIntervention($data) { addRecord('interventions', $data); }
-
-//Add Services
-function addService($data) { addRecord('services', $data); }	
-
-//Add Prestations		
-function addPrestations($data) { addRecord('prestations', $data); }
-
-//Add Users
-function addUser($data) {
-    $data['Password'] = password_hash($data['Password'], PASSWORD_DEFAULT);
-    addRecord('users', $data);
-}
-
-//Add Formation		
-function addFormation($data) { addRecord('Formations', $data); }
-
-//Add Participant		
-function addParticipant($data) { addRecord('Participants', $data); }
-
-//Add Inscription		
-function addInscription($data) { addRecord('FormationParticipants', $data); }
-
-// Fonction générique pour supprimer un enregistrement
+// Fonctions pour supprimer un enregistrement d'une table spécifique
 function deleteRecord($table, $idColumn, $id) {
     $database = dbConnect();
     $stmt = $database->prepare("DELETE FROM {$table} WHERE {$idColumn} = :id");
@@ -217,64 +129,110 @@ function deleteRecord($table, $idColumn, $id) {
     $stmt->execute();
 }
 
-//Delete Client
-function removeClient($id) { deleteRecord('clients', 'client_id', $id); }
-
-//Delete Interventions
-function removeIntervention($id) { deleteRecord('interventions', 'id', $id); }
-
-//Delete Services
-function removeService($id) { deleteRecord('services', 'service_id', $id); }
-
-//Delete Prestations
-function removePrestations($id) { deleteRecord('prestations', 'id', $id); }
-
-//Delete User
-function removeUser($id) {
-    deleteRecord('users', 'id', $id);
-}
-
-//Delete Formation
-function removeFormation($id) { deleteRecord('Formations', 'id', $id); }
-
-//Delete Participant
-function removeParticipant($id) { deleteRecord('Partcipants', 'id', $id); }
-
-//Delete Inscription
-function removeInscription($id) { deleteRecord('FormationParticipants', 'id', $id); }
-
-// Fonction générique pour mettre à jour un enregistrement
+// Fonctions pour mettre à jour un enregistrement dans une table spécifique
 function updateRecord($table, $data, $idColumn, $id) {
     $database = dbConnect();
     $setClause = implode(", ", array_map(fn($key) => "{$key} = :{$key}", array_keys($data)));
     $stmt = $database->prepare("UPDATE {$table} SET {$setClause} WHERE {$idColumn} = :id");
-    foreach ($data as $key => $value) {
-        $stmt->bindValue(":{$key}", $value);
-    }
+    foreach ($data as $key => $value) { $stmt->bindValue(":{$key}", $value); }
     $stmt->bindValue(":id", $id, PDO::PARAM_INT);
     $stmt->execute();
 }
 
-//Update Client
-function updateClient($data) { updateRecord('clients', $data, 'client_id', $data['client_id']); }
+// D'autres fonctions spécifiques pour obtenir des enregistrements par ID pour différentes tables
+function getCLientById($id) { return getById('clients', 'client_id', $id); }
 
-//Update Interventions
-function updateIntervention($data) { updateRecord('interventions', $data, 'id', $data['id']); }
+function getInterventionById($id) { return getById('interventions', 'id', $id); }
 
-//Update Services
-function updateService($data) { updateRecord('services', $data, 'service_id', $data['service_id']); }
+function getPrestationById($id) { return getById('prestations', 'id', $id); }
 
-//Update Prestations
-function updatePrestation($data) { updateRecord('prestations', $data, 'id', $data['id']); }
+function getServiceById($id) { return getById('services', 'service_id', $id); }
 
-//Update Users
-function updateUser($data) { updateRecord('users', $data, 'id', $data['id']); }
+function getUserById($id) { return getById('users', 'id', $id); }
 
-//Update Formation
-function updateFormation($data) { updateRecord('Formations', $data, 'id', $data['id']); }
+function getFormationById($id) { return getById('Formations', 'id', $id);  }
 
-//Update Participant
-function updateParticipant($data) { updateRecord('Participants', $data, 'id', $data['id']); }
+function getParticipantById($id) { return getById('FormationParticipantsDetails', 'id', $id); }
 
-//Update Inscription
-function updateInscription($data) { updateRecord('FormationParticipants', $data, 'id', $data['id']); }
+// Fonctions pour ajouter des enregistrements à différentes tables
+function addClient($data) { addRecord('clients', $data); }
+
+function addIntervention($data) { addRecord('interventions', $data); }
+
+function addService($data) { addRecord('services', $data); }
+
+function addPrestations($data) { addRecord('prestations', $data); }
+
+function addUser($data) { $data['Password'] = password_hash($data['Password'], PASSWORD_DEFAULT);
+    addRecord('users', $data); }
+
+function addFormation($data) { addRecord('Formations', $data); }
+
+function addParticipant($data) { addRecord('FormationParticipantsDetails', $data); }
+
+// Fonctions pour supprimer des enregistrements de différentes tables
+function removeClient($id) { deleteRecord('clients', 'client_id', $id); }
+
+function removeIntervention($id) { deleteRecord('interventions', 'id', $id); }
+
+function removeService($id) { deleteRecord('services', 'service_id', $id); }
+
+function removePrestations($id) { deleteRecord('prestations', 'id', $id); }
+
+function removeUser($id) { deleteRecord('users', 'id', $id); }
+
+function removeFormation($id) { deleteRecord('Formations', 'id', $id); }
+
+function removeParticipant($id) { deleteRecord('FormationParticipantsDetails', 'id', $id); }
+
+// Fonctions pour mettre à jour des enregistrements dans différentes tables
+function updateClient($data) {updateRecord('clients', $data, 'client_id', $data['client_id']); }
+
+function updateIntervention($data) {updateRecord('interventions', $data, 'id', $data['id']); }
+
+function updateService($data) {updateRecord('services', $data, 'service_id', $data['service_id']); }
+
+function updatePrestation($data) {updateRecord('prestations', $data, 'id', $data['id']); }
+
+function updateUser($data) {updateRecord('users', $data, 'id', $data['id']); }
+
+function updateFormation($data) {updateRecord('Formations', $data, 'id', $data['id']); }
+
+function updateParticipant($data) {updateRecord('FormationParticipantsDetails', $data, 'id', $data['id']); }
+
+// Fonctions pour lire des enregistrements dans différentes tables
+function getClients() { return getAll('clients'); }
+
+function getInterventions() { return getAll('interventions'); }
+
+function getPrestations() { return getAll('prestations'); }
+
+function getServices() { return getAll('services'); }
+
+function getUsers() { return getAll('users'); }
+
+function getFormation() { return getAll('Formations'); }
+
+function getParticipant() { return getAll('FormationParticipantsDetails'); }
+
+//Fonction qui calcul le couts total par type
+function CoutInterventionByType($type) {
+    $database = dbConnect();
+    $stmt = $database->query("SELECT SUM(cout_intervention) AS total_cout_by_type FROM interventions WHERE type_intervention = $type");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout_by_type'];
+}
+
+// Fonctions pour calculer le couts dans différentes tables
+function CoutInterventionEnCours(){ return CoutInterventionByType(2); }
+
+function CoutInterventionTermine(){ return CoutInterventionByType(3); }
+
+// Fonctions pour lire le nombres d'enregistrements dans différentes tables
+function getNbClient() { return getCount('clients'); }
+
+function getNbIntervention() { return getCount('interventions'); }
+
+function getNbPrestation() { return getCount('prestations'); }
+
+function getNbService() { return getCount('services'); }

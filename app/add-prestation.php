@@ -103,8 +103,8 @@
                                             <?= isset($statusLabels[$prestation['statut_prestation']]) ? htmlspecialchars($statusLabels[$prestation['statut_prestation']]) : 'Inconnu'; ?>
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=prestation&action=update&id=<?=$prestation['id']?>">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=prestation&action=delete&id=<?=$prestation['id']?>">Delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=prestation&action=update&id=<?=$prestation['id']?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=prestation&action=delete&id=<?=$prestation['id']?>"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

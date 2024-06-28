@@ -73,8 +73,8 @@
                                         <td><?=$client['ville']?></td>
                                         <td><?=$client['telephone']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=client&action=update&id=<?=$client['client_id']?>">Update</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=client&action=delete&id=<?=$client['client_id']?>">Delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=client&action=update&id=<?=$client['client_id']?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=client&action=delete&id=<?=$client['client_id']?>"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>
