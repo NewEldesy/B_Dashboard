@@ -49,6 +49,10 @@
                 case 'participant':
                     handleEntity('participant');
                     break;
+
+                case 'facture':
+                    handleEntity('facture');
+                    break;
     
                 default:
                     include_once('app/404.php');

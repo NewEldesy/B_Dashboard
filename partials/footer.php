@@ -27,6 +27,9 @@
     <script src="assets/lib/tempusdominus/js/moment.min.js"></script>
     <script src="assets/lib/tempusdominus/js/moment-timezone.min.js"></script>
     <script src="assets/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="assets/js/daterangepicker.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="assets/js/main.js"></script>
