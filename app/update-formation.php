@@ -1,5 +1,9 @@
 <?php
     include_once('partials/header.php');
+
+    if(doesIdExist('Formations', $_GET['id']) == false){
+        header('location:index.php?page=formation');
+    }
 ?>
 
 

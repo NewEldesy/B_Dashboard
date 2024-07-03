@@ -1,5 +1,9 @@
 <?php
     include_once('partials/header.php');
+
+    if(doesIdExist('prestations', $_GET['id']) == false){
+        header('location:index.php?page=prestation');
+    }
 ?>
 
 

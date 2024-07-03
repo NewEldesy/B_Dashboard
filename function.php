@@ -28,6 +28,28 @@ function handleLogout() {
     exit;
 }
 
+// Ajoutez cette fonction pour obtenir le nom de la table en fonction de l'entité
+function getTableName($entity) {
+    switch ($entity) {
+        case 'client':
+            return 'clients';
+        case 'intervention':
+            return 'interventions';
+        case 'prestation':
+            return 'prestations';
+        case 'service':
+            return 'services';
+        case 'user':
+            return 'users';
+        case 'formation':
+            return 'Formations';
+        case 'participant':
+            return 'FormationParticipantsDetails';
+        default:
+            return '';
+    }
+}
+
 // Fonction pour gérer les pages de type entité (client, intervention, prestation, service)
 function handleEntity($entity) {
     if (isset($_GET['action'])) {
@@ -114,6 +136,7 @@ function handleAdd($entity) {
 // Fonction pour gérer la mise à jour d'une entité
 function handleUpdate($entity) {
     if (isset($_POST) && !empty($_POST) && isset($_GET['id'])) {
+        
         switch ($entity) {
             case 'client':
                 updateClient($_POST);

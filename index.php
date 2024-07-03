@@ -1,5 +1,6 @@
 <?php
     session_start();
+    ob_start();
     include_once('model.php');
     include_once('function.php');
     
@@ -55,4 +56,6 @@
             }
         }
     }
+
+    ob_end_flush();
 ?>

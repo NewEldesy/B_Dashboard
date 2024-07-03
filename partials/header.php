@@ -52,6 +52,8 @@
                     <a href="index.php?page=formation" class="nav-item nav-link"><i class="fa fa-book-open me-2"></i>Formation</a>
                     <a href="index.php?page=participant" class="nav-item nav-link"><i class="fa fa-user-graduate me-2"></i>Participant</a>
                     <hr>
+                    <a href="index.php?page=facture" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Facture Pro.</a>
+                    <hr>
                     <a href="index.php?page=user" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Utilisateurs</a>
                 </div>
             </nav>

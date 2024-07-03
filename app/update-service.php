@@ -1,5 +1,9 @@
 <?php
     include_once('partials/header.php');
+
+    if(doesIdExist('services', $_GET['id']) == false){
+        header('location:index.php?page=service');
+    }
 ?>
 
 
@@ -17,9 +21,9 @@
                         <div class="row">
                             <div class="col-6">
                                 <!-- Form Start -->
-                                <form action="index.php?page=service&action=update&id=<?=$result['service_id'];?>" method="post">
+                                <form action="index.php?page=service&action=update&id=<?=$result['id'];?>" method="post">
                                     <div class="row">
-                                        <input type="hidden" value="<?=$result['service_id'];?>" name="service_id">
+                                        <input type="hidden" value="<?=$result['id'];?>" name="id">
                                         <div class="col-md-9 mb-3">
                                             <label for="libelle_services">Libellé Service</label>
                                             <input type="text" class="form-control" value="<?=$result['libelle_services'];?>" name="libelle_services" required>

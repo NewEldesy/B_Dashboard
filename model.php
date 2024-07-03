@@ -62,6 +62,19 @@ function redirectToDashboard() {
     exit;
 }
 
+// Ajoutez cette fonction pour vérifier si un ID existe dans une table
+function doesIdExist($table, $id) {
+    $database = dbConnect();
+    try {
+        $stmt = $database->prepare("SELECT COUNT(*) FROM $table WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetchColumn() > 0;
+    } catch (PDOException $e) {
+        handleDatabaseError($e->getMessage());
+        return false;
+    }
+}
+
 // Connexion utilisateur
 function tryLogin($data) {
     $database = dbConnect();
@@ -146,7 +159,7 @@ function getInterventionById($id) { return getById('interventions', 'id', $id); 
 
 function getPrestationById($id) { return getById('prestations', 'id', $id); }
 
-function getServiceById($id) { return getById('services', 'service_id', $id); }
+function getServiceById($id) { return getById('services', 'id', $id); }
 
 function getUserById($id) { return getById('users', 'id', $id); }
 
