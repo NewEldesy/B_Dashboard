@@ -122,6 +122,11 @@ function handleAdd($entity) {
                 header('location:index.php?page=participant');
                 exit;
 
+            case 'facture':
+                addFacture($_POST);
+                header('location:index.php?page=facture');
+                exit;
+
             default:
                 include_once('app/404.php');
                 exit;
@@ -228,22 +233,29 @@ function handleDelete($entity) {
                 header('location:index.php?page=participant');
                 exit;
 
+            case 'facture':
+                removeFacture($_GET['id']);
+                header('location:index.php?page=facture');
+                exit;
+
             default:
                 include_once('app/404.php');
                 exit;
         }
     } else {
-        echo "Identifiant manquant.";
+        header('location:index.php?page=dashboard');
         exit;
     }
 }
 
 function handlePrint($entity) {
     if (isset($_GET['id'])) {
-        $result = getEntityById($entity, $_GET['id']);
-        include_once("app/print-$entity.php");
+        switch ($entity) {
+            case 'facture':
+                include_once('app/facture_pro.php');
+        }
     } else {
-        echo "Identifiant manquant.";
+        header('location:index.php?page=dashboard');
         exit;
     }
 }
@@ -297,6 +309,10 @@ function getEntities($entity) {
 
         case 'participant':
             return getParticipant();
+            break;
+
+        case 'facture':
+            return getFacture();
             break;
 
         default:
