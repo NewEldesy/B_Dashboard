@@ -1,5 +1,5 @@
 <?php
-require('./assets/pdflib/fpdf182/fpdf.php');
+require('./pdflib/fpdf182/fpdf.php');
 
 class PDF extends FPDF
 {
@@ -105,10 +105,10 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->SetFillColor(200, 200, 200);
 
 //
-$pdf->Cell($largeurTableau * 0.5, 8, utf8_decode('Description'), 0, 0, 'C', true);
-$pdf->Cell($largeurTableau * 0.1, 8, 'Quantite', 0, 0, 'C', true);
-$pdf->Cell($largeurTableau * 0.2, 8, 'Prix Unitaire', 0, 0, 'C', true);
-$pdf->Cell($largeurTableau * 0.2, 8, 'Total', 0, 1, 'C', true);
+$pdf->Cell($largeurTableau * 0.5, 8, utf8_decode('Description'), 1, 0, 'C', true);
+$pdf->Cell($largeurTableau * 0.1, 8, utf8_decode('Quantite'), 1, 0, 'C', true);
+$pdf->Cell($largeurTableau * 0.2, 8, utf8_decode('Prix Unitaire'), 1, 0, 'C', true);
+$pdf->Cell($largeurTableau * 0.2, 8, utf8_decode('Total'), 1, 1, 'C', true);
 
 // Définir la couleur de fond grise
 $pdf->SetFillColor(220, 220, 220);
