@@ -300,6 +300,92 @@ function updateFormation($data) {updateRecord('Formations', $data, 'id', $data['
 
 function updateParticipant($data) {updateRecord('FormationParticipantsDetails', $data, 'id', $data['id']); }
 
+function updateFacture($data) {
+    $database = dbConnect();
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($data['submit'])) {
+        // Récupérer les données de la facture depuis le formulaire
+        $nFacture = $data['nFacture'];
+        $nom_entreprise = $data['nom_entreprise'];
+        $IFU = $data['IFU'];
+        $RCCM = $data['RCCM'];
+        $divisionFiscale = $data['divisionFiscale'];
+        $client_adresse = $data['client_adresse'];
+        $client_telephone = $data['client_telephone'];
+        $objet_facture = $data['objet_facture'];
+    
+        // Récupérer les éléments de la facture depuis le champ caché JSON
+        $elements = json_decode($data['elements'], true);
+    
+        // Calculer le total de la facture
+        $total_facture = 0;
+        foreach ($elements as $element) {
+            $total_facture += $element['total'];
+        }
+    
+        // Définir la TVA (dans votre cas, c'est 0)
+        $tva = 0;
+    
+        // Date d'émission de la facture (actuelle)
+        $date_facture = date('Y-m-d');
+
+        // Début de la transaction
+        $database->beginTransaction();
+
+        // Requête pour mettre à jour les données dans la table `Facture`
+        $queryFacture = "UPDATE `Facture` SET 
+            `date_facture` = :date_facture,
+            `nom_entreprise` = :nom_entreprise,
+            `IFU` = :IFU,
+            `RCCM` = :RCCM,
+            `divisionFiscale` = :divisionFiscale,
+            `client_adresse` = :client_adresse,
+            `client_telephone` = :client_telephone,
+            `objet_facture` = :objet_facture,
+            `total_facture` = :total_facture,
+            `tva` = :tva
+            WHERE `nFacture` = :nFacture";
+
+        $stmtFacture = $database->prepare($queryFacture);
+        $stmtFacture->bindParam(':nFacture', $nFacture);
+        $stmtFacture->bindParam(':date_facture', $date_facture);
+        $stmtFacture->bindParam(':nom_entreprise', $nom_entreprise);
+        $stmtFacture->bindParam(':IFU', $IFU);
+        $stmtFacture->bindParam(':RCCM', $RCCM);
+        $stmtFacture->bindParam(':divisionFiscale', $divisionFiscale);
+        $stmtFacture->bindParam(':client_adresse', $client_adresse);
+        $stmtFacture->bindParam(':client_telephone', $client_telephone);
+        $stmtFacture->bindParam(':objet_facture', $objet_facture);
+        $stmtFacture->bindParam(':total_facture', $total_facture);
+        $stmtFacture->bindParam(':tva', $tva);
+        $stmtFacture->execute();
+
+        // Supprimer les éléments existants de la facture dans la table `ElementFacture`
+        $queryDeleteElements = "DELETE FROM `ElementFacture` WHERE `nFacture` = :nFacture";
+        $stmtDeleteElements = $database->prepare($queryDeleteElements);
+        $stmtDeleteElements->bindParam(':nFacture', $nFacture);
+        $stmtDeleteElements->execute();
+
+        // Requête pour insérer les nouveaux éléments de la facture dans la table `ElementFacture`
+        $queryElementFacture = "INSERT INTO `ElementFacture` (`nFacture`, `description`, `quantite`, `prix_unitaire`, `total`)
+            VALUES (:nFacture, :description, :quantite, :prix_unitaire, :total)";
+
+        $stmtElementFacture = $database->prepare($queryElementFacture);
+
+        // Boucle pour insérer chaque élément de la facture
+        foreach ($elements as $element) {
+            $stmtElementFacture->bindParam(':nFacture', $nFacture);
+            $stmtElementFacture->bindParam(':description', $element['description']);
+            $stmtElementFacture->bindParam(':quantite', $element['quantite']);
+            $stmtElementFacture->bindParam(':prix_unitaire', $element['prix_unitaire']);
+            $stmtElementFacture->bindParam(':total', $element['total']);
+            $stmtElementFacture->execute();
+        }
+
+        // Valider la transaction
+        $database->commit();
+    }
+}
+
 // Fonctions pour lire des enregistrements dans différentes tables
 function getClients() { return getAll('clients'); }
 

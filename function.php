@@ -178,6 +178,11 @@ function handleUpdate($entity) {
                 header('location:index.php?page=participant');
                 exit;
 
+            case 'facture':
+                updateFacture($_POST);
+                header('location:index.php?page=facture');
+                exit;
+
             default:
                 include_once('app/404.php');
                 exit;
@@ -350,6 +355,10 @@ function getEntityById($entity, $id) {
 
         case 'participant':
             return getParticipantById($id);
+            break;
+
+        case 'facture':
+            return getFactureById($id);
             break;
 
         default:
