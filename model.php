@@ -46,12 +46,14 @@ function checkAccess($requiredLevel) {
 
 // Génération d'étiquettes de statut en fonction du statut donné
 function generateStatusLabel($statut) {
-    $labels = ["Réservé" => '<span class="badge bg-danger text-black fw-bold">Réservé</span>',
-        "En attente" => '<span class="badge bg-warning text-black fw-bold">En attente</span>',
-        "Payé" => '<span class="badge bg-success text-black fw-bold">Payé</span>'];
-    if (array_key_exists($statut, $labels)) {
-        return $labels[$statut];
-    } else { return ''; }
+    switch ($statut) {
+        case "non payé":
+            return '<span class="badge bg-warning text-black fw-bold">Non Payé</span>';
+        case "payé":
+            return '<span class="badge bg-success text-black fw-bold">Payé</span>';
+        default:
+            return '';
+    }
 }
 
 // Redirection vers le tableau de bord

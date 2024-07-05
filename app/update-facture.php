@@ -55,6 +55,13 @@ $elements = getFactureElementByF($result['nFacture']);
                                 <label for="objet_facture" class="form-label">Objet Facture</label>
                                 <input id="facture_date" type="text" class="form-control" name="objet_facture" value="<?=$result['objet_facture']?>" required>
                             </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="statut">Statut</label>
+                                <select class="form-select" name="statut">
+                                    <option value="non payé" <?=($result['statut']== 'non payé') ? 'selected' : '';?>>Non Payé</option>
+                                    <option value="payé" <?=($result['statut']== 'payé') ? 'selected' : '';?>>Payé</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12"><hr /></div>

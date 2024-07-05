@@ -8,7 +8,7 @@
                 <!-- Title Page Start -->
                 <div class="col-sm-12 col-xl">
                     <div class="bg-light rounded h-100 p-4">
-                        <h1 class="display-4">Ajout Interventions</h1>
+                        <h1 class="display-4">Nouvelle Intervention</h1>
                     </div>
                 </div>
                 <!-- Title Page End -->
@@ -26,7 +26,7 @@
                                         <?php $clients = getClients();
                                             foreach($clients as $c) {
                                         ?>
-                                        <option value="<?=$c['client_id'];?>"><?=$c['prenom']. " " .$c['nom'];?></option>
+                                        <option value="<?=$c['id'];?>"><?=$c['prenom']. " " .$c['nom'];?></option>
                                         <?php } ?>
                                     </select>
                                 </div>

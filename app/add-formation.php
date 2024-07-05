@@ -8,7 +8,7 @@
                 <!-- Title Page Start -->
                 <div class="col-sm-12 col-xl">
                     <div class="bg-light rounded h-100 p-4">
-                        <h1 class="display-4">Ajout Formations</h1>
+                        <h1 class="display-4">Nouvelle Formation</h1>
                     </div>
                 </div>
                 <!-- Title Page End -->

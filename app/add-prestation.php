@@ -8,7 +8,7 @@
                 <!-- Title Page Start -->
                 <div class="col-sm-12 col-xl">
                     <div class="bg-light rounded h-100 p-4">
-                        <h1 class="display-4">Ajout Prestations</h1>
+                        <h1 class="display-4">Nouvelle Prestation</h1>
                     </div>
                 </div>
                 <!-- Title Page End -->
@@ -24,7 +24,7 @@
                                         <?php $clients = getClients();
                                             foreach($clients as $c) {
                                         ?>
-                                        <option value="<?=$c['client_id'];?>"><?=$c['prenom']. " " .$c['nom'];?></option>
+                                        <option value="<?=$c['id'];?>"><?=$c['prenom']. " " .$c['nom'];?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
@@ -89,7 +89,7 @@
                                 </thead>
                                 <tbody>
                                     <?php foreach($entities as $prestation) {
-                                        $statusLabels = [ 1 => 'Début', 2 => 'En Cours', 3 => 'Terminé' ]; 
+                                        $statusLabels = [ 'debut' => 'Début', 'en cours' => 'En Cours', 'termine' => 'Terminé' ]; 
                                     ?>
                                     <tr>
                                         <td><?=$prestation['id']?></td>
@@ -100,7 +100,7 @@
                                         <td><?=$prestation['date_debut_prestation']?></td>
                                         <td><?=$prestation['date_fin_prestation']?></td>
                                         <td>
-                                            <?= isset($statusLabels[$prestation['statut_prestation']]) ? htmlspecialchars($statusLabels[$prestation['statut_prestation']]) : 'Inconnu'; ?>
+                                            <?= isset($statusLabels[$prestation['statut_prestation']]) ? htmlspecialchars($statusLabels[$prestation['statut_prestation']]) : ''; ?>
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-primary" href="index.php?page=prestation&action=update&id=<?=$prestation['id']?>"><i class="fas fa-edit"></i></a>

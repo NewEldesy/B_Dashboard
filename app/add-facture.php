@@ -52,6 +52,13 @@
                                             <label for="objet_facture" class="form-label">Objet Facture</label>
                                             <input id="facture_date" type="text" class="form-control" name="objet_facture" required>
                                         </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="statut">Statut</label>
+                                            <select class="form-select" name="statut">
+                                                <option value="payé">Non Payé</option>
+                                                <option value="non payé">Payé</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12"><hr /></div>
@@ -114,6 +121,7 @@
                                         <th scope="col">RCCM</th>
                                         <th scope="col">Division Fiscale</th>
                                         <th scope="col">Total</th>
+                                        <th scope="col">Statut</th>
                                         <th scope="col">Date Emission</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -129,6 +137,7 @@
                                         <td><?=$Facture['RCCM']?></td>
                                         <td><?=$Facture['divisionFiscale']?></td>
                                         <td><?=$Facture['total_facture']?></td>
+                                        <td><?= generateStatusLabel($Facture['statut']); ?></td>
                                         <td><?=$Facture['date_facture']?></td>
                                         <td>
                                             <a class="btn btn-sm btn-primary" href="index.php?page=facture&action=update&id=<?=$Facture['nFacture']?>"><i class="fas fa-edit"></i></a>
