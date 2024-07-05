@@ -25,7 +25,7 @@ function validationAction($action) {
 
 // Fonctions pour obtenir la date actuelle en différents formats
 function getCurrentDateTimeString() {
-    return date('YmHi'); // Format pour une chaîne numérique de date et heure
+    return date('ymdHi'); // Format pour une chaîne numérique de date et heure
 }
 
 function frenchDate() {
@@ -51,9 +51,7 @@ function generateStatusLabel($statut) {
         "Payé" => '<span class="badge bg-success text-black fw-bold">Payé</span>'];
     if (array_key_exists($statut, $labels)) {
         return $labels[$statut];
-    } else {
-        return ''; // Retourne une chaîne vide si le statut n'est pas trouvé
-    }
+    } else { return ''; }
 }
 
 // Redirection vers le tableau de bord
@@ -189,29 +187,21 @@ function addFacture($data) {
     $database = dbConnect();
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($data['submit'])) {
         // Récupérer les données de la facture depuis le formulaire
-        $nom_entreprise = $data['nom_entreprise']; $IFU = $data['IFU'];
-        $RCCM = $data['RCCM']; $divisionFiscale = $data['divisionFiscale'];
-        $client_adresse = $data['client_adresse']; $client_telephone = $data['client_téléphone'];
-        $objet_facture = $data['objet_facture'];
+        $nom_entreprise = $data['nom_entreprise']; $IFU = $data['IFU']; $RCCM = $data['RCCM']; $divisionFiscale = $data['divisionFiscale'];
+        $client_adresse = $data['client_adresse']; $client_telephone = $data['client_téléphone']; $objet_facture = $data['objet_facture'];
     
-        // Récupérer les éléments de la facture depuis le champ caché JSON
-        $elements = json_decode($data['elements'], true);
+        $elements = json_decode($data['elements'], true); // Récupérer les éléments de la facture depuis le champ caché JSON
     
         // N Facture
         $nFacture = getCurrentDateTimeString();
     
-        // Calculer le total de la facture
-        $total_facture = 0;
-        foreach ($elements as $element) { $total_facture += $element['total']; }
+        $total_facture = 0; foreach ($elements as $element) { $total_facture += $element['total']; } // Calculer le total de la facture
     
-        // Définir la TVA (dans votre cas, c'est 0)
-        $tva = 0;
-    
-        // Date d'émission de la facture (actuelle)
+        $tva = 0; // Définir la TVA (dans votre cas, c'est 0)
+        
         $date_facture = date('Y-m-d');
-
-        // Début de la transaction
-        $database->beginTransaction();
+        
+        $database->beginTransaction(); // Début de la transaction
 
         // Requête pour insérer les données dans la table `facture`
         $queryFacture = "INSERT INTO `Facture` (`nFacture`, `date_facture`, `nom_entreprise`, `IFU`, `RCCM`, `divisionFiscale`, 
@@ -227,9 +217,6 @@ function addFacture($data) {
         $stmtFacture->bindParam(':tva', $tva);
         $stmtFacture->execute();
 
-        // Récupérer l'ID de la dernière facture insérée
-        $lastInsertId = $nFacture;
-
         // Requête pour insérer les éléments de la facture dans la table `element_facture`
         $queryElementFacture = "INSERT INTO `ElementFacture` (`nFacture`, `description`, `quantite`, `prix_unitaire`, `total`)
             VALUES (:nFacture, :description, :quantite, :prix_unitaire, :total)";
@@ -238,13 +225,12 @@ function addFacture($data) {
 
         // Boucle pour insérer chaque élément de la facture
         foreach ($elements as $element) {
-            $stmtElementFacture->bindParam(':nFacture', $lastInsertId);
+            $stmtElementFacture->bindParam(':nFacture', $nFacture);
             $stmtElementFacture->bindParam(':description', $element['description']); $stmtElementFacture->bindParam(':quantite', $element['quantite']);
             $stmtElementFacture->bindParam(':prix_unitaire', $element['prix_unitaire']); $stmtElementFacture->bindParam(':total', $element['total']);
             $stmtElementFacture->execute();
         }
-        // Valider la transaction
-        $database->commit();
+        $database->commit(); // Valider la transaction
     }
 }
 
@@ -266,8 +252,7 @@ function removeParticipant($id) { deleteRecord('FormationParticipantsDetails', '
 function removeFacture($id) {
     $database = dbConnect();
     
-    // Début de la transaction
-    $database->beginTransaction();
+    $database->beginTransaction(); // Début de la transaction
 
     // Supprimer les éléments de la facture dans la table `elementFacture`
     $queryDeleteElements = "DELETE FROM `ElementFacture` WHERE `nFacture` = :nFacture";
@@ -280,9 +265,8 @@ function removeFacture($id) {
     $stmtDeleteFacture = $database->prepare($queryDeleteFacture);
     $stmtDeleteFacture->bindParam(':nFacture', $id);
     $stmtDeleteFacture->execute();
-
-    // Valider la transaction
-    $database->commit();
+    
+    $database->commit(); // Valider la transaction
 }
 
 // Fonctions pour mettre à jour des enregistrements dans différentes tables
@@ -304,59 +288,34 @@ function updateFacture($data) {
     $database = dbConnect();
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($data['submit'])) {
         // Récupérer les données de la facture depuis le formulaire
-        $nFacture = $data['nFacture'];
-        $nom_entreprise = $data['nom_entreprise'];
-        $IFU = $data['IFU'];
-        $RCCM = $data['RCCM'];
-        $divisionFiscale = $data['divisionFiscale'];
-        $client_adresse = $data['client_adresse'];
-        $client_telephone = $data['client_telephone'];
-        $objet_facture = $data['objet_facture'];
+        $nFacture = $data['nFacture']; $nom_entreprise = $data['nom_entreprise'];
+        $IFU = $data['IFU']; $RCCM = $data['RCCM']; $divisionFiscale = $data['divisionFiscale'];
+        $client_adresse = $data['client_adresse']; $client_telephone = $data['client_telephone']; $objet_facture = $data['objet_facture'];
     
         // Récupérer les éléments de la facture depuis le champ caché JSON
         $elements = json_decode($data['elements'], true);
     
         // Calculer le total de la facture
         $total_facture = 0;
-        foreach ($elements as $element) {
-            $total_facture += $element['total'];
-        }
-    
-        // Définir la TVA (dans votre cas, c'est 0)
+        foreach ($elements as $element) { $total_facture += $element['total']; }
+        
         $tva = 0;
-    
-        // Date d'émission de la facture (actuelle)
         $date_facture = date('Y-m-d');
-
-        // Début de la transaction
-        $database->beginTransaction();
+        
+        $database->beginTransaction(); // Début de la transaction
 
         // Requête pour mettre à jour les données dans la table `Facture`
-        $queryFacture = "UPDATE `Facture` SET 
-            `date_facture` = :date_facture,
-            `nom_entreprise` = :nom_entreprise,
-            `IFU` = :IFU,
-            `RCCM` = :RCCM,
-            `divisionFiscale` = :divisionFiscale,
-            `client_adresse` = :client_adresse,
-            `client_telephone` = :client_telephone,
-            `objet_facture` = :objet_facture,
-            `total_facture` = :total_facture,
-            `tva` = :tva
-            WHERE `nFacture` = :nFacture";
+        $queryFacture = "UPDATE `Facture` SET  `date_facture` = :date_facture, `nom_entreprise` = :nom_entreprise,
+            `IFU` = :IFU, `RCCM` = :RCCM, `divisionFiscale` = :divisionFiscale, `client_adresse` = :client_adresse,
+            `client_telephone` = :client_telephone, `objet_facture` = :objet_facture, `total_facture` = :total_facture,
+            `tva` = :tva WHERE `nFacture` = :nFacture";
 
         $stmtFacture = $database->prepare($queryFacture);
-        $stmtFacture->bindParam(':nFacture', $nFacture);
-        $stmtFacture->bindParam(':date_facture', $date_facture);
-        $stmtFacture->bindParam(':nom_entreprise', $nom_entreprise);
-        $stmtFacture->bindParam(':IFU', $IFU);
-        $stmtFacture->bindParam(':RCCM', $RCCM);
-        $stmtFacture->bindParam(':divisionFiscale', $divisionFiscale);
-        $stmtFacture->bindParam(':client_adresse', $client_adresse);
-        $stmtFacture->bindParam(':client_telephone', $client_telephone);
-        $stmtFacture->bindParam(':objet_facture', $objet_facture);
-        $stmtFacture->bindParam(':total_facture', $total_facture);
-        $stmtFacture->bindParam(':tva', $tva);
+        $stmtFacture->bindParam(':nFacture', $nFacture); $stmtFacture->bindParam(':date_facture', $date_facture);
+        $stmtFacture->bindParam(':nom_entreprise', $nom_entreprise); $stmtFacture->bindParam(':IFU', $IFU); $stmtFacture->bindParam(':RCCM', $RCCM);
+        $stmtFacture->bindParam(':divisionFiscale', $divisionFiscale); $stmtFacture->bindParam(':client_adresse', $client_adresse);
+        $stmtFacture->bindParam(':client_telephone', $client_telephone); $stmtFacture->bindParam(':objet_facture', $objet_facture);
+        $stmtFacture->bindParam(':total_facture', $total_facture); $stmtFacture->bindParam(':tva', $tva);
         $stmtFacture->execute();
 
         // Supprimer les éléments existants de la facture dans la table `ElementFacture`
@@ -374,14 +333,10 @@ function updateFacture($data) {
         // Boucle pour insérer chaque élément de la facture
         foreach ($elements as $element) {
             $stmtElementFacture->bindParam(':nFacture', $nFacture);
-            $stmtElementFacture->bindParam(':description', $element['description']);
-            $stmtElementFacture->bindParam(':quantite', $element['quantite']);
-            $stmtElementFacture->bindParam(':prix_unitaire', $element['prix_unitaire']);
-            $stmtElementFacture->bindParam(':total', $element['total']);
+            $stmtElementFacture->bindParam(':description', $element['description']); $stmtElementFacture->bindParam(':quantite', $element['quantite']);
+            $stmtElementFacture->bindParam(':prix_unitaire', $element['prix_unitaire']); $stmtElementFacture->bindParam(':total', $element['total']);
             $stmtElementFacture->execute();
         }
-
-        // Valider la transaction
         $database->commit();
     }
 }
@@ -435,68 +390,34 @@ function getNbPrestation() { return getCount('prestations'); }
 function getNbService() { return getCount('services'); }
 
 function numberToWords($number) {
-    $hyphen      = '-';
-    $conjunction = ' ';
-    $separator   = ' ';
-    $negative    = 'moins ';
+    $hyphen      = '-'; $conjunction = ' ';
+    $separator   = ' '; $negative    = 'moins ';
     $decimal     = ' point ';
-    $dictionary  = [
-        0                   => 'zéro',
-        1                   => 'un',
-        2                   => 'deux',
-        3                   => 'trois',
-        4                   => 'quatre',
-        5                   => 'cinq',
-        6                   => 'six',
-        7                   => 'sept',
-        8                   => 'huit',
-        9                   => 'neuf',
-        10                  => 'dix',
-        11                  => 'onze',
-        12                  => 'douze',
-        13                  => 'treize',
-        14                  => 'quatorze',
-        15                  => 'quinze',
-        16                  => 'seize',
-        17                  => 'dix-sept',
-        18                  => 'dix-huit',
-        19                  => 'dix-neuf',
-        20                  => 'vingt',
-        30                  => 'trente',
-        40                  => 'quarante',
-        50                  => 'cinquante',
-        60                  => 'soixante',
-        70                  => 'soixante-dix',
-        80                  => 'quatre-vingt',
-        90                  => 'quatre-vingt-dix',
-        100                 => 'cent',
-        1000                => 'mille',
-        1000000             => 'million',
-        1000000000          => 'milliard'
-    ];
+
+    $dictionary  = [ 0 => 'zéro', 1 => 'un',
+        2 => 'deux', 3 => 'trois', 4 => 'quatre', 5 => 'cinq',
+        6 => 'six', 7 => 'sept', 8 => 'huit', 9 => 'neuf',
+        10 => 'dix', 11 => 'onze', 12 => 'douze', 13 => 'treize',
+        14 => 'quatorze', 15 => 'quinze', 16 => 'seize', 17 => 'dix-sept',
+        18 => 'dix-huit', 19 => 'dix-neuf', 20 => 'vingt', 30 => 'trente',
+        40 => 'quarante', 50 => 'cinquante', 60 => 'soixante', 70 => 'soixante-dix',
+        80 => 'quatre-vingt', 90 => 'quatre-vingt-dix', 100 => 'cent', 1000 => 'mille',
+        1000000 => 'million', 1000000000 => 'milliard' ];
     
-    if (!is_numeric($number)) {
-        return false;
-    }
+    if (!is_numeric($number)) { return false; }
     
     if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
-        // overflow
         trigger_error(
-            'numberToWords only accepts numbers between ' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
-            E_USER_WARNING
+            'numberToWords only accepts numbers between ' . PHP_INT_MAX . ' and ' . PHP_INT_MAX, E_USER_WARNING
         );
         return false;
     }
 
-    if ($number < 0) {
-        return $negative . numberToWords(abs($number));
-    }
+    if ($number < 0) { return $negative . numberToWords(abs($number)); }
 
     $string = $fraction = null;
 
-    if (strpos($number, '.') !== false) {
-        list($number, $fraction) = explode('.', $number);
-    }
+    if (strpos($number, '.') !== false) { list($number, $fraction) = explode('.', $number); }
 
     switch (true) {
         case $number < 21:
@@ -511,31 +432,23 @@ function numberToWords($number) {
             }
             break;
         case $number < 1000:
-            $hundreds  = $number / 100;
-            $remainder = $number % 100;
+            $hundreds  = $number / 100; $remainder = $number % 100;
             $string = $dictionary[(int) $hundreds] . ' ' . $dictionary[100];
-            if ($remainder) {
-                $string .= $conjunction . numberToWords($remainder);
-            }
+            if ($remainder) { $string .= $conjunction . numberToWords($remainder); }
             break;
         default:
             $baseUnit = pow(1000, floor(log($number, 1000)));
-            $numBaseUnits = (int) ($number / $baseUnit);
-            $remainder = $number % $baseUnit;
+            $numBaseUnits = (int) ($number / $baseUnit); $remainder = $number % $baseUnit;
             $string = numberToWords($numBaseUnits) . ' ' . $dictionary[$baseUnit];
             if ($remainder) {
-                $string .= $remainder < 100 ? $conjunction : $separator;
-                $string .= numberToWords($remainder);
+                $string .= $remainder < 100 ? $conjunction : $separator; $string .= numberToWords($remainder);
             }
             break;
     }
 
     if (null !== $fraction && is_numeric($fraction)) {
-        $string .= $decimal;
-        $words = [];
-        foreach (str_split((string) $fraction) as $number) {
-            $words[] = $dictionary[$number];
-        }
+        $string .= $decimal; $words = [];
+        foreach (str_split((string) $fraction) as $number) { $words[] = $dictionary[$number]; }
         $string .= implode(' ', $words);
     }
 
