@@ -2,23 +2,14 @@
 // Fonction pour gérer la connexion
 function handleLogin() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['Email']) && !empty($_POST['Password'])) {
-        try {
-            $user = tryLogin($_POST);
+        try { $user = tryLogin($_POST);
             if (!empty($user)) {
-                $_SESSION["UserID"] = $user['id'];
-                $_SESSION["Email"] = $user['Email'];
-                $_SESSION["Nom"] = $user['Nom'];
-                $_SESSION["Prenom"] = $user['Prenom'];
+                $_SESSION["UserID"] = $user['id']; $_SESSION["Email"] = $user['Email'];
+                $_SESSION["Nom"] = $user['Nom']; $_SESSION["Prenom"] = $user['Prenom'];
                 redirectToDashboard();
-            } else {
-                echo 'Identifiants invalides.';
-            }
-        } catch (PDOException $e) {
-            handleDatabaseError($e->getMessage());
-        }
-    } else {
-        include_once('app/signin.php');
-    }
+            } else { echo 'Identifiants invalides.'; include_once('app/signin.php'); }
+        } catch (PDOException $e) { handleDatabaseError($e->getMessage()); }
+    } else { include_once('app/signin.php'); }
 }
 
 // Fonction pour gérer la déconnexion
@@ -26,28 +17,6 @@ function handleLogout() {
     session_destroy();
     header('location: index.php');
     exit;
-}
-
-// Ajoutez cette fonction pour obtenir le nom de la table en fonction de l'entité
-function getTableName($entity) {
-    switch ($entity) {
-        case 'client':
-            return 'clients';
-        case 'intervention':
-            return 'interventions';
-        case 'prestation':
-            return 'prestations';
-        case 'service':
-            return 'services';
-        case 'user':
-            return 'users';
-        case 'formation':
-            return 'Formations';
-        case 'participant':
-            return 'FormationParticipantsDetails';
-        default:
-            return '';
-    }
 }
 
 // Fonction pour gérer les pages de type entité (client, intervention, prestation, service)
@@ -78,7 +47,6 @@ function handleEntity($entity) {
                 break;
         }
     } else {
-        // Affichage par défaut (liste ou ajout)
         handleDefault($entity);
     }
 }
@@ -132,7 +100,6 @@ function handleAdd($entity) {
                 exit;
         }
     } else {
-        // Affichage du formulaire d'ajout
         $entities = getEntities($entity);
         include_once("app/add-$entity.php");
     }
@@ -188,7 +155,6 @@ function handleUpdate($entity) {
                 exit;
         }
     } else {
-        // Affichage du formulaire de mise à jour
         if (isset($_GET['id'])) {
             $result = getEntityById($entity, $_GET['id']);
             include_once("app/update-$entity.php");
