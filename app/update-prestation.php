@@ -28,17 +28,13 @@
                                         <?php $clients = getClients();
                                             foreach($clients as $c) {
                                         ?>
-                                        <option value="<?=$c['client_id'];?>" <?=($result['client_id']==$c['client_id']) ? 'selected' : '';?>><?=$c['prenom']. " " .$c['nom'];?></option>
+                                        <option value="<?=$c['id'];?>" <?=($result['id']==$c['id']) ? 'selected' : '';?>><?=$c['prenom']. " " .$c['nom'];?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type_prestation" class="form-label">Type Prestations</label>
-                                    <select class="form-select" name="type_prestation">
-                                        <option value="1" <?=($result['type_prestation']==1) ? 'selected' : '';?>>type 1</option>
-                                        <option value="2" <?=($result['type_prestation']==2) ? 'selected' : '';?>>type 2</option>
-                                        <option value="3" <?=($result['type_prestation']==3) ? 'selected' : '';?>>type 3</option>
-                                    </select>
+                                    <input type="text" class="form-control" value="<?= $result['type_prestation'];?>" name="type_prestation">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="description_prestation" class="form-label">Description Interventions</label>

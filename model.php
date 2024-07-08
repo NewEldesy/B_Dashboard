@@ -99,6 +99,30 @@ function totalCoutP() { return totalCouts('prestations', 'cout_prestation'); }
 
 function totalCoutI() {  return totalCouts('interventions', 'cout_intervention'); }
 
+function totalCoutFormation() {
+    $database = dbConnect();
+    $today = date('Y-m-d');
+    $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id WHERE f.date_fin >= :today");
+    // $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails"); // De toutes les formations
+    $stmt->bindParam(':today', $today);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total_paye'];
+}
+
+function TotalPaidInvoices() {
+    $database = dbConnect();    
+    $stmt = $database->prepare("SELECT SUM(total_facture) as total FROM Facture WHERE statut = 'payé' ");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+function TotalUnPaidInvoices() {
+    $database = dbConnect();   
+    $stmt = $database->prepare("SELECT SUM(total_facture) as total FROM Facture WHERE statut = 'non payé' ");
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
 // Fonction générique pour compter les enregistrements
 function getCount($table) {
     $database = dbConnect();
@@ -377,11 +401,6 @@ function CoutInterventionByType($type) {
     return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout_by_type'];
 }
 
-// Fonctions pour calculer le couts dans différentes tables
-function CoutInterventionEnCours(){ return CoutInterventionByType(2); }
-
-function CoutInterventionTermine(){ return CoutInterventionByType(3); }
-
 // Fonctions pour lire le nombres d'enregistrements dans différentes tables
 function getNbClient() { return getCount('clients'); }
 
@@ -391,43 +410,58 @@ function getNbPrestation() { return getCount('prestations'); }
 
 function getNbService() { return getCount('services'); }
 
-function numberToWords($number) {
-    $hyphen      = '-'; $conjunction = ' ';
-    $separator   = ' '; $negative    = 'moins ';
-    $decimal     = ' point ';
+function countInvoices() { return getCount('Facture'); }
 
-    $dictionary  = [ 0 => 'zéro', 1 => 'un',
-        2 => 'deux', 3 => 'trois', 4 => 'quatre', 5 => 'cinq',
-        6 => 'six', 7 => 'sept', 8 => 'huit', 9 => 'neuf',
-        10 => 'dix', 11 => 'onze', 12 => 'douze', 13 => 'treize',
-        14 => 'quatorze', 15 => 'quinze', 16 => 'seize', 17 => 'dix-sept',
-        18 => 'dix-huit', 19 => 'dix-neuf', 20 => 'vingt', 30 => 'trente',
-        40 => 'quarante', 50 => 'cinquante', 60 => 'soixante', 70 => 'soixante-dix',
-        80 => 'quatre-vingt', 90 => 'quatre-vingt-dix', 100 => 'cent', 1000 => 'mille',
-        1000000 => 'million', 1000000000 => 'milliard' ];
+function getNbParticipant() {
+    $database = dbConnect(); $today = date('Y-m-d');
+    $stmt = $database->prepare("SELECT COUNT(fp.id) as total FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id WHERE f.date_fin >= :today");
+    $stmt->bindParam(':today', $today); $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+function countUpcomingFormations() {
+    $database = dbConnect(); $today = date('Y-m-d');
+    $stmt = $database->prepare("SELECT COUNT(*) as total FROM Formations WHERE date_fin >= :today");
+    $stmt->bindParam(':today', $today); $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+function countPaidInvoices() {
+    $database = dbConnect();     
+    $stmt = $database->prepare("SELECT COUNT(*) as total_payees FROM Facture WHERE statut = 'payé' ");
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total_payees'];
+}
+
+function countUnpaidInvoices() {
+    $database = dbConnect();
+    $stmt = $database->prepare("SELECT COUNT(*) as total_non_payees FROM Facture WHERE statut = 'non payé'");
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total_non_payees'];
+}
+
+function numberToWords($number) {
+    $hyphen      = '-'; $conjunction = ' '; $separator   = ' '; $negative    = 'moins '; $decimal     = ' point ';
+
+    $dictionary  = [ 0 => 'zéro', 1 => 'un', 2 => 'deux', 3 => 'trois', 4 => 'quatre', 5 => 'cinq', 6 => 'six', 7 => 'sept', 8 => 'huit',
+        9 => 'neuf', 10 => 'dix', 11 => 'onze', 12 => 'douze', 13 => 'treize', 14 => 'quatorze', 15 => 'quinze', 16 => 'seize', 17 => 'dix-sept',
+        18 => 'dix-huit', 19 => 'dix-neuf', 20 => 'vingt', 30 => 'trente', 40 => 'quarante', 50 => 'cinquante', 60 => 'soixante', 70 => 'soixante-dix',
+        80 => 'quatre-vingt', 90 => 'quatre-vingt-dix', 100 => 'cent', 1000 => 'mille', 1000000 => 'million', 1000000000 => 'milliard' ];
     
     if (!is_numeric($number)) { return false; }
-    
     if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
         trigger_error(
             'numberToWords only accepts numbers between ' . PHP_INT_MAX . ' and ' . PHP_INT_MAX, E_USER_WARNING
         );
         return false;
     }
-
     if ($number < 0) { return $negative . numberToWords(abs($number)); }
-
     $string = $fraction = null;
-
     if (strpos($number, '.') !== false) { list($number, $fraction) = explode('.', $number); }
-
     switch (true) {
         case $number < 21:
             $string = $dictionary[$number];
             break;
         case $number < 100:
-            $tens   = ((int) ($number / 10)) * 10;
-            $units  = $number % 10;
+            $tens   = ((int) ($number / 10)) * 10; $units  = $number % 10;
             $string = $dictionary[$tens];
             if ($units) {
                 $string .= $hyphen . $dictionary[$units];
@@ -447,12 +481,10 @@ function numberToWords($number) {
             }
             break;
     }
-
     if (null !== $fraction && is_numeric($fraction)) {
         $string .= $decimal; $words = [];
         foreach (str_split((string) $fraction) as $number) { $words[] = $dictionary[$number]; }
         $string .= implode(' ', $words);
     }
-
     return $string;
 }

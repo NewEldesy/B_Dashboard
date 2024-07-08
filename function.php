@@ -245,8 +245,14 @@ function handleDashboard() {
     $service = getNbService();
     $coutPrestation = totalCoutP();
     $coutIntervention = totalCoutI();
-    $enCours = CoutInterventionEnCours();
-    $termine = CoutInterventionTermine();
+    $formationDispo = countUpcomingFormations();
+    $participant = getNbParticipant();
+    $coutFormation = totalCoutFormation();
+    $nbFacture = countInvoices();
+    $nbfPaye = countPaidInvoices();
+    $nbfnPaye = countUnpaidInvoices();
+    $totalFPaye = TotalPaidInvoices();
+    $totalFNpaye = TotalUnPaidInvoices();
     include_once('app/dashboard.php');
     exit;
 }

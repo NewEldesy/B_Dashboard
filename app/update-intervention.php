@@ -29,17 +29,13 @@
                                         <?php $clients = getClients();
                                             foreach($clients as $c) {
                                         ?>
-                                        <option value="<?=$c['client_id'];?>" <?=($result['client_id']==$c['client_id']) ? 'selected' : '';?>><?=$c['prenom']. " " .$c['nom'];?></option>
+                                        <option value="<?=$c['id'];?>" <?=($result['id']==$c['id']) ? 'selected' : '';?>><?=$c['prenom']. " " .$c['nom'];?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type_intervention" class="form-label">Type Intervention</label>
-                                    <select class="form-select" name="type_intervention" value="<?= $result['type_intervention'];?>" aria-label="Floating label select example">
-                                        <option value="1" <?=($result['type_intervention'] == 1) ? 'selected' : '';?> >type 1</option>
-                                        <option value="2" <?=($result['type_intervention'] == 2) ? 'selected' : '';?> >type 2</option>
-                                        <option value="3" <?=($result['type_intervention'] == 3) ? 'selected' : '';?> >type 3</option>
-                                    </select>
+                                    <input type="text" class="form-control" value="<?= $result['type_intervention'];?>" name="type_intervention">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="description_intervention" class="form-label">Description Intervention</label>

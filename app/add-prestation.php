@@ -30,11 +30,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type_prestation" class="form-label">Type Prestations</label>
-                                    <select class="form-select" name="type_prestation">
-                                        <option value="1">type 1</option>
-                                        <option value="2">type 2</option>
-                                        <option value="3">type 3</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="type_prestation">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="description_prestation" class="form-label">Description Interventions</label>

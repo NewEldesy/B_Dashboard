@@ -32,11 +32,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="type_intervention" class="form-label">Types Interventions</label>
-                                    <select class="form-select" name="type_intervention" aria-label="Floating label select example">
-                                        <option value="1">type 1</option>
-                                        <option value="2">type 2</option>
-                                        <option value="3">type 3</option>
-                                    </select>
+                                    <input type="text" class="form-control" name="type_intervention">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="description_intervention" class="form-label">Description Interventions</label>
@@ -44,7 +40,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="cout_intervention" class="form-label">Couts Interventions</label>
-                                    <input type="number" class="form-control" value="<?= $result['cout_intervention'];?>" name="cout_intervention">
+                                    <input type="number" class="form-control" name="cout_intervention">
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
