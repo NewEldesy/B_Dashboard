@@ -4,8 +4,14 @@ function handleLogin() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['Email']) && !empty($_POST['Password'])) {
         try { $user = tryLogin($_POST);
             if (!empty($user)) {
-                $_SESSION["UserID"] = $user['id']; $_SESSION["Email"] = $user['Email'];
+                $sessionDuration = 4 * 60 * 60; // Définir la durée de la session à 4 heures (en secondes)
+                $sessionExpiration = time() + $sessionDuration; // Définir le délai d'expiration de la session
+
+                $_SESSION["id"] = $user['id']; $_SESSION["Email"] = $user['Email'];
                 $_SESSION["Nom"] = $user['Nom']; $_SESSION["Prenom"] = $user['Prenom'];
+                $_SESSION["type_user"] = $user['type_user'];
+                
+                $_SESSION["expire"] = $sessionExpiration; // Définir l'heure d'expiration de la session
                 redirectToDashboard();
             } else { echo 'Identifiants invalides.'; include_once('app/signin.php'); }
         } catch (PDOException $e) { handleDatabaseError($e->getMessage()); }
@@ -24,6 +30,14 @@ function handleEntity($entity) {
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
         validationAction($action);
+
+        switch ($action) {
+            case 'add':
+            case 'update':
+            case 'delete':
+                checkUserSessionAndAction();
+                break;
+        }
 
         switch ($action) {
             case 'add':
@@ -210,12 +224,10 @@ function handleDelete($entity) {
                 exit;
 
             default:
-                include_once('app/404.php');
-                exit;
+                include_once('app/404.php'); exit;
         }
     } else {
-        header('location:index.php?page=dashboard');
-        exit;
+        header('location:index.php?page=dashboard'); exit;
     }
 }
 

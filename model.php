@@ -34,16 +34,6 @@ function frenchDate() {
     return $formatter->format($date); // Format complet en français
 }
 
-// Vérification d'accès basée sur le niveau d'utilisateur
-function checkAccess($requiredLevel) {
-    if (!isset($_SESSION['UserLevel']) || $_SESSION['UserLevel'] > $requiredLevel) {
-        $currentPage = isset($_GET['page']) ? $_GET['page'] : '';
-        $viewPage = 'index.php?page=' . $currentPage . '&action=view';
-        header('Location: ' . $viewPage);
-        exit;
-    }
-}
-
 // Génération d'étiquettes de statut en fonction du statut donné
 function generateStatusLabel($statut) {
     switch ($statut) {
@@ -177,7 +167,7 @@ function updateRecord($table, $data, $idColumn, $id) {
 }
 
 // D'autres fonctions spécifiques pour obtenir des enregistrements par ID pour différentes tables
-function getCLientById($id) { return getById('clients', 'client_id', $id); }
+function getCLientById($id) { return getById('clients', 'id', $id); }
 
 function getInterventionById($id) { return getById('interventions', 'id', $id); }
 
@@ -487,4 +477,30 @@ function numberToWords($number) {
         $string .= implode(' ', $words);
     }
     return $string;
+}
+
+function checkUserSessionAndAction() {
+    $action = isset($_GET['action']) ? $_GET['action'] : '';
+
+    // Vérifier si $_SESSION['type_user'] est défini
+    if (!isset($_SESSION['type_user'])) { include_once('app/404.php'); exit();}
+
+    // Vérifier les conditions basées sur le type d'utilisateur et l'action
+    switch ($_SESSION['type_user']) {
+        case 1: // Type d'utilisateur 1 : autorisé pour toutes les actions
+            return;
+            break;
+        
+        case 2: // Type d'utilisateur 2 : autorisé pour 'add', 'update' seulement
+            if (($action == 'update' || $action == 'add')) { return; }
+            else { include_once('app/404.php'); exit(); }
+            break;
+        
+        case 3: // Type d'utilisateur 3 : aucune autorisation
+            break;
+        
+        default: // Pour tout autre type d'utilisateur, redirection vers la page 404
+            break;
+    }
+    include_once('app/404.php'); exit();
 }

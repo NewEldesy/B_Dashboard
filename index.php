@@ -5,7 +5,7 @@
     include_once('function.php');
     
     // Vérification si l'utilisateur est connecté
-    if (!isset($_SESSION['UserID'])) {
+    if (!isset($_SESSION['id']) || !isset($_SESSION['type_user'])) {
         // Si non connecté, traiter la connexion
         handleLogin();
     } else {

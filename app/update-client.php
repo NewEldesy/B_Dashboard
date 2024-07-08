@@ -15,9 +15,9 @@
                 <!-- Form Page Start -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded-top p-4">
-                        <form  action="index.php?page=client&action=update&id=<?=$result['client_id'];?>" method="post">
+                        <form  action="index.php?page=client&action=update&id=<?=$result['id'];?>" method="post">
                             <div class="row">
-                                <input type="hidden" value="<?=$result['client_id'];?>" name="client_id">
+                                <input type="hidden" value="<?=$result['id'];?>" name="id">
                                 <div class="col-md-6 mb-3">
                                     <label for="nom" class="form-label">Nom(s)</label>
                                     <input type="text" class="form-control" value="<?=$result['nom'];?>" name="nom" required>
