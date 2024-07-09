@@ -18,15 +18,12 @@ function handleLogin() {
     } else { include_once('app/signin.php'); }
 }
 
-// Fonction pour gérer la déconnexion
-function handleLogout() {
-    session_destroy();
-    header('location: index.php');
+function handleLogout() { // Fonction pour gérer la déconnexion
+    session_destroy(); header('location: index.php');
     exit;
 }
 
-// Fonction pour gérer les pages de type entité (client, intervention, prestation, service)
-function handleEntity($entity) {
+function handleEntity($entity) { // Fonction pour gérer les pages de type entité (client, intervention, prestation, service)
     if (isset($_GET['action'])) {
         $action = $_GET['action'];
         validationAction($action);
@@ -65,8 +62,7 @@ function handleEntity($entity) {
     }
 }
 
-// Fonction pour gérer l'ajout d'une entité
-function handleAdd($entity) {
+function handleAdd($entity) { // Fonction pour gérer l'ajout d'une entité
     if (isset($_POST) && !empty($_POST)) {
         switch ($entity) {
             case 'client':
@@ -119,8 +115,7 @@ function handleAdd($entity) {
     }
 }
 
-// Fonction pour gérer la mise à jour d'une entité
-function handleUpdate($entity) {
+function handleUpdate($entity) { // Fonction pour gérer la mise à jour d'une entité
     if (isset($_POST) && !empty($_POST) && isset($_GET['id'])) {
         
         switch ($entity) {
@@ -179,8 +174,7 @@ function handleUpdate($entity) {
     }
 }
 
-// Fonction pour gérer la suppression d'une entité
-function handleDelete($entity) {
+function handleDelete($entity) { // Fonction pour gérer la suppression d'une entité
     if (isset($_GET['id'])) {
         switch ($entity) {
             case 'client':
@@ -243,14 +237,12 @@ function handlePrint($entity) {
     }
 }
 
-// Fonction pour gérer l'affichage par défaut (liste ou ajout)
-function handleDefault($entity) {
+function handleDefault($entity) { // Fonction pour gérer l'affichage par défaut (liste ou ajout)
     $entities = getEntities($entity);
     include_once("app/add-$entity.php");
 }
 
-// Fonction pour gérer l'affichage du tableau de bord
-function handleDashboard() {
+function handleDashboard() { // Fonction pour gérer l'affichage du tableau de bord
     $client = getNbClient();
     $intervention = getNbIntervention();
     $prestation = getNbPrestation();
@@ -269,8 +261,7 @@ function handleDashboard() {
     exit;
 }
 
-// Fonction générique pour récupérer les entités en fonction du type
-function getEntities($entity) {
+function getEntities($entity) { // Fonction générique pour récupérer les entités en fonction du type
     switch ($entity) {
         case 'client':
             return getClients();
@@ -310,8 +301,7 @@ function getEntities($entity) {
     }
 }
 
-// Fonction pour récupérer une entité par son ID
-function getEntityById($entity, $id) {
+function getEntityById($entity, $id) { // Fonction pour récupérer une entité par son ID
     switch ($entity) {
         case 'client':
             return getClientById($id);
@@ -350,4 +340,3 @@ function getEntityById($entity, $id) {
             break;
     }
 }
-?>

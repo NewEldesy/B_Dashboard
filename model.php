@@ -1,6 +1,5 @@
 <?php
-// Connexion à la base de données
-function dbConnect() {
+function dbConnect() { // Connexion à la base de données
     try {
         $database = new PDO('mysql:host=mysql-btechgroup.alwaysdata.net;dbname=btechgroup_dashboard;charset=utf8', '364785', 'w!Z7ntgLcLYE9NU');
         $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -10,21 +9,15 @@ function dbConnect() {
     }
 }
 
-// Gestion des erreurs de base de données
-function handleDatabaseError($errorMessage) {
+function handleDatabaseError($errorMessage) { // Gestion des erreurs de base de données
     exit("Erreur de base de données : " . $errorMessage);
 }
 
-// Validation et filtrage sécurisé de l'action
-function validationAction($action) {
-    if (!in_array($action, ['add', 'update', 'delete', 'print'])) {
-        header('location:index.php?page=dashord');
-        exit;
-    }
+function validationAction($action) { // Validation et filtrage sécurisé de l'action
+    if (!in_array($action, ['add', 'update', 'delete', 'print'])) { redirectToDashboard(); }
 }
 
-// Fonctions pour obtenir la date actuelle en différents formats
-function getCurrentDateTimeString() {
+function getCurrentDateTimeString() { // Fonctions pour obtenir la date actuelle en différents formats
     return date('ymdHi'); // Format pour une chaîne numérique de date et heure
 }
 
@@ -34,8 +27,7 @@ function frenchDate() {
     return $formatter->format($date); // Format complet en français
 }
 
-// Génération d'étiquettes de statut en fonction du statut donné
-function generateStatusLabel($statut) {
+function generateStatusLabel($statut) { // Génération d'étiquettes de statut en fonction du statut donné
     switch ($statut) {
         case "non payé":
             return '<span class="badge bg-warning text-black fw-bold">Non Payé</span>';
@@ -46,43 +38,32 @@ function generateStatusLabel($statut) {
     }
 }
 
-// Redirection vers le tableau de bord
-function redirectToDashboard() {
-    header('location: index.php?page=dashboard');
-    exit;
-}
+function redirectToDashboard() { // Redirection vers le tableau de bord
+    header('location: index.php?page=dashboard'); exit; }
 
-// Ajoutez cette fonction pour vérifier si un ID existe dans une table
-function doesIdExist($table, $id) {
+function doesIdExist($table, $id) { // Ajoutez cette fonction pour vérifier si un ID existe dans une table
     $database = dbConnect();
     try {
         $stmt = $database->prepare("SELECT COUNT(*) FROM $table WHERE id = :id");
-        $stmt->execute([':id' => $id]);
-        return $stmt->fetchColumn() > 0;
+        $stmt->execute([':id' => $id]); return $stmt->fetchColumn() > 0;
     } catch (PDOException $e) {
-        handleDatabaseError($e->getMessage());
-        return false;
+        handleDatabaseError($e->getMessage()); return false;
     }
 }
 
-// Connexion utilisateur
-function tryLogin($data) {
+function tryLogin($data) { // Connexion utilisateur
     $database = dbConnect();
     $stmt = $database->prepare("SELECT * FROM users WHERE Email = :email");
-    $stmt->bindParam(':email', $data['Email']);
-    $stmt->execute();
+    $stmt->bindParam(':email', $data['Email']); $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
     if ($user && password_verify($data['Password'], $user['Password'])) { return $user; }
     else { return null; }
 }
 
-// Fonctions pour le calcul des coûts totaux
-function totalCouts($table, $column) {
+function totalCouts($table, $column) { // Fonctions pour le calcul des coûts totaux
     $database = dbConnect();
     $stmt = $database->query("SELECT (SELECT SUM($column) FROM $table) AS total_cout");
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout'];
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout'];
 }
 
 function totalCoutP() { return totalCouts('prestations', 'cout_prestation'); }
@@ -90,56 +71,45 @@ function totalCoutP() { return totalCouts('prestations', 'cout_prestation'); }
 function totalCoutI() {  return totalCouts('interventions', 'cout_intervention'); }
 
 function totalCoutFormation() {
-    $database = dbConnect();
-    $today = date('Y-m-d');
+    $database = dbConnect(); $today = date('Y-m-d');
     $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id WHERE f.date_fin >= :today");
     // $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails"); // De toutes les formations
-    $stmt->bindParam(':today', $today);
-    $stmt->execute();
+    $stmt->bindParam(':today', $today); $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC)['total_paye'];
 }
 
 function TotalPaidInvoices() {
     $database = dbConnect();    
     $stmt = $database->prepare("SELECT SUM(total_facture) as total FROM Facture WHERE statut = 'payé' ");
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
 function TotalUnPaidInvoices() {
     $database = dbConnect();   
     $stmt = $database->prepare("SELECT SUM(total_facture) as total FROM Facture WHERE statut = 'non payé' ");
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
-// Fonction générique pour compter les enregistrements
-function getCount($table) {
+function getCount($table) { // Fonction générique pour compter les enregistrements
     $database = dbConnect();
     $stmt = $database->query("SELECT COUNT(*) AS count FROM {$table}");
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['count'];
 }
 
-// Fonctions pour obtenir tous les enregistrements d'une table spécifique
-function getAll($table) {
+function getAll($table) { // Fonctions pour obtenir tous les enregistrements d'une table spécifique
     $database = dbConnect();
     $stmt = $database->query("SELECT * FROM {$table}");
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); return $result;
 }
 
-// Fonctions pour obtenir un enregistrement par ID à partir d'une table spécifique
-function getById($table, $idColumn, $id) {
+function getById($table, $idColumn, $id) { // Fonctions pour obtenir un enregistrement par ID à partir d'une table spécifique
     $database = dbConnect();
     $stmt = $database->prepare("SELECT * FROM {$table} WHERE {$idColumn} = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Fonctions pour ajouter un nouvel enregistrement à une table spécifique
-function addRecord($table, $data) {
+function addRecord($table, $data) { // Fonctions pour ajouter un nouvel enregistrement à une table spécifique
     $database = dbConnect();
     $columns = implode(", ", array_keys($data));
     $values = ":" . implode(", :", array_keys($data));
@@ -148,22 +118,18 @@ function addRecord($table, $data) {
     $stmt->execute();
 }
 
-// Fonctions pour supprimer un enregistrement d'une table spécifique
-function deleteRecord($table, $idColumn, $id) {
+function deleteRecord($table, $idColumn, $id) { // Fonctions pour supprimer un enregistrement d'une table spécifique
     $database = dbConnect();
     $stmt = $database->prepare("DELETE FROM {$table} WHERE {$idColumn} = :id");
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT); $stmt->execute();
 }
 
-// Fonctions pour mettre à jour un enregistrement dans une table spécifique
-function updateRecord($table, $data, $idColumn, $id) {
+function updateRecord($table, $data, $idColumn, $id) { // Fonctions pour mettre à jour un enregistrement dans une table spécifique
     $database = dbConnect();
     $setClause = implode(", ", array_map(fn($key) => "{$key} = :{$key}", array_keys($data)));
     $stmt = $database->prepare("UPDATE {$table} SET {$setClause} WHERE {$idColumn} = :id");
     foreach ($data as $key => $value) { $stmt->bindValue(":{$key}", $value); }
-    $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-    $stmt->execute();
+    $stmt->bindValue(":id", $id, PDO::PARAM_INT); $stmt->execute();
 }
 
 // D'autres fonctions spécifiques pour obtenir des enregistrements par ID pour différentes tables
@@ -230,8 +196,7 @@ function addFacture($data) {
         $stmtFacture->bindParam(':RCCM', $RCCM); $stmtFacture->bindParam(':divisionFiscale', $divisionFiscale);
         $stmtFacture->bindParam(':client_adresse', $client_adresse); $stmtFacture->bindParam(':client_telephone', $client_telephone);
         $stmtFacture->bindParam(':objet_facture', $objet_facture); $stmtFacture->bindParam(':total_facture', $total_facture);
-        $stmtFacture->bindParam(':tva', $tva);
-        $stmtFacture->execute();
+        $stmtFacture->bindParam(':tva', $tva); $stmtFacture->execute();
 
         // Requête pour insérer les éléments de la facture dans la table `element_facture`
         $queryElementFacture = "INSERT INTO `ElementFacture` (`nFacture`, `description`, `quantite`, `prix_unitaire`, `total`)
@@ -267,17 +232,14 @@ function removeParticipant($id) { deleteRecord('FormationParticipantsDetails', '
 
 function removeFacture($id) {
     $database = dbConnect();
-    
     $database->beginTransaction(); // Début de la transaction
 
-    // Supprimer les éléments de la facture dans la table `elementFacture`
-    $queryDeleteElements = "DELETE FROM `ElementFacture` WHERE `nFacture` = :nFacture";
+    $queryDeleteElements = "DELETE FROM `ElementFacture` WHERE `nFacture` = :nFacture"; // Supprimer les éléments de la facture dans la table `elementFacture`
     $stmtDeleteElements = $database->prepare($queryDeleteElements);
     $stmtDeleteElements->bindParam(':nFacture', $id);
     $stmtDeleteElements->execute();
 
-    // Supprimer la facture dans la table `Facture`
-    $queryDeleteFacture = "DELETE FROM `Facture` WHERE `nFacture` = :nFacture";
+    $queryDeleteFacture = "DELETE FROM `Facture` WHERE `nFacture` = :nFacture"; // Supprimer la facture dans la table `Facture`
     $stmtDeleteFacture = $database->prepare($queryDeleteFacture);
     $stmtDeleteFacture->bindParam(':nFacture', $id);
     $stmtDeleteFacture->execute();
@@ -286,6 +248,7 @@ function removeFacture($id) {
 }
 
 // Fonctions pour mettre à jour des enregistrements dans différentes tables
+
 function updateClient($data) {updateRecord('clients', $data, 'client_id', $data['client_id']); }
 
 function updateIntervention($data) {updateRecord('interventions', $data, 'id', $data['id']); }
@@ -294,7 +257,10 @@ function updateService($data) {updateRecord('services', $data, 'service_id', $da
 
 function updatePrestation($data) {updateRecord('prestations', $data, 'id', $data['id']); }
 
-function updateUser($data) {updateRecord('users', $data, 'id', $data['id']); }
+function updateUser($data) {
+    $data['Password'] = password_hash($data['Password'], PASSWORD_DEFAULT);
+    updateRecord('users', $data, 'id', $data['id']);
+}
 
 function updateFormation($data) {updateRecord('Formations', $data, 'id', $data['id']); }
 
@@ -308,11 +274,9 @@ function updateFacture($data) {
         $IFU = $data['IFU']; $RCCM = $data['RCCM']; $divisionFiscale = $data['divisionFiscale'];
         $client_adresse = $data['client_adresse']; $client_telephone = $data['client_telephone']; $objet_facture = $data['objet_facture'];
     
-        // Récupérer les éléments de la facture depuis le champ caché JSON
-        $elements = json_decode($data['elements'], true);
+        $elements = json_decode($data['elements'], true); // Récupérer les éléments de la facture depuis le champ caché JSON
     
-        // Calculer le total de la facture
-        $total_facture = 0;
+        $total_facture = 0; // Calculer le total de la facture
         foreach ($elements as $element) { $total_facture += $element['total']; }
         
         $tva = 0;
@@ -337,8 +301,7 @@ function updateFacture($data) {
         // Supprimer les éléments existants de la facture dans la table `ElementFacture`
         $queryDeleteElements = "DELETE FROM `ElementFacture` WHERE `nFacture` = :nFacture";
         $stmtDeleteElements = $database->prepare($queryDeleteElements);
-        $stmtDeleteElements->bindParam(':nFacture', $nFacture);
-        $stmtDeleteElements->execute();
+        $stmtDeleteElements->bindParam(':nFacture', $nFacture); $stmtDeleteElements->execute();
 
         // Requête pour insérer les nouveaux éléments de la facture dans la table `ElementFacture`
         $queryElementFacture = "INSERT INTO `ElementFacture` (`nFacture`, `description`, `quantite`, `prix_unitaire`, `total`)
@@ -358,6 +321,7 @@ function updateFacture($data) {
 }
 
 // Fonctions pour lire des enregistrements dans différentes tables
+
 function getClients() { return getAll('clients'); }
 
 function getInterventions() { return getAll('interventions'); }
@@ -377,21 +341,18 @@ function getFacture() { return getAll('Facture'); }
 function getFactureElementByF($id) { 
     $database = dbConnect();
     $stmt = $database->prepare("SELECT * FROM `ElementFacture` WHERE nFacture = :nFacture");
-    $stmt->bindParam(':nFacture', $id, PDO::PARAM_STR);
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
+    $stmt->bindParam(':nFacture', $id, PDO::PARAM_STR); $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); return $result;
 }
 
-//Fonction qui calcul le couts total par type
-function CoutInterventionByType($type) {
+function CoutInterventionByType($type) { //Fonction qui calcul le couts total par type
     $database = dbConnect();
     $stmt = $database->query("SELECT SUM(cout_intervention) AS total_cout_by_type FROM interventions WHERE type_intervention = $type");
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout_by_type'];
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout_by_type'];
 }
 
 // Fonctions pour lire le nombres d'enregistrements dans différentes tables
+
 function getNbClient() { return getCount('clients'); }
 
 function getNbIntervention() { return getCount('interventions'); }
@@ -405,15 +366,13 @@ function countInvoices() { return getCount('Facture'); }
 function getNbParticipant() {
     $database = dbConnect(); $today = date('Y-m-d');
     $stmt = $database->prepare("SELECT COUNT(fp.id) as total FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id WHERE f.date_fin >= :today");
-    $stmt->bindParam(':today', $today); $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    $stmt->bindParam(':today', $today); $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
 function countUpcomingFormations() {
     $database = dbConnect(); $today = date('Y-m-d');
     $stmt = $database->prepare("SELECT COUNT(*) as total FROM Formations WHERE date_fin >= :today");
-    $stmt->bindParam(':today', $today); $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    $stmt->bindParam(':today', $today); $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
 function countPaidInvoices() {
@@ -482,11 +441,9 @@ function numberToWords($number) {
 function checkUserSessionAndAction() {
     $action = isset($_GET['action']) ? $_GET['action'] : '';
 
-    // Vérifier si $_SESSION['type_user'] est défini
-    if (!isset($_SESSION['type_user'])) { include_once('app/404.php'); exit();}
+    if (!isset($_SESSION['type_user'])) { include_once('app/404.php'); exit();} // Vérifier si $_SESSION['type_user'] est défini
 
-    // Vérifier les conditions basées sur le type d'utilisateur et l'action
-    switch ($_SESSION['type_user']) {
+    switch ($_SESSION['type_user']) { // Vérifier les conditions basées sur le type d'utilisateur et l'action
         case 1: // Type d'utilisateur 1 : autorisé pour toutes les actions
             return;
             break;

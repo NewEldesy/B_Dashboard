@@ -1,15 +1,14 @@
 <?php
-    session_start();
-    ob_start();
+    session_start(); ob_start();
     include_once('model.php');
     include_once('function.php');
     
-    // Vérification si l'utilisateur est connecté
-    if (!isset($_SESSION['id']) || !isset($_SESSION['type_user'])) {
+    
+    if (!isset($_SESSION['id']) || !isset($_SESSION['type_user'])) { // Vérification si l'utilisateur est connecté
         // Si non connecté, traiter la connexion
         handleLogin();
-    } else {
-        // Si connecté, gérer les différentes pages
+    } else { // Si connecté, gérer les différentes pages
+        
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
     
