@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
     <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="Connexion page for B'tech Dashbord" name="description">
 
     <!-- Favicon -->
     <link href="assets/img/favicon.ico" rel="icon">
@@ -44,7 +44,6 @@
                             <a href="index.html" class="">
                                 <h3 class="text-primary">B'Tech Group Sas</h3>
                             </a>
-                            <h3>Sign In</h3>
                         </div>
                         <form action="index.php" method="post">
                             <div class="form-floating mb-3">
@@ -55,7 +54,7 @@
                                 <input type="password" class="form-control" name="Password" placeholder="Password">
                                 <label for="Password">Password</label>
                             </div>
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Connexion</button>
                         </form>
                     </div>
                 </div>
