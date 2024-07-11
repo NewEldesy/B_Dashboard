@@ -115,33 +115,33 @@ $pdf->SetFillColor(200, 200, 200);
 //
 $pdf->CellUTF8($largeurTableau * 0.5, 8, 'Type Interventions', 1, 0, 'C', true);
 $pdf->CellUTF8($largeurTableau * 0.4, 8, 'Description', 1, 0, 'C', true);
-$pdf->CellUTF8($largeurTableau * 0.1, 8, 'Cout', 1, 0, 'C', true);
+$pdf->CellUTF8($largeurTableau * 0.1, 8, 'Cout', 1, 1, 'C', true);
 
 // Définir la couleur de fond grise
 $pdf->SetFillColor(220, 220, 220);
 // Liste Element
-$pdf->CellUTF8($largeurTableau * 0.5, 8, $i['type_intervention'], 0, 1, '', true);
-$pdf->CellUTF8($largeurTableau * 0.4, 8, $i['description_intervention'], 0, 0, 'C', true);
-$pdf->CellUTF8($largeurTableau * 0.1, 8, $i['cout_intervention'], 0, 0, 'C', true);
+$pdf->CellUTF8($largeurTableau * 0.5, 8, $i['type_intervention'], 1, 0, '', true);
+$pdf->CellUTF8($largeurTableau * 0.4, 8, $i['description_intervention'], 1, 0, 'C', true);
+$pdf->CellUTF8($largeurTableau * 0.1, 8, $i['cout_intervention'], 1, 1, 'C', true);
 
 // Définir la couleur de fond grise
 $pdf->SetFillColor(240, 240, 240);
 // Total
 $pdf->CellUTF8($largeurTableau * 0.9, 8, 'Total H.TVA : ', 0, 0, 'R');
-$pdf->CellUTF8($largeurTableau * 0.1, 8, (''.$i['cout_intervention']), 0, 1, 'C', true);
+$pdf->CellUTF8($largeurTableau * 0.1, 8, (''.$i['cout_intervention']), 1, 1, 'C', true);
 // TVA
 $pdf->CellUTF8($largeurTableau * 0.9, 8, 'TVA 18% : ', 0, 0, 'R');
-$pdf->CellUTF8($largeurTableau * 0.1, 8, ('0'), 0, 1, 'C', true);
+$pdf->CellUTF8($largeurTableau * 0.1, 8, ('0'), 1, 1, 'C', true);
 // Total Net à Payer
 $pdf->CellUTF8($largeurTableau * 0.9, 8, 'Total Net à Payer : ', 0, 0, 'R');
-$pdf->CellUTF8($largeurTableau * 0.1, 8, (''.$i['cout_intervention']), 0, 1, 'C', true);
+$pdf->CellUTF8($largeurTableau * 0.1, 8, (''.$i['cout_intervention']), 1, 1, 'C', true);
 
 //
 $pdf->Ln(5); // Saut de ligne
 
 //
 $pdf->SetFont('Arial', 'I', 8);
-$pdf->CellUTF8(0, 5, 'Arreter à la somme de '.numberToWords(intval($i['cout_intervention'])).' francs cfa ('.intval($i['cout_intervention']).')', 0, 1, 'L');
+$pdf->CellUTF8(0, 5, 'Arreter à la présente somme de '.numberToWords(intval($i['cout_intervention'])).' francs cfa ('.intval($i['cout_intervention']).')', 0, 1, 'L');
 
 // Générer le nom du fichier avec la date et l'heure actuelles
 $nomFichier = 'Print Intervention' . $_GET['id'] . '.pdf';

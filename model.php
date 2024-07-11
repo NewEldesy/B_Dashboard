@@ -18,9 +18,7 @@ function validationAction($action) { // Validation et filtrage sécurisé de l'a
     if (!in_array($action, ['add', 'update', 'delete', 'print'])) { redirectToDashboard(); }
 }
 
-function getCurrentDateTimeString() { // Fonctions pour obtenir la date actuelle en différents formats
-    return date('ymdHi'); // Format pour une chaîne numérique de date et heure
-}
+function getCurrentDateTimeString() { return date('ymdHi'); /* Fonctions pour obtenir la date actuelle en différents formats & Format pour une chaîne numérique de date et heure*/ }
 
 function frenchDate() {
     $date = new DateTime(); // Objet DateTime pour la date actuelle

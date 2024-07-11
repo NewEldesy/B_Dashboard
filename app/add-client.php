@@ -87,6 +87,7 @@
                                         <td>
                                             <a class="btn btn-sm btn-primary" href="index.php?page=client&action=update&id=<?=$client['id']?>"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-secondary" href="index.php?page=client&action=delete&id=<?=$client['id']?>"><i class="fas fa-trash-alt"></i></a>
+                                            <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=client&action=print&id=<?=$client['id']?>"><i class="fas fa-print"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

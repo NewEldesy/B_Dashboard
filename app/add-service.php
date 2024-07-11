@@ -50,6 +50,7 @@
                                                 <td>
                                                     <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['id']?>"><i class="fas fa-edit"></i></a>
                                                     <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['id']?>"><i class="fas fa-trash-alt"></i></a>
+                                                    <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=service&action=print&id=<?=$service['id']?>"><i class="fas fa-print"></i></a>
                                                 </td>
                                             </tr>
                                             <?php } ?>

@@ -236,6 +236,12 @@ function handlePrint($entity) {
 
             case 'prestation':
                 include_once('app/print_prestation.php');
+
+            case 'client':
+                include_once('app/print_client_list.php');
+
+            case 'service':
+                include_once('app/print_service_list.php');
         }
     } else {
         header('location:index.php?page=dashboard');
