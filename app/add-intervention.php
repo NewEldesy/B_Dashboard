@@ -39,6 +39,10 @@
                                     <textarea class="form-control" aria-label="With textarea" name="description_intervention"></textarea>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <label for="date_intervention" class="form-label">Date Interventions</label>
+                                    <input type="date" class="form-control" name="date_intervention">
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="cout_intervention" class="form-label">Couts Interventions</label>
                                     <input type="number" class="form-control" name="cout_intervention">
                                 </div>
@@ -62,6 +66,7 @@
                                         <th scope="col">ID Client</th>
                                         <th scope="col">Type Interventions</th>
                                         <th scope="col">Description</th>
+                                        <th scope="col">Date Int.</th>
                                         <th scope="col">Cout</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -73,10 +78,12 @@
                                         <td><?=$intervention['client_id']?></td>
                                         <td><?=$intervention['type_intervention']?></td>
                                         <td><?=$intervention['description_intervention']?></td>
+                                        <td><?=$intervention['date_intervention']?></td>
                                         <td><?=$intervention['cout_intervention']?> xof</td>
                                         <td>
                                             <a class="btn btn-sm btn-primary" href="index.php?page=intervention&action=update&id=<?=$intervention['id']?>"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-secondary" href="index.php?page=intervention&action=delete&id=<?=$intervention['id']?>"><i class="fas fa-trash-alt"></i></a>
+                                            <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=intervention&action=print&id=<?=$intervention['id']?>"><i class="fas fa-print"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

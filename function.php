@@ -230,6 +230,12 @@ function handlePrint($entity) {
         switch ($entity) {
             case 'facture':
                 include_once('app/facture_pro.php');
+
+            case 'intervention':
+                include_once('app/print_intervention.php');
+
+            case 'prestation':
+                include_once('app/print_prestation.php');
         }
     } else {
         header('location:index.php?page=dashboard');

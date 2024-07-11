@@ -42,6 +42,10 @@
                                     <textarea class="form-control" aria-label="With textarea" name="description_intervention"><?=$result['description_intervention'];?></textarea>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <label for="date_intervention" class="form-label">Date Intervention</label>
+                                    <input type="date" class="form-control" value="<?= $result['date_intervention'];?>" name="date_intervention">
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="cout_intervention" class="form-label">Cout Intervention</label>
                                     <input type="number" class="form-control" value="<?= $result['cout_intervention'];?>" name="cout_intervention">
                                 </div>

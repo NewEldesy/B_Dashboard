@@ -47,18 +47,13 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="statut_prestation">Statut Prestations</label>
                                     <select class="form-select" name="statut_prestation">
-                                        <option value="début" <?=($result['statut_prestation']=='début') ? 'selected' : '';?>>Début</option>
                                         <option value="en cours" <?=($result['statut_prestation']=='en cours') ? 'selected' : '';?>>En Cours</option>
-                                        <option value="terminé" <?=($result['statut_prestation']=='terminé') ? 'selected' : '';?>>Terminé</option>
+                                        <option value="termine" <?=($result['statut_prestation']=='termine') ? 'selected' : '';?>>Terminé</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="date_debut_prestation" class="form-label">Date Début</label>
-                                    <input type="date" class="form-control" value="<?=$result['date_debut_prestation'];?>" name="date_debut_prestation" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="date_fin_prestation" class="form-label">Date Fin</label>
-                                    <input type="date" class="form-control" value="<?=$result['date_fin_prestation'];?>" name="date_fin_prestation" required>
+                                    <label for="date_prestation" class="form-label">Date</label>
+                                    <input type="date" class="form-control" value="<?=$result['date_prestation'];?>" name="date_prestation" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Mettre à Jour</button>

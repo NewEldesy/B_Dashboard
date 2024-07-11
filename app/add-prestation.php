@@ -43,18 +43,13 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="statut_prestation">Statut Prestations</label>
                                     <select class="form-select" name="statut_prestation">
-                                        <option value="1">Début</option>
-                                        <option value="2">En Cours</option>
-                                        <option value="3">Terminé</option>
+                                        <option value="en cours">En Cours</option>
+                                        <option value="termine">Terminé</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="date_debut_prestation" class="form-label">Date Début</label>
-                                    <input type="date" class="form-control" name="date_debut_prestation" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="date_fin_prestation" class="form-label">Date Fin</label>
-                                    <input type="date" class="form-control" name="date_fin_prestation" required>
+                                    <label for="date_prestation" class="form-label">Date</label>
+                                    <input type="date" class="form-control" name="date_prestation" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
@@ -77,8 +72,7 @@
                                         <th scope="col">Type Prestations</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Cout</th>
-                                        <th scope="col">Date Start</th>
-                                        <th scope="col">Date End</th>
+                                        <th scope="col">Date</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -93,14 +87,14 @@
                                         <td><?=$prestation['type_prestation']?></td>
                                         <td><?=$prestation['description_prestation']?></td>
                                         <td><?=$prestation['cout_prestation']?> xof</td>
-                                        <td><?=$prestation['date_debut_prestation']?></td>
-                                        <td><?=$prestation['date_fin_prestation']?></td>
+                                        <td><?=$prestation['date_prestation']?></td>
                                         <td>
                                             <?= isset($statusLabels[$prestation['statut_prestation']]) ? htmlspecialchars($statusLabels[$prestation['statut_prestation']]) : ''; ?>
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-primary" href="index.php?page=prestation&action=update&id=<?=$prestation['id']?>"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-secondary" href="index.php?page=prestation&action=delete&id=<?=$prestation['id']?>"><i class="fas fa-trash-alt"></i></a>
+                                            <a class="btn btn-sm btn-dark" href="index.php?page=prestation&action=print&id=<?=$prestation['id']?>"><i class="fas fa-print"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

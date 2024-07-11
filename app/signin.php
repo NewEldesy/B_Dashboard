@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DASHMIN - Bootstrap Admin Template</title>
+    <title>DASHBOARD - B'Tech Group SAS</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="Connexion page for B'tech Dashbord" name="description">
@@ -47,12 +47,12 @@
                         </div>
                         <form action="index.php" method="post">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" name="Email" placeholder="name@example.com">
-                                <label for="Email">Email address</label>
+                                <input type="email" class="form-control" name="Email" autocomplete="off">
+                                <label for="Email">Addresse Mail</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="password" class="form-control" name="Password" placeholder="Password">
-                                <label for="Password">Password</label>
+                                <input type="password" class="form-control" name="Password" autocomplete="off">
+                                <label for="Password">Mot de Passe</label>
                             </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Connexion</button>
                         </form>

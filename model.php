@@ -1,7 +1,8 @@
 <?php
 function dbConnect() { // Connexion à la base de données
     try {
-        $database = new PDO('mysql:host=mysql-btechgroup.alwaysdata.net;dbname=btechgroup_dashboard;charset=utf8', '364785', 'w!Z7ntgLcLYE9NU');
+        $database = new PDO('mysql:host=localhost;dbname=btechgroup_dashboard;charset=utf8', 'root', '');
+        // $database = new PDO('mysql:host=mysql-btechgroup.alwaysdata.net;dbname=btechgroup_dashboard;charset=utf8', '364785', 'w!Z7ntgLcLYE9NU');
         $database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $database;
     } catch (PDOException $e) {

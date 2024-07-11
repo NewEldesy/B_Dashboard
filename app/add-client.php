@@ -31,12 +31,20 @@
                                     <input type="text" class="form-control" name="adresse" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="ville" class="form-label">Entrez Ville Client</label>
-                                    <input type="text" class="form-control" name="ville" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
                                     <label for="telephone" class="form-label">Entrez Téléphone Client</label>
                                     <input type="tel" class="form-control" name="telephone" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="IFU" class="form-label">IFU</label>
+                                    <input type="text" class="form-control" name="IFU" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="RCCM" class="form-label">RCCM</label>
+                                    <input type="text" class="form-control" name="RCCM" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="divisionFiscale" class="form-label">Division Fiscale</label>
+                                    <input type="text" class="form-control" name="divisionFiscale" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
@@ -58,8 +66,10 @@
                                         <th scope="col">Nom(s)</th>
                                         <th scope="col">Prénom(s)</th>
                                         <th scope="col">Adresse</th>
-                                        <th scope="col">Ville</th>
                                         <th scope="col">Téléphone</th>
+                                        <th scope="col">IFU</th>
+                                        <th scope="col">RCCM</th>
+                                        <th scope="col">Division Fiscale</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -70,8 +80,10 @@
                                         <td><?=$client['nom']?></td>
                                         <td><?=$client['prenom']?></td>
                                         <td><?=$client['adresse']?></td>
-                                        <td><?=$client['ville']?></td>
                                         <td><?=$client['telephone']?></td>
+                                        <td><?=$client['IFU']?></td>
+                                        <td><?=$client['RCCM']?></td>
+                                        <td><?=$client['divisionFiscale']?></td>
                                         <td>
                                             <a class="btn btn-sm btn-primary" href="index.php?page=client&action=update&id=<?=$client['id']?>"><i class="fas fa-edit"></i></a>
                                             <a class="btn btn-sm btn-secondary" href="index.php?page=client&action=delete&id=<?=$client['id']?>"><i class="fas fa-trash-alt"></i></a>

@@ -31,12 +31,20 @@
                                     <input type="text" class="form-control" value="<?=$result['adresse'];?>" name="adresse" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="ville" class="form-label">Ville</label>
-                                    <input type="text" class="form-control" value="<?=$result['ville'];?>" name="ville" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
                                     <label for="telephone" class="form-label">Téléphone</label>
                                     <input type="tel" class="form-control" value="<?=$result['telephone'];?>" name="telephone" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="IFU" class="form-label">IFU</label>
+                                    <input type="text" class="form-control" value="<?=$result['IFU'];?>" name="IFU" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="RCCM" class="form-label">RCCM</label>
+                                    <input type="text" class="form-control" value="<?=$result['RCCM'];?>" name="RCCM" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="divisionFiscale" class="form-label">Division Fiscale</label>
+                                    <input type="text" class="form-control" value="<?=$result['divisionFiscale'];?>" name="divisionFiscale" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Mettre à Jour</button>
