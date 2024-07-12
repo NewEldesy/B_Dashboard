@@ -54,7 +54,7 @@
                     <hr>
                     <a href="index.php?page=facture" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Facture Pro.</a>
                     <hr>
-                    <a href="index.php?page=user" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Utilisateurs</a>
+                    <a href="index.php?page=user" class="nav-item nav-link" <?=($_SESSION['type_user']=!1) ? 'hidden' : '';?>><i class="fa fa-user me-2"></i>Utilisateurs</a>
                 </div>
             </nav>
         </div>

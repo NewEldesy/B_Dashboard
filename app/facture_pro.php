@@ -46,7 +46,7 @@ class PDF extends FPDF {
         $this->CellUTF8($largeurTableau / 2, 5, 'Le Président', 0, 1, 'R');
         $this->Ln(15); // Saut de ligne
         $this->CellUTF8($largeurTableau / 2, 5, '', 0, 0, 'L'); // Élément 1 aligné à gauche
-        $this->CellUTF8($largeurTableau / 2, 5, 'Limapa LOMPO', 0, 1, 'R');
+        $this->CellUTF8($largeurTableau / 2, 5, 'Limaba LOMPO', 0, 1, 'R');
         $this->Ln(5);
         //
         $this->SetFont('Arial', '', 7);
