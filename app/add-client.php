@@ -12,12 +12,12 @@
                             <div class="col-12 col-sm-6 text-center text-sm-start">
                                 <h1 class="display-4">Nouveau Client</h1> 
                             </div>
-                            <!-- <div class="col-12 col-sm-6 text-center text-sm-end">
+                            <div class="col-12 col-sm-6 text-center text-sm-end">
                                 <br>
                                 <a class="btn btn-dark" target="_blank" href="index.php?page=client&action=print">
                                     <i class="fas fa-print"></i> Imprimer Liste Clients
                                 </a>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($entities as $client){ ?>
+                                    <?php foreach($clients as $client){ ?>
                                     <tr>
                                         <td><?=$client['id']?></td>
                                         <td><?=$client['nom']?></td>

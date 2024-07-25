@@ -127,7 +127,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($entities as $Facture){ ?>
+                                    <?php foreach($factures as $Facture){ ?>
                                     <tr>
                                         <td><?=$Facture['nFacture']?></td>
                                         <td><?=$Facture['nom_entreprise']?></td>

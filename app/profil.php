@@ -28,13 +28,19 @@
                                     <label for="Email" class="form-label">Adresse Mail</label>
                                     <input type="email" class="form-control" name="Email" value="<?=$result['Email'];?>" required>
                                 </div>
+                                <hr>
+                                    <br>
+                                    <h5>Modifier Mot de Passe</h5>
+                                    <br><br>
+                                <hr>
+                                <br>
                                 <div class="col-md-6 mb-3">
                                     <label for="Password" class="form-label">Mot de Passe Actuel</label>
-                                    <input type="password" class="form-control" name="Password" value="<?=$result['Password'];?>" required>
+                                    <input type="password" class="form-control" name="Password" required>
                                 </div>
-                                <hr>
-                                    <h5>Modifier Mot de Passe</h5>
-                                <hr>
+                                <div class="col-md-6 mb-3">
+                                    <input type="hidden">
+                                </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="pass1" class="form-label">Nouveau Mot de Passe</label>
                                     <input type="password" class="form-control" name="pass1" required>
@@ -44,7 +50,7 @@
                                     <input type="password" class="form-control" name="pass2" required>
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <button type="submit" class="btn btn btn-primary">Mettre à jour les informations de connexion</button>
+                                    <button type="submit" class="btn btn btn-primary">Enregistrer</button>
                                 </div>
                             </div>
                         </form>

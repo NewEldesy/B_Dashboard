@@ -89,7 +89,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($entities as $p){ ?>
+                                    <?php foreach($participants as $p){ ?>
                                     <tr>
                                         <td><?=$p['id']?></td>
                                         <td><?=$p['participant_nom']?></td>

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="utf-8">
     <title>DASHBOARD - B'Tech Group SAS</title>
@@ -17,8 +16,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"  rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"  rel="stylesheet"> -->
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="assets/lib/bootstrap-icons.css">
 
     <!-- Libraries Stylesheet -->
     <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -33,8 +34,6 @@
 
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
-
-
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
@@ -51,9 +50,9 @@
                     <hr>
                     <a href="index.php?page=formation" class="nav-item nav-link"><i class="fa fa-chalkboard me-2"></i>Formation</a>
                     <a href="index.php?page=participant" class="nav-item nav-link"><i class="fa fa-user-graduate me-2"></i>Participant</a>
-                    <hr>
+                    <?=($_SESSION['type_user']>=2) ? '<hr>' : '';?>
                     <a href="index.php?page=facture" class="nav-item nav-link" <?=($_SESSION['type_user']==1||$_SESSION['type_user']==2) ? '' : 'hidden';?>><i class="fa fa-receipt me-2"></i>Facture Pro.</a>
-                    <hr>
+                    <?=($_SESSION['type_user']==1) ? '<hr>' : '';?>
                     <a href="index.php?page=user" class="nav-item nav-link" <?=($_SESSION['type_user']==1) ? '' : 'hidden';?>><i class="fa fa-user me-2"></i>Utilisateurs</a>
                 </div>
             </nav>
@@ -77,6 +76,7 @@
                             <span class="d-none d-lg-inline-flex"><?= $_SESSION["Nom"] . " " . $_SESSION["Prenom"];?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="index.php?page=profil" class="dropdown-item">Profil</a>
                             <a href="index.php?page=logout" class="dropdown-item"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
                         </div>
                     </div>

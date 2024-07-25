@@ -78,7 +78,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($entities as $prestation) {
+                                    <?php foreach($prestations as $prestation) {
                                         $statusLabels = [ 'debut' => 'Début', 'en cours' => 'En Cours', 'termine' => 'Terminé' ]; 
                                     ?>
                                     <tr>

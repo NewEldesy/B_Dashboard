@@ -101,8 +101,8 @@ $elements = getFactureElementByF($result['nFacture']);
                                                 <td><?=$element['prix_unitaire'];?></td>
                                                 <td><?=$element['total'];?></td>
                                                 <td>
-                                                    <a href="#" onClick="onEdit(this)"><i class="fa fa-edit"></i></a>
-                                                    <a href="#" onClick="onDelete(this)"><i class="fa fa-trash"></i></a>
+                                                    <a href="#" onClick="onEdit(this)"><i class="fa fa-edit">edit</i></a>
+                                                    <a href="#" onClick="onDelete(this)"><i class="fa fa-trash">delete</i></a>
                                                 </td>
                                             </tr>
                                         <?php } ?>
@@ -114,7 +114,7 @@ $elements = getFactureElementByF($result['nFacture']);
                         <div class="col-md-12"><hr></div>
                         <input type="hidden" name="elements" id="elements">
                         <div class="col-md-12 mb-3">
-                            <button type="submit" name="submit" class="btn btn-primary col-2">Enregistrer</button>
+                            <button type="submit" name="submit" class="btn btn-primary col-2">Mis à Jour</button>
                         </div>
                     </form>
                 </div>

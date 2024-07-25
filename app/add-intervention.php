@@ -72,7 +72,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($entities as $intervention) {?>
+                                    <?php foreach($interventions as $intervention) {?>
                                     <tr>
                                         <td><?=$intervention['id']?></td>
                                         <td><?=$intervention['client_id']?></td>

@@ -59,6 +59,44 @@ function tryLogin($data) { // Connexion utilisateur
     else { return null; }
 }
 
+function updateProfil($data) { // Mis à jour profil utilisateur utilisateur
+    $database = dbConnect();
+    $stmt = $database->prepare("SELECT * FROM users WHERE Email = :email");
+    $stmt->bindParam(':email', $data['Email']); $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($user && password_verify($data['Password'], $user['Password'])) {
+        //pass1
+        if($data['pass1']==$data['pass2']){
+            $data['Pass'] = password_hash($data['pass1'], PASSWORD_DEFAULT);
+            $update = $database->prepare("UPDATE users SET Password=:password, Nom=:nom, Email=:email, Prenom=:prenom WHERE id=:id");
+            $update->bindParam(':password', $data['Pass']); $update->bindParam(':id', $data['id']);
+            $update->bindParam(':nom', $data['Nom']); $update->bindParam(':prenom', $data['Prenom']);
+            $update->bindParam(':email', $data['Email']);
+            $update->execute();
+            return $user;
+        }
+    }
+    else { return null; }
+}
+
+function handleLogin() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['Email']) && !empty($_POST['Password'])) {
+        try { $user = tryLogin($_POST);
+            if (!empty($user)) {
+                $sessionDuration = 4 * 60 * 60; // Définir la durée de la session à 4 heures (en secondes)
+                $sessionExpiration = time() + $sessionDuration; // Définir le délai d'expiration de la session
+
+                $_SESSION["id"] = $user['id']; $_SESSION["Email"] = $user['Email'];
+                $_SESSION["Nom"] = $user['Nom']; $_SESSION["Prenom"] = $user['Prenom'];
+                $_SESSION["type_user"] = $user['type_user'];
+                
+                $_SESSION["expire"] = $sessionExpiration; // Définir l'heure d'expiration de la session
+                redirectToDashboard();
+            } else { echo 'Identifiants invalides.'; include_once('app/signin.php'); }
+        } catch (PDOException $e) { handleDatabaseError($e->getMessage()); }
+    } else { include_once('app/signin.php'); }
+}
+
 function totalCouts($table, $column) { // Fonctions pour le calcul des coûts totaux
     $database = dbConnect();
     $stmt = $database->query("SELECT (SELECT SUM($column) FROM $table) AS total_cout");
@@ -155,7 +193,7 @@ function addIntervention($data) { addRecord('interventions', $data); }
 
 function addService($data) { addRecord('services', $data); }
 
-function addPrestations($data) { addRecord('prestations', $data); }
+function addPrestation($data) { addRecord('prestations', $data); }
 
 function addUser($data) { $data['Password'] = password_hash($data['Password'], PASSWORD_DEFAULT);
     addRecord('users', $data); }
@@ -215,13 +253,13 @@ function addFacture($data) {
 }
 
 // Fonctions pour supprimer des enregistrements de différentes tables
-function removeClient($id) { deleteRecord('clients', 'client_id', $id); }
+function removeClient($id) { deleteRecord('clients', 'id', $id); }
 
 function removeIntervention($id) { deleteRecord('interventions', 'id', $id); }
 
-function removeService($id) { deleteRecord('services', 'service_id', $id); }
+function removeService($id) { deleteRecord('services', 'id', $id); }
 
-function removePrestations($id) { deleteRecord('prestations', 'id', $id); }
+function removePrestation($id) { deleteRecord('prestations', 'id', $id); }
 
 function removeUser($id) { deleteRecord('users', 'id', $id); }
 
@@ -248,11 +286,11 @@ function removeFacture($id) {
 
 // Fonctions pour mettre à jour des enregistrements dans différentes tables
 
-function updateClient($data) {updateRecord('clients', $data, 'client_id', $data['client_id']); }
+function updateClient($data) {updateRecord('clients', $data, 'id', $data['id']); }
 
 function updateIntervention($data) {updateRecord('interventions', $data, 'id', $data['id']); }
 
-function updateService($data) {updateRecord('services', $data, 'service_id', $data['service_id']); }
+function updateService($data) {updateRecord('services', $data, 'id', $data['id']); }
 
 function updatePrestation($data) {updateRecord('prestations', $data, 'id', $data['id']); }
 

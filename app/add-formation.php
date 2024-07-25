@@ -64,7 +64,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($entities as $formation){ ?>
+                                    <?php foreach($formations as $formation){ ?>
                                     <tr>
                                         <td><?=$formation['id']?></td>
                                         <td><?=$formation['nom']?></td>
