@@ -52,9 +52,9 @@
                     <a href="index.php?page=formation" class="nav-item nav-link"><i class="fa fa-chalkboard me-2"></i>Formation</a>
                     <a href="index.php?page=participant" class="nav-item nav-link"><i class="fa fa-user-graduate me-2"></i>Participant</a>
                     <hr>
-                    <a href="index.php?page=facture" class="nav-item nav-link"><i class="fa fa-receipt me-2"></i>Facture Pro.</a>
+                    <a href="index.php?page=facture" class="nav-item nav-link" <?=($_SESSION['type_user']==1||$_SESSION['type_user']==2) ? '' : 'hidden';?>><i class="fa fa-receipt me-2"></i>Facture Pro.</a>
                     <hr>
-                    <a href="index.php?page=user" class="nav-item nav-link" <?=($_SESSION['type_user']=!1) ? 'hidden' : '';?>><i class="fa fa-user me-2"></i>Utilisateurs</a>
+                    <a href="index.php?page=user" class="nav-item nav-link" <?=($_SESSION['type_user']==1) ? '' : 'hidden';?>><i class="fa fa-user me-2"></i>Utilisateurs</a>
                 </div>
             </nav>
         </div>

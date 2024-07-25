@@ -73,8 +73,8 @@
                                         <td><?=$formation['date_debut']?></td>
                                         <td><?=$formation['date_fin']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=formation&action=update&id=<?=$formation['id']?>"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=formation&action=delete&id=<?=$formation['id']?>"><i class="fas fa-trash-alt"></i></a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=formation&action=update&id=<?=$formation['id']?>"><i class="fas fa-edit"></i>edit</a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=formation&action=delete&id=<?=$formation['id']?>"><i class="fas fa-trash-alt"></i>delete</a>
                                         </td>
                                     </tr>
                                     <?php } ?>

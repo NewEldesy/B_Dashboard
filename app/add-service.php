@@ -13,12 +13,12 @@
                             <div class="col-12 col-sm-6 text-center text-sm-start">
                                 <h1 class="display-4">Nouveau Service</h1> 
                             </div>
-                            <div class="col-12 col-sm-6 text-center text-sm-end">
+                            <!-- <div class="col-12 col-sm-6 text-center text-sm-end">
                                 <br>
                                 <a class="btn btn-dark" target="_blank" href="index.php?page=service&action=print">
                                     <i class="fas fa-print"></i> Imprimer Liste Services
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -58,9 +58,9 @@
                                                 <td><?=$service['id']?></td>
                                                 <td><?=$service['libelle_services']?></td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['id']?>"><i class="fas fa-edit"></i></a>
-                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['id']?>"><i class="fas fa-trash-alt"></i></a>
-                                                    <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=service&action=print&id=<?=$service['id']?>"><i class="fas fa-print"></i></a>
+                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['id']?>"><i class="fas fa-edit"></i>edit</a>
+                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['id']?>"><i class="fas fa-trash-alt"></i>delete</a>
+                                                    <!-- <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=service&action=print&id=<?=$service['id']?>"><i class="fas fa-print"></i>print</a> -->
                                                 </td>
                                             </tr>
                                             <?php } ?>

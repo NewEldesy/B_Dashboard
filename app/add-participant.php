@@ -101,9 +101,9 @@
                                         <td><?=$p['Statuts']?></td>
                                         <td><?=$p['description']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=participant&action=update&id=<?=$p['id']?>"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=participant&action=delete&id=<?=$p['id']?>"><i class="fas fa-trash-alt"></i></a>
-                                            <a class="btn btn-sm btn-dark" href="index.php?page=participant&action=print&id=<?=$p['id']?>"><i class="fas fa-print"></i></a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=participant&action=update&id=<?=$p['id']?>"><i class="fas fa-edit"></i>edit</a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=participant&action=delete&id=<?=$p['id']?>"><i class="fas fa-trash-alt">delete</i></a>
+                                            <!-- <a class="btn btn-sm btn-dark" href="index.php?page=participant&action=print&id=<?=$p['id']?>"><i class="fas fa-print">print</i></a> -->
                                         </td>
                                     </tr>
                                     <?php } ?>

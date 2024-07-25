@@ -28,15 +28,19 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="Email" class="form-label">Entrez Email</label>
-                                    <input type="text" class="form-control" name="Email" required>
+                                    <input type="email" class="form-control" name="Email" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="Password" class="form-label">Entrez Password</label>
                                     <input type="password" class="form-control" name="Password" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="Password" class="form-label">Confirmez Password</label>
-                                    <input type="password" class="form-control" name="Password" required>
+                                    <label for="type_user" class="form-label">User Level</label>
+                                    <select class="form-select" name="type_user" aria-label="Floating label select example">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>

@@ -38,6 +38,14 @@
                                     <label for="Password" class="form-label">Password</label>
                                     <input type="password" class="form-control" value="<?=$result['Password'];?>" name="Password" required>
                                 </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="type_user" class="form-label">User Level</label>
+                                    <select class="form-select" name="type_user" aria-label="Floating label select example">
+                                        <option value="1" <?=($result['type_user']=='1') ? 'selected' : '';?>>1</option>
+                                        <option value="2" <?=($result['type_user']=='2') ? 'selected' : '';?>>2</option>
+                                        <option value="3" <?=($result['type_user']=='3') ? 'selected' : '';?>>3</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Mettre à Jour</button>
                                 </div>

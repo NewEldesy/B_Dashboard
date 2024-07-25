@@ -12,12 +12,12 @@
                             <div class="col-12 col-sm-6 text-center text-sm-start">
                                 <h1 class="display-4">Nouveau Client</h1> 
                             </div>
-                            <div class="col-12 col-sm-6 text-center text-sm-end">
+                            <!-- <div class="col-12 col-sm-6 text-center text-sm-end">
                                 <br>
                                 <a class="btn btn-dark" target="_blank" href="index.php?page=client&action=print">
                                     <i class="fas fa-print"></i> Imprimer Liste Clients
                                 </a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -95,9 +95,9 @@
                                         <td><?=$client['RCCM']?></td>
                                         <td><?=$client['divisionFiscale']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=client&action=update&id=<?=$client['id']?>"><i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=client&action=delete&id=<?=$client['id']?>"><i class="fas fa-trash-alt"></i></a>
-                                            <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=client&action=print&id=<?=$client['id']?>"><i class="fas fa-print"></i></a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=client&action=update&id=<?=$client['id']?>"><i class="fas fa-edit"></i>edit</a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=client&action=delete&id=<?=$client['id']?>"><i class="fas fa-trash-alt"></i>delete</a>
+                                            <!-- <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=client&action=print&id=<?=$client['id']?>"><i class="fas fa-print"></i>print</a> -->
                                         </td>
                                     </tr>
                                     <?php } ?>
