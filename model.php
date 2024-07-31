@@ -100,7 +100,9 @@ function handleLogin() {
 function totalCouts($table, $column) { // Fonctions pour le calcul des coûts totaux
     $database = dbConnect();
     $stmt = $database->query("SELECT (SELECT SUM($column) FROM $table) AS total_cout");
-    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout'];
+    $stmt->execute();
+    if($stmt->fetch(PDO::FETCH_ASSOC)['total_cout'] == null){ return 0; }
+    else{ return $stmt->fetch(PDO::FETCH_ASSOC)['total_cout']; }
 }
 
 function totalCoutP() { return totalCouts('prestations', 'cout_prestation'); }
@@ -110,9 +112,9 @@ function totalCoutI() {  return totalCouts('interventions', 'cout_intervention')
 function totalCoutFormation() {
     $database = dbConnect(); $today = date('Y-m-d');
     $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id WHERE f.date_fin >= :today");
-    // $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails"); // De toutes les formations
     $stmt->bindParam(':today', $today); $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC)['total_paye'];
+    if($stmt->fetch(PDO::FETCH_ASSOC)['total_paye'] == null){ return 0; }
+    else{ return $stmt->fetch(PDO::FETCH_ASSOC)['total_paye']; }
 }
 
 function TotalPaidInvoices() {
