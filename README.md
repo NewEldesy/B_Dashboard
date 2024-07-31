@@ -12,7 +12,7 @@
 ==========================================================
 #### ** Original Version**
 - **Developed/Published By:** 	 MAKOSSO Ramel
-- **Uploaded/Published at:** [Btech](https://btechgroup.alwaysdata.net/Dashboard/)
+- **Uploaded/Published at:** [Btech Dashboard](https://btechgroup.alwaysdata.net/Dashboard/)
 ==========================================================
 #### **Modification Information**
 - Customize some of the User Interface (CSS)
