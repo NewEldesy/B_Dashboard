@@ -1,8 +1,8 @@
-## **Betch Dashboard**
+## **B'Tech Dashboard**
 ==========================================================
 
 ### Technologies
-- PHP >= 8.1
+- PHP = Version 8
 - MySQL Database
 - Bootstrap v4
 - FPDF
@@ -11,7 +11,8 @@
 ### **Developement Information**
 ==========================================================
 #### **Original Version**
-- **Developed/Published By:** 	 MAKOSSO Ramel
+- **Entreprise By:** 	 B'Tech SAS
+- **Developed/Published By:** 	 MAKOSSO Ramel Offrey Eldesy
 - **Uploaded/Published at:** [Btech Dashboard](https://btechgroup.alwaysdata.net/Dashboard/)
 ==========================================================
 #### **Modification Information**
