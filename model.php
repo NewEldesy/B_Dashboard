@@ -174,6 +174,10 @@ function updateRecord($table, $data, $idColumn, $id) { // Fonctions pour mettre 
 // D'autres fonctions spécifiques pour obtenir des enregistrements par ID pour différentes tables
 function getCLientById($id) { return getById('clients', 'id', $id); }
 
+function getContactById($id) { return getById('contacts', 'id', $id); }
+
+function getFournisseurById($id) { return getById('fournisseurs', 'id', $id); }
+
 function getInterventionById($id) { return getById('interventions', 'id', $id); }
 
 function getPrestationById($id) { return getById('prestations', 'id', $id); }
@@ -190,6 +194,10 @@ function getFactureById($id) { return getById('Facture', 'nFacture', $id); }
 
 // Fonctions pour ajouter des enregistrements à différentes tables
 function addClient($data) { addRecord('clients', $data); }
+
+function addContact($data) { addRecord('contacts', $data); }
+
+function addFournisseur($data) { addRecord('fournisseurs', $data); }
 
 function addIntervention($data) { addRecord('interventions', $data); }
 
@@ -257,6 +265,10 @@ function addFacture($data) {
 // Fonctions pour supprimer des enregistrements de différentes tables
 function removeClient($id) { deleteRecord('clients', 'id', $id); }
 
+function removeContact($id) { deleteRecord('contacts', 'id', $id); }
+
+function removeFournisseur($id) { deleteRecord('fournisseurs', 'id', $id); }
+
 function removeIntervention($id) { deleteRecord('interventions', 'id', $id); }
 
 function removeService($id) { deleteRecord('services', 'id', $id); }
@@ -289,6 +301,10 @@ function removeFacture($id) {
 // Fonctions pour mettre à jour des enregistrements dans différentes tables
 
 function updateClient($data) {updateRecord('clients', $data, 'id', $data['id']); }
+
+function updateContact($data) {updateRecord('contacts', $data, 'id', $data['id']); }
+
+function updateFournisseur($data) {updateRecord('fournisseurs', $data, 'id', $data['id']); }
 
 function updateIntervention($data) {updateRecord('interventions', $data, 'id', $data['id']); }
 
@@ -363,6 +379,8 @@ function updateFacture($data) {
 
 function getClients() { return getAll('clients'); }
 
+function getContacts()  { return getAll('contacts'); }
+
 function getInterventions() { return getAll('interventions'); }
 
 function getPrestations() { return getAll('prestations'); }
@@ -376,6 +394,8 @@ function getFormation() { return getAll('Formations'); }
 function getParticipant() { return getAll('FormationParticipantsDetails'); }
 
 function getFacture() { return getAll('Facture'); }
+
+function getFournisseurs() { return getAll('fournisseurs'); }
 
 function getFactureElementByF($id) { 
     $database = dbConnect();

@@ -50,6 +50,14 @@
                     include_once('controlers/service.php');
                     break;
 
+                case 'fournisseur':
+                    include_once('controlers/fournisseur.php');
+                    break;
+
+                case 'contact':
+                    include_once('controlers/contact.php');
+                    break;
+
                 case 'user':
                     // ($_SESSION['type_user']==1) ? '' : header('location : index.php?page=dashboard');
                     if($_SESSION['type_user']=!1){header('location : index.php?page=dashboard');}

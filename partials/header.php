@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>DASHBOARD - B'Tech Group SAS</title>
+    <title>Dashboard - B'Tech Group SAS</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -43,17 +43,20 @@
                 </a>
                 <div class="navbar-nav w-100">
                     <a href="index.php?page=dashboard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
-                    <a href="index.php?page=client" class="nav-item nav-link"><i class="fa fa-users me-2"></i></i>Client</a>
-                    <a href="index.php?page=intervention" class="nav-item nav-link"><i class="fa fa-tag me-2"></i></i>Intervention</a>
+                    <a href="index.php?page=client" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Client</a>
+                    <a href="index.php?page=intervention" class="nav-item nav-link"><i class="fa fa-tag me-2"></i>Intervention</a>
                     <a href="index.php?page=prestation" class="nav-item nav-link"><i class="fa fa-copy me-2"></i>Prestation</a>
-                    <a href="index.php?page=service" class="nav-item nav-link"><i class="fa fa-list me-2"></i></i>Service</a>
+                    <a href="index.php?page=service" class="nav-item nav-link"><i class="fa fa-list me-2"></i>Service</a>
+                    <hr>
+                        <a href="index.php?page=fournisseur" class="nav-item nav-link"><i class="fa fa-dolly me-2"></i>Fournisseur</a>
+                        <a href="index.php?page=contact" class="nav-item nav-link"><i class="fa fa-address-book me-2"></i>Contact</a>
                     <hr>
                     <a href="index.php?page=formation" class="nav-item nav-link"><i class="fa fa-chalkboard me-2"></i>Formation</a>
                     <a href="index.php?page=participant" class="nav-item nav-link"><i class="fa fa-user-graduate me-2"></i>Participant</a>
                     <?=($_SESSION['type_user']>=2) ? '<hr>' : '';?>
-                    <a href="index.php?page=facture" class="nav-item nav-link" <?=($_SESSION['type_user']==1||$_SESSION['type_user']==2) ? '' : 'hidden';?>><i class="fa fa-receipt me-2"></i>Facture Pro.</a>
+                    <a href="index.php?page=facture" class="nav-item nav-link" <?=($_SESSION['type_user']==1||$_SESSION['type_user']==2) ? '' : 'style="display:none;"';?>><i class="fa fa-receipt me-2"></i>Facture Pro.</a>
                     <?=($_SESSION['type_user']==1) ? '<hr>' : '';?>
-                    <a href="index.php?page=user" class="nav-item nav-link" <?=($_SESSION['type_user']==1) ? '' : 'hidden';?>><i class="fa fa-user me-2"></i>Utilisateurs</a>
+                    <a href="index.php?page=user" class="nav-item nav-link" <?=($_SESSION['type_user']==1) ? '' : 'style="display:none;"';?>><i class="fa fa-user me-2"></i>Utilisateurs</a>
                 </div>
             </nav>
         </div>

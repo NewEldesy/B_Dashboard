@@ -18,9 +18,7 @@
     </div>
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="assets/lib/bootstrap.bundle.min.js"></script>
-    <script src="assets/lib/jquery.min.js"></script>
     <script src="assets/lib/chart/chart.min.js"></script>
     <script src="assets/lib/easing/easing.min.js"></script>
     <script src="assets/lib/waypoints/waypoints.min.js"></script>

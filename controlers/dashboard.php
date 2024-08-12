@@ -7,7 +7,7 @@
     $coutIntervention = totalCoutI();
     $formationDispo = countUpcomingFormations();
     $participant = getNbParticipant();
-    $coutFormation = totalCoutFormation();
+    $coutFormation = totalCoutFormation(); //var_dump($coutIntervention); exit;
     $nbFacture = countInvoices();
     $nbfPaye = countPaidInvoices();
     $nbfnPaye = countUnpaidInvoices();
