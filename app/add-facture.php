@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="col-md-2 mb-3">
                                             <br>
-                                            <button type="button" id="add_to_list" class="btn btn btn-primary"><i class="fa fa-plus"></i>add</button>
+                                            <button type="button" id="add_to_list" class="btn btn btn-primary"><i class="fa fa-plus"></i></button>
                                         </div>
 
                                         <div class="row table-responsive">
@@ -140,9 +140,9 @@
                                         <td><?= generateStatusLabel($Facture['statut']); ?></td>
                                         <td><?=$Facture['date_facture']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=facture&action=update&id=<?=$Facture['nFacture']?>"><i class="fas fa-edit"></i>edit</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=facture&action=delete&id=<?=$Facture['nFacture']?>"><i class="fas fa-trash-alt"></i>delete</a>
-                                            <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=facture&action=print&id=<?=$Facture['nFacture']?>"><i class="fas fa-print"></i>print</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=facture&action=update&id=<?=$Facture['nFacture']?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=facture&action=delete&id=<?=$Facture['nFacture']?>"><i class="fas fa-trash-alt"></i></a>
+                                            <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=facture&action=print&id=<?=$Facture['nFacture']?>"><i class="fas fa-print"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

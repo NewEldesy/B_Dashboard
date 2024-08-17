@@ -37,7 +37,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.php" class="navbar-brand mx-4 mb-3">
+                <a href="index.php?page=dashboard" class="navbar-brand mx-4 mb-3">
                     <img src="assets/img/logo_1.jpeg" width="30" height="40" alt="">
                     <h6 class="text-primary">B'Tech Group Sas</h6>
                 </a>

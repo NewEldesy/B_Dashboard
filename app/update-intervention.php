@@ -34,6 +34,16 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <label for="client_id" class="form-label">Service</label>
+                                    <select class="form-select" name="client_id" value="<?= $result['client_id'];?>" aria-label="Floating label select example">
+                                        <?php $service = getServices();
+                                            foreach($service as $s) {
+                                        ?>
+                                        <option value="<?=$s['id'];?>" <?=($result['id']==$s['id']) ? 'selected' : '';?>><?=$s['libelle_services'];?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="type_intervention" class="form-label">Type Intervention</label>
                                     <input type="text" class="form-control" value="<?= $result['type_intervention'];?>" name="type_intervention">
                                 </div>

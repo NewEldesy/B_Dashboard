@@ -39,6 +39,10 @@
                         <input type="text" class="form-control" value="<?=$result['telephone'];?>" name="telephone" required>
                     </div>
                     <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Mail</label>
+                        <input type="text" class="form-control" value="<?=$result['email'];?>" name="email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="type_Fournisseur" class="form-label">Type Fournisseur</label>
                         <input type="text" class="form-control" value="<?=$result['type_Fournisseur'];?>" name="type_Fournisseur" required>
                     </div>

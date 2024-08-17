@@ -57,6 +57,14 @@
                                     <input type="number" class="form-control" name="montant_paye" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <label for="date_debut" class="form-label">Date Début</label>
+                                    <input type="date" class="form-control" name="date_debut" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="date_fin" class="form-label">Date Fin</label>
+                                    <input type="date" class="form-control" name="date_fin" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="description" class="form-label">Description Payement</label>
                                     <input type="text" class="form-control" name="description" required>
                                 </div>
@@ -83,27 +91,31 @@
                                         <th scope="col">Téléphone</th>
                                         <th scope="col">Formation</th>
                                         <th scope="col">Montant Payer</th>
+                                        <th scope="col">Date Début</th>
+                                        <th scope="col">Date Fin</th>
                                         <th scope="col">Statut</th>
                                         <th scope="col">Description Payement</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($participants as $p){ ?>
+                                    <?php $i = 1; foreach($participants as $p){ ?>
                                     <tr>
-                                        <td><?=$p['id']?></td>
+                                        <td><?=$i++?></td>
                                         <td><?=$p['participant_nom']?></td>
                                         <td><?=$p['participant_prenom']?></td>
                                         <td><?=$p['participant_adresse']?></td>
                                         <td><?=$p['participant_telephone']?></td>
                                         <td><?=$p['formation_id']?></td>
                                         <td><?=$p['montant_paye']?></td>
+                                        <td><?=$p['date_debut']?></td>
+                                        <td><?=$p['date_fin']?></td>
                                         <td><?=$p['Statuts']?></td>
                                         <td><?=$p['description']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=participant&action=update&id=<?=$p['id']?>"><i class="fas fa-edit"></i>edit</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=participant&action=delete&id=<?=$p['id']?>"><i class="fas fa-trash-alt">delete</i></a>
-                                            <!-- <a class="btn btn-sm btn-dark" href="index.php?page=participant&action=print&id=<?=$p['id']?>"><i class="fas fa-print">print</i></a> -->
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=participant&action=update&id=<?=$p['id']?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=participant&action=delete&id=<?=$p['id']?>"><i class="fas fa-trash-alt"></i></a>
+                                            <!-- <a class="btn btn-sm btn-dark" href="index.php?page=participant&action=print&id=<?=$p['id']?>"><i class="fas fa-print"></i></a> -->
                                         </td>
                                     </tr>
                                     <?php } ?>

@@ -49,6 +49,10 @@
                         <input type="text" class="form-control" name="telephone" required>
                     </div>
                     <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" class="form-control" name="email" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
                         <label for="type_Fournisseur" class="form-label">Type Fournisseur</label>
                         <input type="text" class="form-control" name="type_Fournisseur" required>
                     </div>
@@ -78,6 +82,7 @@
                             <th scope="col">Entreprise</th>
                             <th scope="col">Localité</th>
                             <th scope="col">Contact</th>
+                            <th scope="col">Mail</th>
                             <th scope="col">Type Fournisseur</th>
                             <th scope="col">Commentaires</th>
                             <th scope="col">Action</th>
@@ -92,11 +97,12 @@
                             <td><?=$fournisseur['entreprise']?></td>
                             <td><?=$fournisseur['localite']?></td>
                             <td><?=$fournisseur['telephone']?></td>
+                            <td><?=$fournisseur['email']?></td>
                             <td><?=$fournisseur['type_Fournisseur']?></td>
                             <td><?=$fournisseur['commentaires']?></td>
                             <td>
-                                <a class="btn btn-sm btn-primary" href="index.php?page=fournisseur&action=update&id=<?=$fournisseur['id']?>"><i class="fas fa-edit"></i> Edit</a>
-                                <a class="btn btn-sm btn-secondary" href="index.php?page=fournisseur&action=delete&id=<?=$fournisseur['id']?>"><i class="fas fa-trash-alt"></i> Delete</a>
+                                <a class="btn btn-sm btn-primary" href="index.php?page=fournisseur&action=update&id=<?=$fournisseur['id']?>"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-sm btn-secondary" href="index.php?page=fournisseur&action=delete&id=<?=$fournisseur['id']?>"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <?php } ?>

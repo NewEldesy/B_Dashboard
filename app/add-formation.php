@@ -30,14 +30,6 @@
                                     <label for="cout" class="form-label">Prix Formation</label>
                                     <input type="number" class="form-control" name="cout" required>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="date_debut" class="form-label">Date Début</label>
-                                    <input type="date" class="form-control" name="date_debut" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="date_fin" class="form-label">Date Fin</label>
-                                    <input type="date" class="form-control" name="date_fin" required>
-                                </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
                                 </div>
@@ -58,23 +50,19 @@
                                         <th scope="col">Nom</th>
                                         <th scope="col">Description</th>
                                         <th scope="col">Prix Formation</th>
-                                        <th scope="col">Date Début</th>
-                                        <th scope="col">Date Fin</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($formations as $formation){ ?>
+                                    <?php $i = 1; foreach($formations as $formation){ ?>
                                     <tr>
-                                        <td><?=$formation['id']?></td>
+                                        <td><?=$i++?></td>
                                         <td><?=$formation['nom']?></td>
                                         <td><?=$formation['description']?></td>
                                         <td><?=$formation['cout']?></td>
-                                        <td><?=$formation['date_debut']?></td>
-                                        <td><?=$formation['date_fin']?></td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" href="index.php?page=formation&action=update&id=<?=$formation['id']?>"><i class="fas fa-edit"></i>edit</a>
-                                            <a class="btn btn-sm btn-secondary" href="index.php?page=formation&action=delete&id=<?=$formation['id']?>"><i class="fas fa-trash-alt"></i>delete</a>
+                                            <a class="btn btn-sm btn-primary" href="index.php?page=formation&action=update&id=<?=$formation['id']?>"><i class="fas fa-edit"></i></a>
+                                            <a class="btn btn-sm btn-secondary" href="index.php?page=formation&action=delete&id=<?=$formation['id']?>"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>
                                     <?php } ?>

@@ -26,7 +26,7 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded-top p-4">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <!-- Form Start -->
                                 <form action="index.php?page=service&action=add" method="post">
                                     <div class="row">
@@ -41,7 +41,7 @@
                                 </form>
                                 <!-- Form End -->
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <!-- Table Start -->
                                 <div class="table-responsive">
                                     <table class="table">
@@ -58,8 +58,8 @@
                                                 <td><?=$service['id']?></td>
                                                 <td><?=$service['libelle_services']?></td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['id']?>"><i class="fas fa-edit"></i>edit</a>
-                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['id']?>"><i class="fas fa-trash-alt"></i>delete</a>
+                                                    <a class="btn btn-sm btn-primary" href="index.php?page=service&action=update&id=<?=$service['id']?>"><i class="fas fa-edit"></i></a>
+                                                    <a class="btn btn-sm btn-secondary" href="index.php?page=service&action=delete&id=<?=$service['id']?>"><i class="fas fa-trash-alt"></i></a>
                                                     <!-- <a class="btn btn-sm btn-dark" target="_blank" href="index.php?page=service&action=print&id=<?=$service['id']?>"><i class="fas fa-print"></i>print</a> -->
                                                 </td>
                                             </tr>

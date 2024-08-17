@@ -35,14 +35,6 @@
                                     <label for="cout" class="form-label">Prix Formation</label>
                                     <input type="number" class="form-control" value="<?=$result['cout']?>" name="cout" required>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="date_debut" class="form-label">Date Début</label>
-                                    <input type="date" class="form-control" value="<?=$result['date_debut']?>" name="date_debut" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="date_fin" class="form-label">Date Fin</label>
-                                    <input type="date" class="form-control" value="<?=$result['date_fin']?>" name="date_fin" required>
-                                </div>
                                 <div class="col-md-12 mb-3">
                                     <button type="submit" class="btn btn-primary col-2">Mis à Jour</button>
                                 </div>

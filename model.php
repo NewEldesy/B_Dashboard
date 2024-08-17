@@ -110,11 +110,10 @@ function totalCoutP() { return totalCouts('prestations', 'cout_prestation'); }
 function totalCoutI() {  return totalCouts('interventions', 'cout_intervention'); }
 
 function totalCoutFormation() {
-    $database = dbConnect(); $today = date('Y-m-d');
-    $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id WHERE f.date_fin >= :today");
-    $stmt->bindParam(':today', $today); $stmt->execute();
-    if($stmt->fetch(PDO::FETCH_ASSOC)['total_paye'] == null){ return 0; }
-    else{ return $stmt->fetch(PDO::FETCH_ASSOC)['total_paye']; }
+    $database = dbConnect();
+    $stmt = $database->prepare("SELECT SUM(fp.montant_paye) as total_paye FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id");
+    $stmt->execute(); $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $totalPaye = $result['total_paye']; return $totalPaye === null ? 0 : $totalPaye;
 }
 
 function TotalPaidInvoices() {
@@ -423,15 +422,15 @@ function getNbService() { return getCount('services'); }
 function countInvoices() { return getCount('Facture'); }
 
 function getNbParticipant() {
-    $database = dbConnect(); $today = date('Y-m-d');
-    $stmt = $database->prepare("SELECT COUNT(fp.id) as total FROM FormationParticipantsDetails fp JOIN Formations f ON fp.formation_id = f.id WHERE f.date_fin >= :today");
-    $stmt->bindParam(':today', $today); $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    $database = dbConnect();
+    $stmt = $database->prepare("SELECT COUNT(*) as total FROM FormationParticipantsDetails");
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
 function countUpcomingFormations() {
-    $database = dbConnect(); $today = date('Y-m-d');
-    $stmt = $database->prepare("SELECT COUNT(*) as total FROM Formations WHERE date_fin >= :today");
-    $stmt->bindParam(':today', $today); $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+    $database = dbConnect();
+    $stmt = $database->prepare("SELECT COUNT(*) as total FROM Formations");
+    $stmt->execute(); return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
 }
 
 function countPaidInvoices() {

@@ -61,6 +61,14 @@
                                     <input type="number" class="form-control" value="<?=$result['montant_paye']?>" name="montant_paye" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <label for="date_debut" class="form-label">Date Début</label>
+                                    <input type="date" class="form-control" value="<?=$result['date_debut']?>" name="date_debut" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="date_fin" class="form-label">Date Fin</label>
+                                    <input type="date" class="form-control" value="<?=$result['date_fin']?>" name="date_fin" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
                                     <label for="description" class="form-label">Description</label>
                                     <input type="text" class="form-control" value="<?=$result['description']?>" name="description" required>
                                 </div>

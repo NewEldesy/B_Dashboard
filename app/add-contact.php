@@ -85,8 +85,8 @@
                             <td><?=$contact['localite']?></td>
                             <td><?=$contact['commentaires']?></td>
                             <td>
-                                <a class="btn btn-sm btn-primary" href="index.php?page=contact&action=update&id=<?=$contact['id']?>"><i class="fas fa-edit"></i> Edit</a>
-                                <a class="btn btn-sm btn-secondary" href="index.php?page=contact&action=delete&id=<?=$contact['id']?>"><i class="fas fa-trash-alt"></i> Delete</a>
+                                <a class="btn btn-sm btn-primary" href="index.php?page=contact&action=update&id=<?=$contact['id']?>"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-sm btn-secondary" href="index.php?page=contact&action=delete&id=<?=$contact['id']?>"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                         <?php } ?>
