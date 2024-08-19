@@ -390,7 +390,11 @@ function getUsers() { return getAll('users'); }
 
 function getFormation() { return getAll('Formations'); }
 
-function getParticipant() { return getAll('FormationParticipantsDetails'); }
+function getParticipant() {
+    $database = dbConnect();
+    $stmt = $database->query("SELECT * FROM formationparticipantsdetails  WHERE formation_id >= 1 ORDER BY formation_id ASC, participant_nom ASC, participant_prenom ASC");
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); return $result;
+}
 
 function getFacture() { return getAll('Facture'); }
 
