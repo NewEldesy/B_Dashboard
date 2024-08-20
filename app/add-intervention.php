@@ -79,7 +79,7 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded h-100 p-4">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table id="intervention" class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -119,6 +119,9 @@
             </div>
             <!-- Blank End -->
 
+            <?php include_once('partials/footer.php'); ?>
+            <script> new DataTable('#intervention'); </script>
+
             <!-- <script>
                 $(document).ready(function(){
                     // Gestion de la recherche de client
@@ -147,7 +150,3 @@
                     $('#form-container').show(); // Afficher le formulaire de prestation
                 }
             </script> -->
-
-<?php
-    include_once('partials/footer.php');
-?>

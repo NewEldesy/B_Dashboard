@@ -61,7 +61,7 @@
     <div class="container-fluid pt-4 px-4">
         <div class="bg-light rounded h-100 p-4">
             <div class="table-responsive">
-                <table class="table">
+                <table id="contact" class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -98,6 +98,9 @@
     <!-- Table End -->
 </div>
 <!-- Blank End -->
+
+<?php include_once('partials/footer.php'); ?>
+<script> new DataTable('#contact'); </script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -136,7 +139,3 @@ document.addEventListener('DOMContentLoaded', function() {
     telephoneInput.addEventListener('input', checkIfContactExists);
 });
 </script>
-
-<?php
-    include_once('partials/footer.php');
-?>

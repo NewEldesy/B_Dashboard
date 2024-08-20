@@ -44,7 +44,7 @@
                             <div class="col-12">
                                 <!-- Table Start -->
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table id="service" class="table">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -76,6 +76,5 @@
             <!-- Blank End -->
 
 
-<?php
-    include_once('partials/footer.php');
-?>
+            <?php include_once('partials/footer.php'); ?>
+            <script> new DataTable('#service'); </script>

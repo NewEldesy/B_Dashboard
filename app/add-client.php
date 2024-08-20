@@ -69,7 +69,7 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded h-100 p-4">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table id="client" class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -111,6 +111,5 @@
             <!-- Blank End -->
 
 
-<?php
-    include_once('partials/footer.php');
-?>
+<?php include_once('partials/footer.php'); ?>
+<script> new DataTable('#client'); </script>

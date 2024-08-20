@@ -24,6 +24,7 @@
     <!-- Libraries Stylesheet -->
     <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/dataTables/css/dataTables.dataTables.css">
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
