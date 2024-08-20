@@ -97,6 +97,14 @@ function handleLogin() {
     } else { include_once('app/signin.php'); }
 }
 
+function checkSessionExpiration() {
+    if (isset($_SESSION["expire"])) {
+        if (time() > $_SESSION["expire"]) { // La session a expiré
+            session_unset(); session_destroy(); header("Location: app/signin.php"); exit();
+        }
+    }
+}
+
 function totalCouts($table, $column) { // Fonctions pour le calcul des coûts totaux
     $database = dbConnect();
     $stmt = $database->query("SELECT (SELECT SUM($column) FROM $table) AS total_cout");
