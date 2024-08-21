@@ -100,7 +100,7 @@ function handleLogin() {
 function checkSessionExpiration() {
     if (isset($_SESSION["expire"])) {
         if (time() > $_SESSION["expire"]) { // La session a expiré
-            session_unset(); session_destroy(); header("Location: app/signin.php"); exit();
+            session_unset(); session_destroy(); header("Location: index.php"); exit();
         }
     }
 }
@@ -218,6 +218,12 @@ function addUser($data) { $data['Password'] = password_hash($data['Password'], P
 function addFormation($data) { addRecord('Formations', $data); }
 
 function addParticipant($data) { addRecord('FormationParticipantsDetails', $data); }
+
+function addLog($userId, $action) {
+    $database = dbConnect(); $stmt = $database->prepare("INSERT INTO log(user_id, action) VALUES(:user_id, :action) ");
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT); $stmt->bindParam(':action', $action, PDO::PARAM_STR);
+    $stmt->execute();
+}
 
 function addFacture($data) {
     $database = dbConnect();

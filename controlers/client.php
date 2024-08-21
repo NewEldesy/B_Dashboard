@@ -17,11 +17,13 @@
         switch($action) {
             case 'add':
                 addClient($_POST);
+                addLog($_SESSION["id"], "create");
                 header('location:index.php?page=client');
                 break;
             case 'update':
                 if(isset($_POST) && !empty($_POST) && isset($_GET['id'])){
                     updateClient($_POST);
+                    addLog($_SESSION["id"], "update");
                     header('location:index.php?page=client');
                 }
                 elseif(isset($_GET['id'])) {
@@ -35,6 +37,7 @@
                 }
                 else{
                     removeClient($_GET['id']);
+                    addLog($_SESSION["id"], "delete");
                     header('location:index.php?page=client');
                 }
                 break;

@@ -17,6 +17,7 @@
         switch($action) {
             case 'add':
                 addFournisseur($_POST);
+                addLog($_SESSION["id"], "create");
                 header('location:index.php?page=fournisseur');
                 break;
             case 'update':
@@ -26,6 +27,7 @@
                 }
                 elseif(isset($_GET['id'])) {
                     $result = getFournisseurById($_GET['id']);
+                    addLog($_SESSION["id"], "update");
                     include_once("app/update-fournisseur.php");
                 }
                 break;
@@ -35,6 +37,7 @@
                 }
                 else{
                     removeFournisseur($_GET['id']);
+                    addLog($_SESSION["id"], "delete");
                     header('location:index.php?page=fournisseur');
                 }
                 break;

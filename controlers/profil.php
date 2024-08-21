@@ -6,7 +6,7 @@
             $_SESSION["id"] = $profil['id']; $_SESSION["Email"] = $profil['Email'];
             $_SESSION["Nom"] = $profil['Nom']; $_SESSION["Prenom"] = $profil['Prenom'];
             $_SESSION["type_user"] = $profil['type_user'];
-
+            addLog($_SESSION["id"], "password_change");
             header('location:index.php?page=profil');
         }
         else { header('location:index.php?page=profil'); }

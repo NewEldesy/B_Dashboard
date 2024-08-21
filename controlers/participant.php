@@ -17,6 +17,7 @@
         switch($action) {
             case 'add':
                 addParticipant($_POST);
+                addLog($_SESSION["id"], "create");
                 header('location:index.php?page=participant');
                 break;
             case 'update':
@@ -31,10 +32,12 @@
                 break;
             case 'delete':
                 if(!isset($_GET['id'])){
+                    addLog($_SESSION["id"], "update");
                     header('location:index.php?page=participant');
                 }
                 else{
                     removeParticipant($_GET['id']);
+                    addLog($_SESSION["id"], "delete");
                     header('location:index.php?page=participant');
                 }
                 break;

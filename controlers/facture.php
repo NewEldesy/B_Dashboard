@@ -13,11 +13,13 @@
         switch($_GET['action']) {
             case 'add':
                 addFacture($_POST);
+                addLog($_SESSION["id"], "create");
                 header('location:index.php?page=facture');
                 break;
             case 'update':
                 if(isset($_POST) && !empty($_POST) && isset($_GET['id'])){
                     updateFacture($_POST);
+                    addLog($_SESSION["id"], "update");
                     header('location:index.php?page=facture');
                 }
                 elseif(isset($_GET['id'])) {
@@ -31,6 +33,7 @@
                 }
                 else{
                     removeFacture($_GET['id']);
+                    addLog($_SESSION["id"], "delete");
                     header('location:index.php?page=facture');
                 }
                 break;
