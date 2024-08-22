@@ -91,6 +91,7 @@ function handleLogin() {
                 $_SESSION["type_user"] = $user['type_user'];
                 
                 $_SESSION["expire"] = $sessionExpiration; // Définir l'heure d'expiration de la session
+                addLog($_SESSION["id"], "login");
                 redirectToDashboard();
             } else { echo 'Identifiants invalides.'; include_once('app/signin.php'); }
         } catch (PDOException $e) { handleDatabaseError($e->getMessage()); }
@@ -100,7 +101,7 @@ function handleLogin() {
 function checkSessionExpiration() {
     if (isset($_SESSION["expire"])) {
         if (time() > $_SESSION["expire"]) { // La session a expiré
-            session_unset(); session_destroy(); header("Location: index.php"); exit();
+            addLog($_SESSION["id"], "logout"); session_unset(); session_destroy(); header("Location: index.php"); exit();
         }
     }
 }
