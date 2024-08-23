@@ -44,7 +44,7 @@
                             <div class="col-12">
                                 <!-- Table Start -->
                                 <div class="table-responsive">
-                                    <table id="service" class="table">
+                                    <table id="service" class="table text-start align-middle table-bordered table-hover mb-0">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>

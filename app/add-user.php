@@ -31,10 +31,6 @@
                                     <input type="email" class="form-control" name="Email" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="Password" class="form-label">Entrez Password</label>
-                                    <input type="password" class="form-control" name="Password" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
                                     <label for="type_user" class="form-label">User Level</label>
                                     <select class="form-select" name="type_user" aria-label="Floating label select example">
                                         <option value="1">1</option>
@@ -55,7 +51,7 @@
                 <div class="container-fluid pt-4 px-4">
                     <div class="bg-light rounded h-100 p-4">
                         <div class="table-responsive">
-                            <table id="user" class="table">
+                            <table id="user" class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>

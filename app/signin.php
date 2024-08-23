@@ -5,32 +5,23 @@
     <meta charset="utf-8">
     <title>DASHBOARD - B'Tech Group SAS</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="Connexion page for B'tech Dashbord" name="description">
-
     <!-- Favicon -->
-    <link href="assets/img/favicon.ico" rel="icon">
-
+    <link rel="icon" href="assets/img/favicon.ico">
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap">
     <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/assets/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="assets/lib/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <!-- Libraries Stylesheet -->
-    <link href="assets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="assets/lib/tempusdominus/assets/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
+    <link rel="stylesheet" href="assets/lib/owlcarousel/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css">
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <!-- Template Stylesheet -->
-    <link href="assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
     <div class="container-fluid position-relative bg-white d-flex p-0">
 
@@ -47,11 +38,11 @@
                         </div>
                         <form action="index.php" method="post">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control" name="Email" autocomplete="off">
+                                <input type="email" class="form-control" id="Email" name="Email" autocomplete="off">
                                 <label for="Email">Addresse Mail</label>
                             </div>
                             <div class="form-floating mb-4">
-                                <input type="password" class="form-control" name="Password" autocomplete="off">
+                                <input type="password" class="form-control" id="Password" name="Password" autocomplete="off">
                                 <label for="Password">Mot de Passe</label>
                             </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Connexion</button>

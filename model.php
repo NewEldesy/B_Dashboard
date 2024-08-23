@@ -213,8 +213,16 @@ function addService($data) { addRecord('services', $data); }
 
 function addPrestation($data) { addRecord('prestations', $data); }
 
-function addUser($data) { $data['Password'] = password_hash($data['Password'], PASSWORD_DEFAULT);
-    addRecord('users', $data); }
+function addUser($data) {
+    $database = dbConnect();
+    $data['Password'] = password_hash('12345', PASSWORD_DEFAULT);
+    $stmt = $database->prepare("INSERT INTO users(Nom, Prenom, Email, Password, type_user)
+        VALUES(:nom, :prenom, :email, :password, :type) ");
+    $stmt->bindParam(':nom', $data['Nom'], PDO::PARAM_STR); $stmt->bindParam(':prenom', $data['Prenom'], PDO::PARAM_STR);
+    $stmt->bindParam(':email', $data['Email'], PDO::PARAM_STR); $stmt->bindParam(':password', $data['Password'], PDO::PARAM_STR);
+    $stmt->bindParam(':type', $data['type_user'], PDO::PARAM_STR); $stmt->execute();
+    
+}
 
 function addFormation($data) { addRecord('Formations', $data); }
 
