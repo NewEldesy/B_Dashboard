@@ -1,11 +1,10 @@
 <?php
-    session_start(); ob_start();
+    session_start(); 
+    ob_start();
     include_once('model.php');
     
-    
-    if (!isset($_SESSION['id']) || !isset($_SESSION['type_user'])) { // Vérification si l'utilisateur est connecté
-        handleLogin(); // Si non connecté, traiter la connexion
-    } else { // Si connecté, gérer les différentes pages
+    if (!isset($_SESSION['id']) || !isset($_SESSION['type_user'])) {handleLogin();}
+    else { 
         if (isset($_GET['page'])) {
             $page = $_GET['page'];
     
@@ -59,8 +58,7 @@
                     break;
 
                 case 'user':
-                    // ($_SESSION['type_user']==1) ? '' : header('location : index.php?page=dashboard');
-                    if($_SESSION['type_user']=!1){header('location : index.php?page=dashboard');}
+                    if($_SESSION['type_user'] != 1) {header('Location: index.php?page=404'); exit();}
                     include_once('controlers/user.php');
                     break;
     
